@@ -1,0 +1,256 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #cf1a1a;
+  background: linear-gradient(to left, #cf1a1a 0%, #ffbb26 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 9%;
+
+  .logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: black;
+    &:hover {
+      color: black !important;
+    }
+  }
+
+  i {
+    color: #cf1a1a;
+    padding-right: 0.2em;
+  }
+
+  .navbar a {
+    font-size: 1.5rem;
+    color: white;
+    margin: 0 1rem;
+    /* font-weight: bold;  */
+
+    &.active,
+    &:hover {
+      color: black;
+    }
+  }
+
+  .icons div,
+  a {
+    font-size: 2.5rem;
+    margin-left: 1.7rem;
+    cursor: pointer;
+    color: black;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  .icons {
+    display: flex;
+    align-items: center;
+
+    .cart-count {
+      .count {
+        background-color: #ff9421;
+        top: -8px;
+        right: -8px;
+        color: #ffffff;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 50%;
+        margin-top: 0rem;
+      }
+    }
+  }
+
+  .search-form {
+    position: absolute;
+    top: -115%;
+    right: 2em;
+    width: 50rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    height: 5.5rem;
+    box-shadow: 0 0.5rem 0.7rem #a8a297;
+    background: white;
+    transition: none;
+
+    &.active {
+      top: 115%;
+      transition: none;
+    }
+
+    input {
+      height: 100%;
+      width: 100%;
+      padding: 0 1.2rem;
+      font-size: 1.6rem;
+      color: black;
+      text-transform: none;
+    }
+
+    label {
+      font-size: 2.5rem;
+      margin-right: 1.7rem;
+      cursor: pointer;
+
+      &:hover {
+        color: #cf1a1a;
+      }
+    }
+  }
+
+  .shopping-cart {
+    position: absolute;
+    top: 115%;
+    right: -105%;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.3rem 0.5rem #a8a297;
+    width: 35rem;
+    padding: 2rem;
+
+    &.active {
+      right: 2rem;
+      transition: 0.4s linear;
+    }
+
+    .box {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+
+      .fa-times {
+        position: absolute;
+        top: 50%;
+        right: 2rem;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        color: #ff9421;
+        cursor: pointer;
+
+        &:hover {
+          color: #cf1a1a;
+        }
+      }
+
+      .image {
+        height: 10rem;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 10rem;
+      }
+
+      .content {
+        h3 {
+          font-size: 1.7rem;
+          padding-bottom: 0.5rem;
+          color: black;
+        }
+        span {
+          font-size: 1.5rem;
+          color: black;
+
+          &.multiply {
+            margin: 0 0.5rem;
+          }
+        }
+      }
+    }
+
+    .total {
+      color: black;
+      text-align: center;
+      font-size: 2.2rem;
+      span {
+        color: black;
+      }
+    }
+
+    .btn {
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  .login-form {
+    position: absolute;
+    top: 115%;
+    right: -105%;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.3rem 0.5rem #a8a297;
+    width: 35rem;
+    padding: 2rem;
+
+    &.active {
+      right: 2rem;
+      transition: 0.4s linear;
+    }
+
+    h3 {
+      color: black;
+      text-transform: uppercase;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 0.7rem;
+    }
+
+    .box {
+      margin: 0.7rem 0;
+      border: 0.1rem solid black;
+      padding: 1rem 1.2rem;
+      font-size: 1.5rem;
+      color: black;
+      text-transform: none;
+      width: 100%;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.7rem 0;
+      accent-color: #ff9421;
+
+      label {
+        font-size: 1.5rem;
+        color: black;
+        cursor: pointer;
+      }
+    }
+
+    .btn {
+      margin: 1rem 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    p {
+      color: black;
+      padding-top: 0.7rem;
+      font-size: 1.4rem;
+
+      a {
+        color: #ff9421;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.header a {
+  &:hover {
+    color: black;
+  }
+}

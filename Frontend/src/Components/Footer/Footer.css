@@ -1,0 +1,72 @@
+.footer {
+  background: #cf1a1a;
+  background: linear-gradient(to left, #cf1a1a 0%, #ffbb26 100%);
+  border-radius: 0%;
+
+  .box-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* gap: 2rem; */
+    justify-content: space-around;
+    .box {
+      border: none;
+      h3 {
+        font-size: 2.2rem;
+        color: black;
+        padding: 1rem 0;
+      }
+
+      p {
+        font-size: 1.5rem;
+        color: white;
+        padding-bottom: 0.5rem;
+      }
+
+      a {
+        font-size: 1.4rem;
+        color: white;
+        padding: 1rem 0;
+        display: block;
+
+        &:hover {
+          i {
+            color: black;
+          }
+        }
+
+        i {
+          padding-right: 0.5rem;
+        }
+      }
+
+      form input[type="email"] {
+        width: 60%;
+        padding: 1rem 1.2rem;
+        font-size: 1.6rem;
+        color: black;
+        margin: 1rem 0;
+        text-transform: none;
+      }
+      form input[type="submit"] {
+        border: 0.5px solid white;
+        width: auto;
+      }
+
+      .payment {
+        padding-top: 1.5rem;
+        display: flex;
+        gap: 1.5rem;
+        i {
+          font-size: 2.5rem;
+        }
+      }
+    }
+  }
+}
+
+.credit {
+  text-align: center;
+  background: black;
+  color: white;
+  font-size: 1.2rem;
+}
