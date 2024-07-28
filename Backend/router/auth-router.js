@@ -5,9 +5,11 @@ const schemas = require("../validators/auth-validator");
 const validate = require("../middlewares/validate-middleware");
 
 router.route("/").get(authControllers.home);
+
 router
-  .route("/register")
-  .post(validate(schemas.signupSchema), authControllers.register);
+  .route("/signup")
+  .post(validate(schemas.signupSchema), authControllers.signup);
+
 router
   .route("/login")
   .post(validate(schemas.loginSchema), authControllers.login);

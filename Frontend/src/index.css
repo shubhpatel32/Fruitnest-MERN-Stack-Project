@@ -65,6 +65,7 @@ section {
   display: inline-block;
   padding: 0.8rem 3rem;
   background: #ff9421;
+  border-radius: 5px;
 
   color: white;
   font-size: 1.7rem;

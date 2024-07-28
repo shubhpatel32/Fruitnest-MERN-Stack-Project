@@ -1,16 +1,15 @@
 const User = require("../models/user-models");
 const bcrypt = require("bcryptjs");
-// const { use } = require("../router/auth-router");
 
 const home = async (req, res) => {
   try {
-    res.send("Hello Chikky");
+    res.send("Hello Ji");
   } catch (error) {
     console.log(error);
   }
 };
 
-const register = async (req, res) => {
+const signup = async (req, res) => {
   try {
     const { username, email, phone, password } = req.body;
     const userExist = await User.findOne({ email });
@@ -62,4 +61,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { home, register, login };
+module.exports = { home, signup, login };
