@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 
-
 const URL = "http://localhost:5000/login";
-
 
 function Login() {
     const [user, setUser] = useState({
@@ -13,13 +11,13 @@ function Login() {
     });
 
     const handleLogin = (e) => {
-        let name = e.target.name;
-        let value = e.target.value;
+        const name = e.target.name;
+        const value = e.target.value;
 
         setUser({
             ...user,
             [name]: value
-        })
+        });
     };
 
     const navigate = useNavigate();
@@ -37,27 +35,25 @@ function Login() {
             });
 
             const res_data = await response.json();
-            storeTokenInLS(res_data.token);
-
             if (response.ok) {
+                storeTokenInLS(res_data.token);
                 setUser({
                     email: '',
                     password: '',
-                })
+                });
                 navigate("/");
+            } else {
+                console.error("Login failed:", res_data.message);
             }
-            console.log(response);
-
         } catch (error) {
-            console.log(error);
+            console.error("Error during login:", error);
         }
-    }
-
+    };
 
     return (
         <div>
-            <section className="login px-5 py-10  min-h-[100vh] flex items-center justify-center text-2xl w-full bg-center bg-cover bg-no-repeat" style={{ backgroundImage: `url('/SliderImages/bg18.jpg')` }}>
-                <form onSubmit={handleSubmit} className="login-form m-4 p-12 flex flex-col  rounded border border-solid border-[#a8a297]">
+            <section className="login px-5 py-10 min-h-[100vh] flex items-center justify-center text-2xl w-full bg-center bg-cover bg-no-repeat" style={{ backgroundImage: `url('/SliderImages/bg18.jpg')` }}>
+                <form onSubmit={handleSubmit} className="login-form m-4 p-12 flex flex-col rounded border border-solid border-[#a8a297]">
                     <h1 className='text-center text-3xl mb-5 font-semibold'>Login</h1>
                     <label htmlFor="email">Email</label>
                     <input
@@ -65,8 +61,8 @@ function Login() {
                         name="email"
                         id="email"
                         required
-                        autoComplete='off'
-                        className="box p-2 mb-7 w-full  rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
+                        autoComplete='on'
+                        className="box p-2 mb-7 w-full rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                         value={user.email}
                         onChange={handleLogin}
                     />
@@ -77,8 +73,8 @@ function Login() {
                         name="password"
                         id="password"
                         required
-                        autoComplete='off'
-                        className="box p-2 mb-7 w-full  rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
+                        autoComplete='on'
+                        className="box p-2 mb-7 w-full rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                         value={user.password}
                         onChange={handleLogin}
                     />

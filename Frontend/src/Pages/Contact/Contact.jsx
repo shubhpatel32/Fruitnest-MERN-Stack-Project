@@ -63,7 +63,7 @@ const Contact = () => {
         <div>
             <Heading name1="Contact Us" name2="Contact" />
 
-            <section className="contact flex flex-col">
+            <section className="contact flex flex-col min-h-screen">
 
                 <div className="icons-container w-full gap-8 grid md:grid-cols-3 grid-cols-1">
                     <div className="icons text-center border-2 border-solid border-[#a8a297] p-8">

@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './Context/CartContext';
 import Signup from './Pages/SignUp/Signup';
 import Error from './Pages/Error/Error';
+import Logout from './Pages/Logout/Logout';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Header />
           <Routes>
             <Route exact path="/cart" element={<Cart />} />
+            <Route exact path="/logout" element={<Logout />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/" element={<Home />} />
