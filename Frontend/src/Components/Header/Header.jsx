@@ -21,14 +21,10 @@ const Header = () => {
         setIsOpen(!isOpen);
     };
 
-    // useEffect(() => {
-    //     setIsMenuOpen(false);
-    //     setIsOpen(false);
-    // }, [isLoggedIn])
 
     return (
-        <header className="fixed top-0 left-0 right-0 w-full h-[7rem] z-50 bg-gradient-to-l from-red-700 to-yellow-400 flex items-center justify-between px-8 py-4 md:px-16 md:py-8">
-            <Link to="/" className="text-[2.5rem] md:text-[2.5rem] font-bold text-black hover:text-black cursor-pointer flex-shrink-0">
+        <header className="fixed top-0 left-0 right-0 w-full h-[6rem] z-50 bg-gradient-to-l from-red-700 to-yellow-400 flex items-center justify-between px-8 py-4 md:px-16 md:py-8">
+            <Link to="/" className="text-[2.5rem]  font-bold text-black hover:text-black cursor-pointer flex-shrink-0">
                 <i className="fa-solid fa-apple-whole pr-2 text-red-700"></i>Fruitnest
             </Link>
 
@@ -104,15 +100,16 @@ const Header = () => {
                                 >
                                     <li>
                                         <Link to="#"
-                                            className="block px-4 py-2 text-[1.2rem] md:text-[1.5rem] text-black hover:bg-gray-300"
+                                            className="block px-4 py-2 text-[1.5 rem] md:text-[1.5rem] text-black hover:bg-gray-400 m-2 bg-gray-300"
                                             onClick={toggleDropdown}
                                         >
                                             My Profile
                                         </Link>
                                     </li>
+
                                     <li>
                                         <Link to="/logout"
-                                            className="block px-4 py-2 text-[1.2rem] md:text-[1.5rem] text-black hover:bg-gray-300"
+                                            className="block px-4 py-2 text-[1.5 rem] md:text-[1.5rem] text-black hover:bg-gray-400  m-2 bg-gray-300"
                                             onClick={toggleDropdown}
                                         >
                                             Logout

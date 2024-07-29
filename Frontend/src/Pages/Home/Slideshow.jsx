@@ -48,7 +48,7 @@ function Slideshow() {
     };
 
     return (
-        <div className='max-w-[1400px] h-[500px] md:h-[780px] w-full m-auto pt-32 px-4 relative group transition-none'>
+        <div className='max-w-[1400px] h-[500px] md:h-[780px] w-full m-auto pt-28 px-4 relative group transition-none'>
             <div
                 style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
                 className='w-full h-full rounded-2xl bg-center bg-cover duration-200'

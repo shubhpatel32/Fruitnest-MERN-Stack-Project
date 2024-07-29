@@ -21,6 +21,8 @@ function Review() {
 
             <Heading name1="Customer Reviews" name2="Review" />
 
+
+
             <section className="w-full grid grid-cols-3 gap-8 justify-center">
                 <div className="flex items-center flex-col justify-center text-center ">
                     <div className="bg-white h-32 w-full bg-center bg-contain bg-no-repeat" style={{ backgroundImage: "url('Images/scooter_147272.png')" }}></div>
@@ -47,12 +49,12 @@ function Review() {
 
             <section className="w-full h-full grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 justify-center gap-12">
                 {reviews.map((review, index) => (
-                    <div className="flex p-8 flex-col justify-center text-center h-[25rem] w-full overflow-hidden border-2 border-solid border-[#a8a297]" key={index}>
+                    <div className="flex p-8 flex-col justify-center text-center h-[23rem] w-full overflow-hidden border-2 border-solid border-[#a8a297]" key={index}>
                         <div className="flex items-center flex-col gap-4 p-4">
                             <div className="h-[10rem] pt-20 bg-white w-full bg-center bg-contain bg-no-repeat" style={{ backgroundImage: `url('${review.image}')` }}></div>
                             <div className="info">
                                 <h3 className="text-[2rem] font-semibold text-black">{review.name}</h3>
-                                <span className="text-2xl text-slate-800">{review.role}</span>
+                                {/* <span className="text-2xl text-slate-800">{review.role}</span> */}
                             </div>
                         </div>
                         <p className="text-[1.2rem] text-justify items-start text-slate-700 normal-case">{review.comment}</p>

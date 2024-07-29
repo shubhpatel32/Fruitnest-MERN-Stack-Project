@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 
-const URL = "http://localhost:5000/signup";
+const URL = "http://localhost:5000/api/auth/signup";
 
 function Signup() {
     const [user, setUser] = useState({

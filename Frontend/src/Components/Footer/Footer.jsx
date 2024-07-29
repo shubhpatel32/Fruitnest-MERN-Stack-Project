@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
     return (
-        <div>
-            <section className="bg-gradient-to-l from-red-700 to-yellow-400 bottom-0">
+        <div className="w-screen">
+            <footer className="bg-gradient-to-l from-red-700 to-yellow-400 px-20 py-8">
                 <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-[12rem] justify-between w-full">
                     <div className="flex flex-col text-2xl gap-4 text-white ">
                         <h3 className="text-3xl text-black mb-5 font-medium">Quick Links</h3>
@@ -83,9 +83,9 @@ export default function Footer() {
 
                     </div>
                 </div>
-            </section>
-
+            </footer>
             <div className="bg-black text-white text-center text-lg">Created by Shubh Patel | All rights reserved!</div>
+
         </div>
     )
 }
