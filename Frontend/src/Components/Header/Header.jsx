@@ -100,7 +100,7 @@ const Header = () => {
                                 >
                                     <li>
                                         <Link to="#"
-                                            className="block px-4 py-2 text-[1.5 rem] md:text-[1.5rem] text-black hover:bg-gray-400 m-2 bg-gray-300"
+                                            className="block px-4 py-2 text-[1.5 rem] md:text-[1.5rem] text-black hover:bg-gray-400 m-2 bg-gray-300 rounded-lg"
                                             onClick={toggleDropdown}
                                         >
                                             My Profile
@@ -109,7 +109,7 @@ const Header = () => {
 
                                     <li>
                                         <Link to="/logout"
-                                            className="block px-4 py-2 text-[1.5 rem] md:text-[1.5rem] text-black hover:bg-gray-400  m-2 bg-gray-300"
+                                            className="block px-4 py-2 text-[1.5 rem] md:text-[1.5rem] text-black hover:bg-gray-400  m-2 bg-gray-300 rounded-lg"
                                             onClick={toggleDropdown}
                                         >
                                             Logout
