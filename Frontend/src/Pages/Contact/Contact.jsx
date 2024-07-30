@@ -148,6 +148,7 @@ const Contact = () => {
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29257.8559062837!2d72.72507159274966!3d23.560110181742456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395db56e2f3d16a9%3A0x480f5022b1db7329!2sVijapur%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1710083990028!5m2!1sen!2sin"
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
+                        allowFullScreen
                     ></iframe>
                 </div>
             </section>

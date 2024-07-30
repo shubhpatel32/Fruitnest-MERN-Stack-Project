@@ -39,32 +39,32 @@ function Review() {
         e.preventDefault();
         console.log(user);
 
-        try {
-            const response = await fetch(URL, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(user)
-            });
+        // try {
+        //     const response = await fetch(URL, {
+        //         method: 'POST',
+        //         headers: {
+        //             "Content-Type": "application/json"
+        //         },
+        //         body: JSON.stringify(user)
+        //     });
 
-            if (response.ok) {
-                const res_data = await response.json();
-                storeTokenInLS(res_data.token);
+        //     if (response.ok) {
+        //         const res_data = await response.json();
+        //         storeTokenInLS(res_data.token);
 
-                setUser({
-                    username: '',
-                    email: '',
-                    review: '',
-                })
-                navigate("/review");
-            }
+        //         setUser({
+        //             username: '',
+        //             email: '',
+        //             review: '',
+        //         })
+        //         navigate("/review");
+        //     }
 
-            console.log(response);
+        //     console.log(response);
 
-        } catch (error) {
-            console.log("signup", error);
-        }
+        // } catch (error) {
+        //     console.log("signup", error);
+        // }
     }
 
 
@@ -134,6 +134,7 @@ function Review() {
                             <textarea
                                 name='review'
                                 id='review'
+                                required
                                 className='box mb-3 w-full  rounded border-2 border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case resize-none'
                                 cols="30"
                                 rows="5"

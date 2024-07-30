@@ -8,7 +8,7 @@ const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "http://localhost:3000",
   method: "GET,POST,PUT,DELETE,PATCH,HEAD",
   credentials: true,
 };
