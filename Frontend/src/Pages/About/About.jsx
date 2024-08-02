@@ -1,8 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Heading from '../../Components/Heading/Heading'
+import { useAuth } from '../../Context/AuthContext'
+
 
 function About() {
+
+    const { user } = useAuth();
+
     return (
         <div>
             <Heading name1="About Us" name2="About" />
@@ -12,7 +17,7 @@ function About() {
                     <h1 className="text-[#cf1a1a] text-[3rem] font-semibold text-center">Welcome to our shop</h1>
                     <h3 className="text-[#ff9421] text-[2.3rem] font-semibold text-center">Fresh & Organic Fruits</h3>
                     <p className="text-black text-justify text-2xl my-4">
-                        Welcome to Fruit Nest, your ultimate online destination dedicated to bringing you the finest selection of fruits from around the world. At Fruit Nest, we're passionate about ensuring every fruit you receive is not only delicious but also of the highest quality. Our commitment begins with partnering directly with trusted farmers who share our values of sustainability and ethical farming practices. This direct relationship allows us to carefully handpick each fruit at its peak ripeness, ensuring optimal flavor and nutrition.
+                        {user ? `Hey ${user.username},` : ""} Welcome to Fruit Nest, your ultimate online destination dedicated to bringing you the finest selection of fruits from around the world. At Fruit Nest, we're passionate about ensuring every fruit you receive is not only delicious but also of the highest quality. Our commitment begins with partnering directly with trusted farmers who share our values of sustainability and ethical farming practices. This direct relationship allows us to carefully handpick each fruit at its peak ripeness, ensuring optimal flavor and nutrition.
 
 
                     </p>

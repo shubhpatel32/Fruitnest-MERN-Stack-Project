@@ -15,6 +15,7 @@ import { CartProvider } from './Context/CartContext';
 import Signup from './Pages/SignUp/Signup';
 import Error from './Pages/Error/Error';
 import Logout from './Pages/Logout/Logout';
+import { Profile } from './Pages/Profile/Profile';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route exact path="/review" element={<Review />} />
             <Route exact path="/blog" element={<Blog />} />
             <Route exact path="/contact" element={<Contact />} />
+            <Route exact path="/profile" element={<Profile />} />
             <Route exact path="*" element={<Error />} />
           </Routes>
           <Footer />

@@ -4,6 +4,8 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
+    const [user, setUser] = useState('');
+    const [reviews, setReviews] = useState([]);
 
     const storeTokenInLS = (serverToken) => {
         setToken(serverToken);
@@ -17,8 +19,51 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('token');
     };
 
+    const userAuthentication = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/auth/user", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("data:", data)
+                setUser(data.userData);
+            } else {
+                console.error("Error fetching user data");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+    const getReviews = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/data/review", {
+                method: "GET",
+            })
+
+            if (response.ok) {
+                const reviews = await response.json();
+                console.log("reviews:", reviews);
+                setReviews(reviews);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getReviews();
+        userAuthentication();
+    }, []);
+
     return (
-        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn }}>
+        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, reviews }}>
             {children}
         </AuthContext.Provider>
     );

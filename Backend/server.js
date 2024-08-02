@@ -6,6 +6,7 @@ const authRoute = require("./router/auth-router");
 const reviewRoute = require("./router/review-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
+const seed = require("./utils");
 
 const corsOptions = {
   origin: "http://localhost:3000",
@@ -26,5 +27,6 @@ const PORT = 5000;
 connectDb().then(() => {
   app.listen(PORT, (req, res) => {
     console.log(`server is running on ${PORT}`);
+    seed();
   });
 });

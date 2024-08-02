@@ -1,70 +1,79 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import Heading from '../../Components/Heading/Heading';
-const URL = "http://localhost:5000/api/auth/review";
+import { useAuth } from "../../Context/AuthContext";
+const URL = "http://localhost:5000/api/form/review";
 
 function Review() {
-    const reviews = [
-        { name: "Shlok", role: "happy client", image: "Images/male.png", comment: "I'm very impressed with the quick delivery service. The scooter arrived within 30 minutes of placing my order. Excellent service!" },
-        { name: "Avani", role: "happy client", image: "Images/female.png", comment: "Great customer support! I can always reach them on the phone, no matter the time. Really convenient for busy people like me." },
-        { name: "Anshuman", role: "happy client", image: "Images/male.png", comment: "The payment process is so easy! I love the flexibility to pay with cash or UPI. It makes transactions hassle-free." },
-        { name: "Simran", role: "happy client", image: "Images/female.png", comment: "Absolutely amazing service! The delivery was prompt and the customer service is top-notch. Highly recommended!" },
-        { name: "Anushka", role: "happy client", image: "Images/female.png", comment: "Superb experience! The entire process was seamless from start to finish. Their attention to customer satisfaction is commendable." },
-        { name: "Virat", role: "happy client", image: "Images/male.png", comment: "Impressed with the professionalism! They really take care of every detail. Will definitely use their service again." },
-        { name: "Sanidhya", role: "satisfied customer", image: "Images/female.png", comment: "Quick response and effective service! I'm glad I chose them for my delivery needs. Their reliability sets them apart." },
-        { name: "Kabir", role: "regular customer", image: "Images/male.png", comment: "Consistently excellent service! I've been using their service for months now and they never disappoint. Highly reliable!" },
-        // { name: "Priya", role: "new customer", image: "Images/female.png", comment: "First-time user and very impressed! The whole experience was smooth and efficient. Definitely recommend to others." },
-    ];
+    // const reviews = [
+    //     { name: "Shlok", role: "happy client", image: "Images/male.png", comment: "I'm very impressed with the quick delivery service. The scooter arrived within 30 minutes of placing my order. Excellent service!" },
+    //     { name: "Avani", role: "happy client", image: "Images/female.png", comment: "Great customer support! I can always reach them on the phone, no matter the time. Really convenient for busy people like me." },
+    //     { name: "Anshuman", role: "happy client", image: "Images/male.png", comment: "The payment process is so easy! I love the flexibility to pay with cash or UPI. It makes transactions hassle-free." },
+    //     { name: "Simran", role: "happy client", image: "Images/female.png", comment: "Absolutely amazing service! The delivery was prompt and the customer service is top-notch. Highly recommended!" },
+    //     { name: "Anushka", role: "happy client", image: "Images/female.png", comment: "Superb experience! The entire process was seamless from start to finish. Their attention to customer satisfaction is commendable." },
+    //     { name: "Virat", role: "happy client", image: "Images/male.png", comment: "Impressed with the professionalism! They really take care of every detail. Will definitely use their service again." },
+    //     { name: "Sanidhya", role: "satisfied customer", image: "Images/female.png", comment: "Quick response and effective service! I'm glad I chose them for my delivery needs. Their reliability sets them apart." },
+    //     { name: "Kabir", role: "regular customer", image: "Images/male.png", comment: "Consistently excellent service! I've been using their service for months now and they never disappoint. Highly reliable!" },
+    //     // { name: "Priya", role: "new customer", image: "Images/female.png", comment: "First-time user and very impressed! The whole experience was smooth and efficient. Definitely recommend to others." },
+    // ];
 
-    const [user, setUser] = useState({
+    const [data, setData] = useState({
         username: '',
         email: '',
         review: ''
     });
 
-    const handleReview = (e) => {
+    const { user, reviews } = useAuth();
+
+    const [userData, setUserData] = useState(true)
+
+
+    if (user && userData) {
+        setData({
+            username: user.username,
+            email: user.email,
+            review: "",
+        })
+        setUserData(false);
+    }
+
+
+    const handleInput = (e) => {
         let name = e.target.name;
         let value = e.target.value;
 
-        setUser({
-            ...user,
-            [name]: value
-        })
+        setData((prev) => ({
+            ...prev,
+            [name]: value,
+        }))
 
     };
 
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(user);
 
-        // try {
-        //     const response = await fetch(URL, {
-        //         method: 'POST',
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         },
-        //         body: JSON.stringify(user)
-        //     });
+        try {
+            const response = await fetch(URL, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
 
-        //     if (response.ok) {
-        //         const res_data = await response.json();
-        //         storeTokenInLS(res_data.token);
+            console.log(data);
 
-        //         setUser({
-        //             username: '',
-        //             email: '',
-        //             review: '',
-        //         })
-        //         navigate("/review");
-        //     }
+            if (response.ok) {
 
-        //     console.log(response);
+                setData({
+                    ...data,
+                    review: '',
+                })
+            }
 
-        // } catch (error) {
-        //     console.log("signup", error);
-        // }
+        } catch (error) {
+            console.log("review", error);
+        }
     }
 
 
@@ -112,8 +121,8 @@ function Review() {
                                 required
                                 // autoComplete='off'
                                 className="box p-2 mb-4 w-full  rounded border-2 border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
-                                value={user.username}
-                                onChange={handleReview}
+                                value={data.username}
+                                onChange={handleInput}
                             />
                             <label htmlFor="email">Email</label>
                             <input
@@ -123,8 +132,8 @@ function Review() {
                                 required
                                 // autoComplete='off'
                                 className="box p-2 mb-4 w-full  rounded border-2 border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
-                                value={user.email}
-                                onChange={handleReview}
+                                value={data.email}
+                                onChange={handleInput}
                             />
                         </div>
 
@@ -138,8 +147,8 @@ function Review() {
                                 className='box mb-3 w-full  rounded border-2 border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case resize-none'
                                 cols="30"
                                 rows="5"
-                                value={user.review}
-                                onChange={handleReview}
+                                value={data.review}
+                                onChange={handleInput}
                             ></textarea>
                         </div>
 
@@ -154,13 +163,9 @@ function Review() {
                 {reviews.map((review, index) => (
                     <div className="flex p-4 flex-col items-start h-[10rem] sm:h-[14rem] w-full overflow-hidden hover:overflow-auto border-2 border-solid border-[#a8a297] roundeds" key={index}>
                         <div className="flex items-start flex-col gap-0 p-0">
-                            {/* <div className="h-[10rem] pt-20 bg-white w-full bg-center bg-contain bg-no-repeat" style={{ backgroundImage: `url('${review.image}')` }}></div> */}
-                            <div className="info">
-                                <h3 className="text-[2rem] font-medium text-black">{review.name}</h3>
-                                {/* <span className="text-2xl text-slate-800">{review.role}</span> */}
-                            </div>
+                            <h3 className="text-[2rem] font-medium text-black">{review.username}</h3>
                         </div>
-                        <p className="text-[1.2rem] text-justify items-start text-slate-700 normal-case mt-4">{review.comment}</p>
+                        <p className="text-[1.2rem] text-justify items-start text-slate-700 normal-case mt-4">{review.review}</p>
                     </div>
                 ))}
             </section>

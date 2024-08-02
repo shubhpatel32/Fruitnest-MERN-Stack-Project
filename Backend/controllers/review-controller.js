@@ -12,4 +12,17 @@ const reviewForm = async (req, res) => {
   }
 };
 
-module.exports = reviewForm;
+const getReview = async (req, res) => {
+  try {
+    const response = await Review.find();
+
+    if (!response) {
+      res.status(404).json({ message: "No review found" });
+      return;
+    }
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(`Reviews: ${error}`);
+  }
+};
+module.exports = { reviewForm, getReview };
