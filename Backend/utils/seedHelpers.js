@@ -105,3 +105,15 @@ module.exports.blogPosts = [
       "Learn about the nutritional value and energy-boosting benefits of bananas. Packed with potassium and fiber, bananas are an excellent choice for a quick and nutritious snack.",
   },
 ];
+
+module.exports.gallery = [
+  { url: "/SliderImages/strawberry.jpg" },
+  { url: "/SliderImages/1212130.jpg" },
+  { url: "/SliderImages/orange.jpg" },
+  { url: "/SliderImages/orange-21.jpg" },
+  { url: "/SliderImages/361096.jpg" },
+  { url: "/SliderImages/1289155.jpg" },
+  { url: "/SliderImages/773380.jpg" },
+  { url: "/SliderImages/786700.jpg" },
+  { url: "/SliderImages/black-bg.jpg" },
+];

@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Heading from '../../Components/Heading/Heading'
 import { useAuth } from '../../Context/AuthContext'
 
 
 function About() {
 
-    const { user } = useAuth();
+    const { user, gallery } = useAuth();
+    const myGallery = gallery.slice(0, 6);
 
     return (
         <div>
@@ -41,12 +41,9 @@ function About() {
             <section className="gallery">
                 <h1 className='text-center text-5xl my-8 font-bold text-[#ff9421]'>Our <span className='text-[#cf1a1a]'>Gallery</span></h1>
                 <div className="h-full w-full grid md:grid-cols-2 grid-cols-1 gap-10 justify-center overflow-hidden">
-                    <div className="box bg-center bg-cover bg-no-repeat h-[50rem] overflow-hidden w-full hover:scale-105" style={{ backgroundImage: `url('SliderImages/1289155.jpg')` }}></div>
-                    <div className="box bg-center bg-cover bg-no-repeat h-[50rem] overflow-hidden w-full hover:scale-105" style={{ backgroundImage: `url('SliderImages/361096.jpg')` }}></div>
-                    <div className="box bg-center bg-cover bg-no-repeat h-[50rem] overflow-hidden w-full hover:scale-105" style={{ backgroundImage: `url('SliderImages/773380.jpg')` }}></div>
-                    <div className="box bg-center bg-cover bg-no-repeat h-[50rem] overflow-hidden w-full hover:scale-105" style={{ backgroundImage: `url('SliderImages/786700.jpg')` }}></div>
-                    <div className="box bg-center bg-cover bg-no-repeat h-[50rem] overflow-hidden w-full hover:scale-105" style={{ backgroundImage: `url('SliderImages/strawberry.jpg')` }}></div>
-                    <div className="box bg-center bg-cover bg-no-repeat h-[50rem] overflow-hidden w-full hover:scale-105" style={{ backgroundImage: `url('SliderImages/black-bg.jpg')` }}></div>
+                    {myGallery.map((item, index) => (
+                        <div key={index} className="box bg-center bg-cover bg-no-repeat h-[50rem] overflow-hidden w-full hover:scale-105" style={{ backgroundImage: `url(${item.url})` }}></div>
+                    ))}
 
                 </div>
             </section>

@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState('');
     const [reviews, setReviews] = useState([]);
     const [blogs, setBlogs] = useState([]);
+    const [gallery, setGallery] = useState([]);
 
     const storeTokenInLS = (serverToken) => {
         setToken(serverToken);
@@ -74,14 +75,31 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const getGallery = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/data/gallery", {
+                method: "GET",
+            })
+
+            if (response.ok) {
+                const gallery = await response.json();
+                console.log("gallery:", gallery);
+                setGallery(gallery);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         getBlogs();
         getReviews();
+        getGallery();
         userAuthentication();
     }, []);
 
     return (
-        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, reviews, blogs }}>
+        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, reviews, blogs, gallery }}>
             {children}
         </AuthContext.Provider>
     );
