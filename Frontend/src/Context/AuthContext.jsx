@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [user, setUser] = useState('');
     const [reviews, setReviews] = useState([]);
+    const [blogs, setBlogs] = useState([]);
 
     const storeTokenInLS = (serverToken) => {
         setToken(serverToken);
@@ -57,13 +58,30 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    const getBlogs = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/data/blog", {
+                method: "GET",
+            })
+
+            if (response.ok) {
+                const blogs = await response.json();
+                console.log("blogs:", blogs);
+                setBlogs(blogs);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
+        getBlogs();
         getReviews();
         userAuthentication();
     }, []);
 
     return (
-        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, reviews }}>
+        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, reviews, blogs }}>
             {children}
         </AuthContext.Provider>
     );

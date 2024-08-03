@@ -14,7 +14,7 @@ const Newblogs = ({ image, date, title, author, description }) => {
                     <Link to="#" className="text-2xl text-[#ff9421] hover:text-[#cf1a1a] "><i className="fas fa-user text-[#cf1a1a]"></i> by {author} </Link>
                 </div>
                 <h3 className="text-[2rem] text-black font-normal">{title}</h3>
-                <p className="text-lg color-black normal-case text-justify py-4 ">{description}</p>
+                <p className="text-lg color-black normal-case text-justify py-4 overflow-hidden hover:overflow-auto">{description}</p>
             </div>
         </div>
 

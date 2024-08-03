@@ -2,9 +2,13 @@ import React from 'react';
 import Slideshow from './Slideshow';
 import Banner from './Banner';
 import Newblogs from './Newblogs';
+import { useAuth } from '../../Context/AuthContext';
 
 
 function Home() {
+    const { blogs } = useAuth();
+    const limitedBlogs = blogs.slice(0, 3);
+
     const banners = [
         {
             image: 'Images/apple.jpg',
@@ -44,32 +48,6 @@ function Home() {
         },
     ];
 
-    const blogPosts = [
-        {
-            image: 'SliderImages/pears.jpg',
-            date: '3rd May, 2023',
-            author: 'Admin',
-            title: 'The Crispness of Pears',
-            description: 'Explore the crisp and refreshing flavor of pears, perfect for snacking or incorporating into recipes. Learn about the different varieties and their unique characteristics.',
-            link: '#'
-        },
-        {
-            image: 'SliderImages/banana.jpg',
-            date: '31st May, 2024',
-            author: 'Admin',
-            title: 'Bananas: Nature\'s Energy Booster',
-            description: 'Learn about the nutritional value and energy-boosting benefits of bananas. Bananas are an excellent choice for a quick and nutritious snack.',
-            link: '#'
-        },
-        {
-            image: 'SliderImages/grapes.jpg',
-            date: '21st June, 2024',
-            author: 'Admin',
-            title: 'Grapes: Nature\'s Bite-Sized Snack',
-            description: 'Delve into the world of grapes and their versatility as a snack and ingredient. Whether fresh or dried, grapes offer a burst of sweetness and a wealth of nutrients.',
-            link: '#'
-        },
-    ];
 
     return (
         <div className="home">
@@ -92,7 +70,7 @@ function Home() {
             <section className='blogs'>
                 <h1 className='text-center text-5xl mt-8 font-bold text-[#ff9421]'>New <span className='text-[#cf1a1a]'>Blogs</span></h1>
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center w-full mt-8'>
-                    {blogPosts.map((blogPost, index) => (
+                    {limitedBlogs.map((blogPost, index) => (
                         <Newblogs
                             key={index}
                             image={blogPost.image}

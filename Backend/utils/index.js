@@ -1,9 +1,10 @@
-require("dotenv").config(); // Load environment variables
-const { reviews } = require("./seedHelpers");
+require("dotenv").config();
+const { reviews, blogPosts } = require("./seedHelpers");
 const Review = require("../models/review-model");
 const mongoose = require("mongoose");
+const Blog = require("../models/blog-model");
 
-const seed = async () => {
+const seedReviews = async () => {
   try {
     await Review.deleteMany({});
     await Review.insertMany(reviews);
@@ -12,4 +13,13 @@ const seed = async () => {
   }
 };
 
-module.exports = seed;
+const seedBlogs = async () => {
+  try {
+    await Blog.deleteMany({});
+    await Blog.insertMany(blogPosts);
+  } catch (error) {
+    console.error("Error in inserting blogs:", error);
+  }
+};
+
+module.exports = { seedReviews, seedBlogs };

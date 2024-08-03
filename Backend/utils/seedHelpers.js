@@ -54,3 +54,54 @@ module.exports.reviews = [
       "First-time user and very impressed! The whole experience was smooth and efficient. Definitely recommend to others.",
   },
 ];
+
+module.exports.blogPosts = [
+  {
+    image: "SliderImages/strawberry2.jpg",
+    date: new Date("2022-11-05T00:00:00Z"),
+    author: "Admin",
+    title: "The Sweet Taste of Strawberries",
+    description:
+      "Explore the delightful world of strawberries and discover why they are nature's candy. From their vibrant color to their juicy flavor, strawberries are a treat for both the eyes and the palate.",
+  },
+  {
+    image: "SliderImages/orange3.jpg",
+    date: new Date("2022-11-25T00:00:00Z"),
+    author: "Admin",
+    title: "Oranges: Bursting with Vitamin C",
+    description:
+      "Discover the health benefits of oranges and how they can boost your immune system. Packed with vitamin C and refreshing citrus flavor, oranges are a must-have in your daily diet.",
+  },
+  {
+    image: "SliderImages/grapes.jpg",
+    date: new Date("2022-12-11T00:00:00Z"),
+    author: "Admin",
+    title: "Grapes: Nature's Bite-Sized Snack",
+    description:
+      "Delve into the world of grapes and their versatility as a snack and ingredient. Whether fresh or dried, grapes offer a burst of sweetness and a wealth of nutrients.",
+  },
+  {
+    image: "SliderImages/pears.jpg",
+    date: new Date("2023-01-03T00:00:00Z"),
+    author: "Admin",
+    title: "The Crispness of Pears",
+    description:
+      "Explore the crisp and refreshing flavor of pears, perfect for snacking or incorporating into recipes. Learn about the different varieties and their unique characteristics.",
+  },
+  {
+    image: "SliderImages/361096.jpg",
+    date: new Date("2023-02-28T00:00:00Z"),
+    author: "Admin",
+    title: "Apples: A Taste of Orchard Freshness",
+    description:
+      "Discover the delightful taste and health benefits of apples. From sweet to tart, apples are a versatile fruit that can be enjoyed fresh, baked, or as a nutritious snack.",
+  },
+  {
+    image: "SliderImages/banana.jpg",
+    date: new Date("2023-06-21T00:00:00Z"),
+    author: "Admin",
+    title: "Bananas: Nature's Energy Booster",
+    description:
+      "Learn about the nutritional value and energy-boosting benefits of bananas. Packed with potassium and fiber, bananas are an excellent choice for a quick and nutritious snack.",
+  },
+];
