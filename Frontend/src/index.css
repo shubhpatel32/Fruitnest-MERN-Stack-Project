@@ -59,6 +59,11 @@ body {
   margin: 0;
 }
 
+.toastBody {
+  font-family: "Atlas Grotesk Web", Arial, Helvetica, sans-serif;
+  font-size: 1.3rem;
+}
+
 /* .title {
   display: flex;
   align-items: center;

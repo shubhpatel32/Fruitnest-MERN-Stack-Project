@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
+import { toast } from 'react-toastify';
 
 const URL = "http://localhost:5000/api/auth/login";
 
@@ -41,10 +42,12 @@ function Login() {
                     email: '',
                     password: '',
                 });
+                toast.success("Login Successful");
                 navigate("/");
             } else {
-                console.error("Login failed:", res_data.message);
+                toast.error(res_data.extraDetails ? res_data.extraDetails : res_data.message);
             }
+            console.log(response);
         } catch (error) {
             console.error("Error during login:", error);
         }

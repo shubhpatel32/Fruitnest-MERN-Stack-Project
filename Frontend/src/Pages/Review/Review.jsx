@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import Heading from '../../Components/Heading/Heading';
 import { useAuth } from "../../Context/AuthContext";
+import { useNavigate } from 'react-router-dom';
 const URL = "http://localhost:5000/api/form/review";
+import { toast } from 'react-toastify';
+
 
 function Review() {
     // const reviews = [
@@ -22,7 +25,7 @@ function Review() {
         review: ''
     });
 
-    const { user, reviews } = useAuth();
+    const { user, reviews, isLoggedIn } = useAuth();
 
     const [userData, setUserData] = useState(true)
 
@@ -48,8 +51,13 @@ function Review() {
 
     };
 
-
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
+
+        if (!isLoggedIn) {
+            navigate("/login");
+            return;
+        }
         e.preventDefault();
 
         try {
@@ -62,6 +70,7 @@ function Review() {
             });
 
             console.log(data);
+            const res_data = await response.json();
 
             if (response.ok) {
 
@@ -69,6 +78,9 @@ function Review() {
                     ...data,
                     review: '',
                 })
+                toast.success("Thank you for your feedback!")
+            } else {
+                toast.error(res_data.extraDetails ? res_data.extraDetails : res_data.message);
             }
 
         } catch (error) {
@@ -119,6 +131,7 @@ function Review() {
                                 name="username"
                                 id="username"
                                 required
+                                readOnly
                                 // autoComplete='off'
                                 className="box p-2 mb-4 w-full  rounded border-2 border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                                 value={data.username}
@@ -130,6 +143,7 @@ function Review() {
                                 name="email"
                                 id="email"
                                 required
+                                readOnly
                                 // autoComplete='off'
                                 className="box p-2 mb-4 w-full  rounded border-2 border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                                 value={data.email}

@@ -15,7 +15,7 @@ const signup = async (req, res) => {
     const userExist = await User.findOne({ email });
 
     if (userExist) {
-      return res.status(400).json({ msg: "Email already exists" });
+      return res.status(400).json({ message: "Email already exists" });
     }
 
     // Hashing
@@ -35,7 +35,7 @@ const signup = async (req, res) => {
       userId: userCreated._id.toString(),
     });
   } catch (error) {
-    return res.status(500).json({ msg: "Internal Server Error" });
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -44,7 +44,7 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     const userExist = await User.findOne({ email });
     if (!userExist) {
-      return res.status(404).json({ msg: "Invalid Credentials" });
+      return res.status(404).json({ message: "Invalid Credentials" });
     }
     const passValid = await bcrypt.compare(password, userExist.password);
     if (passValid) {
@@ -54,10 +54,10 @@ const login = async (req, res) => {
         userId: userExist._id.toString(),
       });
     } else {
-      res.status(401).json({ msg: "Invalid email or password" });
+      res.status(401).json({ message: "Invalid email or password" });
     }
   } catch (error) {
-    res.status(500).json({ msg: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 

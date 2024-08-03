@@ -21,24 +21,27 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('token');
     };
 
-    const userAuthentication = async () => {
-        try {
-            const response = await fetch("http://localhost:5000/api/auth/user", {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
 
-            if (response.ok) {
-                const data = await response.json();
-                console.log("data:", data)
-                setUser(data.userData);
-            } else {
-                console.error("Error fetching user data");
+    const userAuthentication = async () => {
+        if (isLoggedIn) {
+            try {
+                const response = await fetch("http://localhost:5000/api/auth/user", {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log("data:", data)
+                    setUser(data.userData);
+                } else {
+                    console.error("Error fetching user data");
+                }
+            } catch (error) {
+                console.log(error);
             }
-        } catch (error) {
-            console.log(error);
         }
     };
 

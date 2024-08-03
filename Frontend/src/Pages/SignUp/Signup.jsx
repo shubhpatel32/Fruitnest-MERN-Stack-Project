@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
+import { toast } from 'react-toastify';
 
 const URL = "http://localhost:5000/api/auth/signup";
 
@@ -39,8 +40,9 @@ function Signup() {
                 body: JSON.stringify(user)
             });
 
+            const res_data = await response.json();
+
             if (response.ok) {
-                const res_data = await response.json();
                 storeTokenInLS(res_data.token);
 
                 setUser({
@@ -49,7 +51,11 @@ function Signup() {
                     phone: '',
                     password: '',
                 })
+                toast.success("Registered Successfully");
                 navigate("/login");
+            }
+            else {
+                toast.error(res_data.extraDetails ? res_data.extraDetails : res_data.message);
             }
 
             console.log(response);

@@ -17,7 +17,7 @@ const reviewSchema = z.object({
   review: z
     .string({ required_error: "Review is required" })
     .trim()
-    .min(2, { message: "Review must contain at least of 2 characters" })
+    .min(10, { message: "Review must contain at least of 10 characters" })
     .max(200, { message: "Review must not contain more than 200 characters" }),
 });
 
