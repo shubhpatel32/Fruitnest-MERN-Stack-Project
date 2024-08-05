@@ -117,3 +117,106 @@ module.exports.gallery = [
   { url: "/SliderImages/786700.jpg" },
   { url: "/SliderImages/black-bg.jpg" },
 ];
+
+module.exports.fruits = [
+  {
+    name: "Apple",
+    price: 50,
+    image: "Images/apple.jpg",
+  },
+  {
+    name: "Orange",
+    price: 25,
+    image: "Images/orange.jpg",
+  },
+  {
+    name: "Grapes",
+    price: 20,
+    image: "Images/grapes.jpg",
+  },
+  {
+    name: "Mango",
+    price: 90,
+    image: "Images/mango.jpeg",
+  },
+  {
+    name: "Pineapple",
+    price: 20,
+    image: "Images/pineapple.jpg",
+  },
+  {
+    name: "Strawberry",
+    price: 45,
+    image: "Images/strawberry.jpg",
+  },
+  {
+    name: "Guava",
+    price: 30,
+    image: "Images/guava.jpg",
+  },
+  {
+    name: "Banana",
+    price: 15,
+    image: "Images/banana.webp",
+  },
+  {
+    name: "Chickoo",
+    price: 20,
+    image: "Images/chickoo.webp",
+  },
+  {
+    name: "Papaya",
+    price: 25,
+    image: "Images/papaya.webp",
+  },
+  {
+    name: "Custard Apple",
+    price: 30,
+    image: "Images/custard-apple.webp",
+  },
+  {
+    name: "Raspberry",
+    price: 15,
+    image: "Images/raspberry.webp",
+  },
+  {
+    name: "Kiwi",
+    price: 100,
+    image: "Images/kiwi.jpg",
+  },
+  {
+    name: "Watermelon",
+    price: 20,
+    image: "Images/watermelon.webp",
+  },
+  {
+    name: "Litchi",
+    price: 40,
+    image: "Images/litchi.jpg",
+  },
+  {
+    name: "Jamun",
+    price: 10,
+    image: "Images/jamun.webp",
+  },
+  {
+    name: "Pomegranate",
+    price: 70,
+    image: "Images/pomegranate.webp",
+  },
+  {
+    name: "Plum",
+    price: 50,
+    image: "Images/plums.jpg",
+  },
+  {
+    name: "Apricot",
+    price: 120,
+    image: "Images/apricot.webp",
+  },
+  {
+    name: "Pear",
+    price: 60,
+    image: "Images/pear.jpg",
+  },
+];

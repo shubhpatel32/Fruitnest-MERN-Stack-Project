@@ -1,160 +1,56 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import Fruits from './Fruits';
 import Heading from '../../Components/Heading/Heading';
+import { useCart } from '../../Context/CartContext';
 
 
 function Shop() {
-    const fruits = [
-        {
-            id: 1,
-            name: "Apple",
-            price: 50,
-            image: 'Images/apple.jpg',
-            quantity: 1,
-        },
-        {
-            id: 2,
-            name: "Orange",
-            price: 25,
-            image: "Images/orange.jpg",
-            quantity: 1,
-        },
-        {
-            id: 3,
-            name: "Grapes",
-            price: 20,
-            image: "Images/grapes.jpg",
-            quantity: 1,
-        },
-        {
-            id: 4,
-            name: "Mango",
-            price: 90,
-            image: "Images/mango.jpeg",
-            quantity: 1,
-        },
-        {
-            id: 5,
-            name: "Pineapple",
-            price: 20,
-            image: "Images/pineapple.jpg",
-            quantity: 1,
-        },
-        {
-            id: 6,
-            name: "Strawberry",
-            price: 45,
-            image: "Images/strawberry.jpg",
-            quantity: 1,
-        },
-        {
-            id: 7,
-            name: "Guava",
-            price: 30,
-            image: "Images/guava.jpg",
-            quantity: 1,
-        },
-        {
-            id: 8,
-            name: "Banana",
-            price: 15,
-            image: "Images/banana.webp",
-            quantity: 1,
-        },
-        {
-            id: 9,
-            name: "Chickoo",
-            price: 20,
-            image: "Images/chickoo.webp",
-            quantity: 1,
-        },
-        {
-            id: 10,
-            name: "Papaya",
-            price: 25,
-            image: "Images/papaya.webp",
-            quantity: 1,
-        },
-        {
-            id: 11,
-            name: "Custard Apple",
-            price: 30,
-            image: "Images/custard-apple.webp",
-            quantity: 1,
-        },
-        {
-            id: 12,
-            name: "Raspberry",
-            price: 15,
-            image: "Images/raspberry.webp",
-            quantity: 1,
-        },
-        {
-            id: 13,
-            name: "Kiwi",
-            price: 100,
-            image: "Images/kiwi.jpg",
-            quantity: 1,
-        },
-        {
-            id: 14,
-            name: "Watermelon",
-            price: 20,
-            image: "Images/watermelon.webp",
-            quantity: 1,
-        },
-        {
-            id: 15,
-            name: "Litchi",
-            price: 40,
-            image: "Images/litchi.jpg",
-            quantity: 1,
-        },
-        {
-            id: 16,
-            name: "Jamun",
-            price: 10,
-            image: "Images/jamun.webp",
-            quantity: 1,
-        },
-        {
-            id: 17,
-            name: "Pomegranate",
-            price: 70,
-            image: "Images/pomegranate.webp",
-            quantity: 1,
-        },
-        {
-            id: 18,
-            name: "Plum",
-            price: 50,
-            image: "Images/plums.jpg",
-            quantity: 1,
-        },
-        {
-            id: 19,
-            name: "Apricot",
-            price: 120,
-            image: "Images/apricot.webp",
-            quantity: 1,
-        },
-        {
-            id: 20,
-            name: "Pear",
-            price: 60,
-            image: "Images/pear.jpg",
-            quantity: 1,
-        },
-    ];
+
+    const { shopItems, cartItems, addToCart, removeFromCart } = useCart();
+
+    useEffect(() => {
+        console.log("Cart updated:", cartItems);
+    }, [cartItems]);
 
 
     return (
         <div>
             <Heading name1="Our Shop" name2="Shop" />
             <section className="grid grid-cols-1 md:grid-cols-4 gap-8 sm:grid-cols-2">
-                {fruits.map((fruit, index) => (
-                    <Fruits key={index} fruit={fruit} />
+                {shopItems.map((fruit, index) => (
+                    <div key={index} id={fruit._id} className="box flex flex-col justify-between text-center h-[30rem] md:h-[35rem] w-full overflow-hidden shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] hover:shadow-[0.3rem_0.5rem_0.5rem_0.3rem_#a8a297]">
+                        <div className="image bg-white h-[20rem] w-full bg-center bg-contain bg-no-repeat" style={{ backgroundImage: `url(${fruit.image})` }}></div>
+                        <div className="p-4 justify-center">
+                            <h3 className="text-3xl font-semibold">{fruit.name}</h3>
+                            <div className="price font-bold text-[1.8rem] text-black py-4"><i className="fa fa-indian-rupee-sign"></i>{fruit.price}</div>
+
+
+                            {/* <div class="flex items-center justify-center w-full ">
+        
+                            <button type="button" id="decrement-button" className="bg-gray-200  hover:bg-gray-200 border border-gray-800 rounded-s-lg p-3 h-11 focus:ring-gray-100  focus:ring-2 focus:outline-none mx-4">
+                                <div class="w-3 h-3 text-black">-</div>
+                            </button>
+        
+                            <div className="bg-gray-50 border-x-0 border-gray-800 h-11 text-center text-black text-sm mx-4">{fruit.quantity}</div>
+        
+                            <button type="button" id="increment-button" className="bg-gray-200  hover:bg-gray-200 border border-gray-800 rounded-e-lg p-3 h-11 focus:ring-gray-100  focus:ring-2 focus:outline-none mx-4">
+                                <div class="w-3 h-3 text-black">+</div>
+                            </button>
+        
+                        </div> */}
+
+
+                            {/* <div className="quantity-control text-[1.8rem]">
+                                <button className="w-[2.5rem] h-[2.5rem] m-4 bg-white border  border-solid border-[#a8a297] hover:border-black" onClick={() => removeFromCart(fruit._id)}>-</button>
+                                <span>{cartItems[fruit._id] ? cartItems[fruit._id] : 0} kg</span>
+                                <button className="w-[2.5rem] h-[2.5rem] m-4 bg-white border border-solid border-[#a8a297] hover:border-black" onClick={() => addToCart(fruit._id)}>+</button>
+                            </div> */}
+
+                            <div className='addtocart items-center'>
+                                <button className="btn rounded bg-[#ff9421] text-white py-2 px-4 justify-center items-center" onClick={() => addToCart(fruit)} >Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
                 ))}
             </section>
         </div>

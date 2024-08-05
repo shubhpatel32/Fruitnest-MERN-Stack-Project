@@ -6,7 +6,7 @@ import { useAuth } from '../../Context/AuthContext';
 const Header = () => {
     const { cartItems } = useCart();
     const { isLoggedIn } = useAuth();
-    const cartCount = cartItems.length;
+    const cartCount = Object.keys(cartItems).length;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -72,7 +72,7 @@ const Header = () => {
                         <div className="relative">
                             <NavLink to="/cart" id="cart-btn" className="fas fa-cart-shopping text-[2.2rem]  ml-4 cursor-pointer text-black hover:text-white"></NavLink>
                             {cartCount > 0 && (
-                                <span className="absolute top-[-8px] right-[-8px] bg-yellow-500 text-black text-[1rem] px-2 py-1 rounded-full font-bold">
+                                <span className="absolute top-[-8px] right-[-8px] bg-yellow-500 text-black text-[0.9rem] px-2 py-1 rounded-full font-bold">
                                     {cartCount}
                                 </span>
                             )}
@@ -120,7 +120,6 @@ const Header = () => {
                             )}
                         </div>
 
-                        {/* <NavLink to="/logout" id="login-btn" className="fas fa-user text-[2.2rem] ml-4 cursor-pointer text-black hover:text-white font-semibold normal-case"></NavLink> */}
                     </>) : (<>
                         <NavLink to="/login" id="login-btn" className=" text-[1.7rem] ml-4 cursor-pointer text-black font-medium p-2 normal-case border border-solid rounded-lg w-32">Login</NavLink>
                     </>)

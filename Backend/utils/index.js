@@ -1,9 +1,10 @@
 require("dotenv").config();
-const { reviews, blogPosts, gallery } = require("./seedHelpers");
+const { reviews, blogPosts, gallery, fruits } = require("./seedHelpers");
 const Review = require("../models/review-model");
 const mongoose = require("mongoose");
 const Blog = require("../models/blog-model");
 const Gallery = require("../models/gallery-model");
+const Fruit = require("../models/fruit-model");
 
 const seedReviews = async () => {
   try {
@@ -32,4 +33,13 @@ const seedGallery = async () => {
   }
 };
 
-module.exports = { seedReviews, seedBlogs, seedGallery };
+const seedFruits = async () => {
+  try {
+    await Fruit.deleteMany({});
+    await Fruit.insertMany(fruits);
+  } catch (error) {
+    console.error("Error in inserting fruits:", error);
+  }
+};
+
+module.exports = { seedReviews, seedBlogs, seedGallery, seedFruits };
