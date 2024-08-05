@@ -6,6 +6,7 @@ const authRoute = require("./router/auth-router");
 const reviewRoute = require("./router/review-router");
 const blogRoute = require("./router/blog-router");
 const galleryRoute = require("./router/gallery-router");
+const cartRoute = require("./router/cart-router");
 const fruitRoute = require("./router/fruit-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
@@ -26,6 +27,7 @@ app.use("/api", reviewRoute);
 app.use("/api", blogRoute);
 app.use("/api", galleryRoute);
 app.use("/api", fruitRoute);
+app.use("/api", cartRoute);
 
 app.use(errorMiddleware);
 

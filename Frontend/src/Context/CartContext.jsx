@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import axios from "axios";
 
 const CartContext = createContext();
 
@@ -9,18 +10,26 @@ export const useCart = () => {
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [shopItems, setShopItems] = useState([]);
+  const [token, setToken] = useState("");
 
-  const incrementQuantity = (itemId) => {
+  const incrementQuantity = async (itemId) => {
     if (!cartItems[itemId]) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }))
     }
     else {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }))
     }
+
+    if (token) {
+      await axios.post("http://localhost:5000/api/add/cart", { itemId }, { headers: { token } });
+    }
   }
 
-  const decrementQuantity = (itemId) => {
+  const decrementQuantity = async (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] > 1 ? prev[itemId] - 1 : 0 }))
+    if (token) {
+      await axios.post("http://localhost:5000/api/remove/cart", { itemId }, { headers: { token } });
+    }
   }
 
   const addToCart = (fruit) => {
@@ -31,10 +40,9 @@ export const CartProvider = ({ children }) => {
   };
 
 
-  const removeFromCart = (id) => {
+  const deleteFromCart = (id) => {
     setCartItems((prevItems) => {
       const filteredEntries = Object.entries(prevItems).filter(([key]) => key !== id);
-
       return Object.fromEntries(filteredEntries);
     });
   };
@@ -61,8 +69,20 @@ export const CartProvider = ({ children }) => {
     }
   }
 
+  const loadCartData = async (token) => {
+    const response = await axios.post("http://localhost:5000/api/data/cart", {}, { headers: { token } });
+    setCartItems(response.data.cartData);
+  }
+
   useEffect(() => {
-    getFruits();
+    async function loadData() {
+      await getFruits();
+      if (localStorage.getItem("token")) {
+        setToken(localStorage.getItem("token"));
+        await loadCartData(localStorage.getItem("token"));
+      }
+    }
+    loadData();
   }, [])
 
   return (
@@ -71,7 +91,7 @@ export const CartProvider = ({ children }) => {
         cartItems,
         setCartItems,
         addToCart,
-        removeFromCart,
+        deleteFromCart,
         incrementQuantity,
         decrementQuantity,
         emptyCart,

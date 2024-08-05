@@ -6,7 +6,7 @@ import { useCart } from '../../Context/CartContext';
 
 function Shop() {
 
-    const { shopItems, cartItems, addToCart, removeFromCart } = useCart();
+    const { shopItems, cartItems, addToCart, removeFromCart, incrementQuantity } = useCart();
 
     useEffect(() => {
         console.log("Cart updated:", cartItems);
@@ -47,7 +47,7 @@ function Shop() {
                             </div> */}
 
                             <div className='addtocart items-center'>
-                                <button className="btn rounded bg-[#ff9421] text-white py-2 px-4 justify-center items-center" onClick={() => addToCart(fruit)} >Add to Cart</button>
+                                <button className="btn rounded bg-[#ff9421] text-white py-2 px-4 justify-center items-center" onClick={() => incrementQuantity(fruit._id)} >Add to Cart</button>
                             </div>
                         </div>
                     </div>

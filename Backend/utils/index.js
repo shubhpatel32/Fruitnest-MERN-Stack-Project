@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { reviews, blogPosts, gallery, fruits } = require("./seedHelpers");
 const Review = require("../models/review-model");
+const User = require("../models/user-models");
 const mongoose = require("mongoose");
 const Blog = require("../models/blog-model");
 const Gallery = require("../models/gallery-model");
@@ -42,4 +43,9 @@ const seedFruits = async () => {
   }
 };
 
-module.exports = { seedReviews, seedBlogs, seedGallery, seedFruits };
+module.exports = {
+  seedReviews,
+  seedBlogs,
+  seedGallery,
+  seedFruits,
+};

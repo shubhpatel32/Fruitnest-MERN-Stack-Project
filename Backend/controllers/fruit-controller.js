@@ -2,7 +2,7 @@ const Fruit = require("../models/fruit-model");
 
 const getFruit = async (req, res) => {
   try {
-    const response = await Fruit.find();
+    const response = await Fruit.find({}).sort({ name: 1 });
 
     if (!response) {
       res.status(404).json({ message: "No fruit found" });

@@ -3,7 +3,7 @@ import { useCart } from '../../Context/CartContext';
 import Heading from '../../Components/Heading/Heading';
 
 function Cart() {
-    const { cartItems, removeFromCart, incrementQuantity, decrementQuantity, emptyCart, shopItems } = useCart();
+    const { cartItems, deleteFromCart, incrementQuantity, decrementQuantity, emptyCart, shopItems } = useCart();
     const [checkoutMessage, setCheckoutMessage] = useState('');
 
     const totalPrice = Object.keys(cartItems).reduce((acc, itemId) => {
@@ -72,7 +72,7 @@ function Cart() {
                                 <div className='text-center text-3xl mr-9 w-1/5'>
                                     <i
                                         className="fas fa-times text-[#ff9421] cursor-pointer hover:text-[#cf1a1a]"
-                                        onClick={() => removeFromCart(item._id)}
+                                        onClick={() => deleteFromCart(item._id)}
                                     ></i>
                                 </div>
                             </div>

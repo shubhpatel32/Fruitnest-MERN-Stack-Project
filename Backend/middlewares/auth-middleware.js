@@ -31,4 +31,20 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = authMiddleware;
+const authMiddleware2 = async (req, res, next) => {
+  const { token } = req.headers;
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized, login again!" });
+  }
+
+  try {
+    const token_decode = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    req.body.userId = token_decode.userId;
+    next();
+  } catch (error) {
+    return res.status(401).json({ success: false, message: "error" });
+  }
+};
+
+module.exports = { authMiddleware, authMiddleware2 };
