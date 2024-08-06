@@ -26,11 +26,21 @@ export const CartProvider = ({ children }) => {
   }
 
   const decrementQuantity = async (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] > 1 ? prev[itemId] - 1 : 0 }))
+    setCartItems((prev) => {
+      const newCartItems = { ...prev };
+      if (newCartItems[itemId] > 1) {
+        newCartItems[itemId] -= 1;
+      } else {
+        delete newCartItems[itemId];
+      }
+      return newCartItems;
+    });
+
     if (token) {
       await axios.post("http://localhost:5000/api/remove/cart", { itemId }, { headers: { token } });
     }
-  }
+  };
+
 
   const addToCart = (fruit) => {
     setCartItems((prevItems) => {
@@ -40,13 +50,17 @@ export const CartProvider = ({ children }) => {
   };
 
 
-  const deleteFromCart = (id) => {
+  const deleteFromCart = async (itemId) => {
     setCartItems((prevItems) => {
-      const filteredEntries = Object.entries(prevItems).filter(([key]) => key !== id);
-      return Object.fromEntries(filteredEntries);
+      const newCartItems = { ...prevItems };
+      delete newCartItems[itemId];
+      return newCartItems;
     });
-  };
 
+    if (token) {
+      await axios.post("http://localhost:5000/api/delete/cart", { itemId }, { headers: { token } });
+    }
+  };
 
   const emptyCart = () => {
     setCartItems({});

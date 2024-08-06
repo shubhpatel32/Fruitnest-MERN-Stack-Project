@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCart } from '../../Context/CartContext';
 import Heading from '../../Components/Heading/Heading';
 
 function Cart() {
     const { cartItems, deleteFromCart, incrementQuantity, decrementQuantity, emptyCart, shopItems } = useCart();
     const [checkoutMessage, setCheckoutMessage] = useState('');
+
+    useEffect(() => {
+        console.log("Cart updated:", cartItems);
+    }, [cartItems]);
 
     const totalPrice = Object.keys(cartItems).reduce((acc, itemId) => {
         const item = shopItems.find((fruit) => fruit._id === itemId);
