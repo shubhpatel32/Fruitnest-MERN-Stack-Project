@@ -2,16 +2,18 @@ import React, { useEffect } from 'react';
 import Fruits from './Fruits';
 import Heading from '../../Components/Heading/Heading';
 import { useCart } from '../../Context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 
 function Shop() {
 
-    const { shopItems, cartItems, addToCart, removeFromCart, incrementQuantity } = useCart();
+    const { shopItems, cartItems, addToCart, token } = useCart();
 
     useEffect(() => {
         console.log("Cart updated:", cartItems);
     }, [cartItems]);
 
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -22,7 +24,7 @@ function Shop() {
                         <div className="image bg-white h-[20rem] w-full bg-center bg-contain bg-no-repeat" style={{ backgroundImage: `url(${fruit.image})` }}></div>
                         <div className="p-4 justify-center">
                             <h3 className="text-3xl font-semibold">{fruit.name}</h3>
-                            <div className="price font-bold text-[1.8rem] text-black py-4"><i className="fa fa-indian-rupee-sign"></i>{fruit.price}</div>
+                            <div className="price font-bold text-[1.8rem] text-black py-4">&#8377;{fruit.price}</div>
 
 
                             {/* <div class="flex items-center justify-center w-full ">
@@ -47,7 +49,7 @@ function Shop() {
                             </div> */}
 
                             <div className='addtocart items-center'>
-                                <button className="btn rounded bg-[#ff9421] text-white py-2 px-4 justify-center items-center" onClick={() => addToCart(fruit._id)} >Add to Cart</button>
+                                <button className="btn rounded bg-[#ff9421] text-white py-2 px-4 justify-center items-center" onClick={() => { token ? addToCart(fruit._id) : navigate("/login") }} >Add to Cart</button>
                             </div>
                         </div>
                     </div>

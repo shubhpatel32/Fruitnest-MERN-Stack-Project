@@ -63,7 +63,6 @@ export const CartProvider = ({ children }) => {
 
     if (token) {
       const response = await axios.post("http://localhost:5000/api/cart/add", { itemId }, { headers: { token } });
-      console.log("ressss", response)
 
       if (response.data.success) {
         toast.success("Added to Cart")

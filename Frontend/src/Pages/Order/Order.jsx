@@ -48,6 +48,7 @@ const Order = () => {
         console.log("Orderitems", orderItems);
 
         let orderData = {
+            userId: user._id,
             address: address,
             items: orderItems,
             amount: totalPrice(orderItems),
@@ -56,18 +57,29 @@ const Order = () => {
         console.log("OrderData before request:", orderData);
 
 
-        if (token) {
-            const response = await axios.post("http://localhost:5000/api/order/place", orderData, { headers: { token } });
+        if (token && orderData.items.length > 0) {
+            const response = await fetch("http://localhost:5000/api/order/place", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
 
-            if (response.data.success) {
+            if (response.ok) {
                 toast.success("Order placed successfully");
                 setCartItems({});
             }
             else {
                 toast.error("Failed to place order");
             }
-        } else {
-            console.warn("No token available");
+        }
+        else if (orderData.items.length === 0) {
+            toast.error("Cart is empty");
+        }
+        else {
+            console.log("No token available");
         }
 
 
@@ -83,9 +95,6 @@ const Order = () => {
         });
     };
 
-    // useEffect(() => {
-    //     console.log('address:', address);
-    // }, [address])
 
     return (
         <div>

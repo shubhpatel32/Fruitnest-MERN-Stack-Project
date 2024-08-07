@@ -2,7 +2,7 @@ const Gallery = require("../models/gallery-model");
 
 const getPic = async (req, res) => {
   try {
-    const response = await Gallery.find();
+    const response = await Gallery.find({}, { url: 1, _id: 0 });
 
     if (!response) {
       res.status(404).json({ message: "No image found" });

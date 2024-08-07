@@ -3,25 +3,10 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { RxDotFilled } from 'react-icons/rx';
 
 function Slideshow() {
-    const slides = [
-        {
-            url: '/SliderImages/strawberry.jpg',
-        },
-        {
-            url: '/SliderImages/1212130.jpg',
-        },
-        {
-            url: '/SliderImages/orange.jpg',
-        },
-        {
-            url: '/SliderImages/orange-21.jpg',
-        },
-        {
-            url: '/SliderImages/361096.jpg',
-        },
-    ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [gallery, setGallery] = useState([]);
+
 
     const prevSlide = () => {
         const isFirstSlide = currentIndex === 0;
@@ -47,18 +32,39 @@ function Slideshow() {
         setCurrentIndex(slideIndex);
     };
 
+    const getGallery = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/gallery/data", {
+                method: "GET",
+            })
+
+            if (response.ok) {
+                const gallery = await response.json();
+                console.log("slides:", gallery);
+                setGallery(gallery);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getGallery();
+    }, [])
+    const slides = gallery.slice(0, 5);
+
     return (
-        <div className='max-w-[1300px] h-[500px] md:h-[780px] w-full m-auto pt-28 md:pt-36  px-4 relative group transition-none'>
+        <div className=' h-[500px] md:h-screen w-screen m-auto pt-28 md:pt-32 px-4 md:px-12 relative group transition ease-in-out duration-300'>
             <div
-                style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
+                style={{ backgroundImage: `url(${(slides[currentIndex])})` }}
                 className='w-full h-full rounded-2xl bg-center bg-cover duration-200'
             ></div>
 
-            <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
+            <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[-50%] left-5 md:left-14 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
                 <BsChevronCompactLeft onClick={prevSlide} size={30} />
             </div>
 
-            <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
+            <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[-50%] right-5 md:right-14 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
                 <BsChevronCompactRight onClick={nextSlide} size={30} />
             </div>
             <div className='flex top-4 justify-center py-2'>
@@ -72,7 +78,7 @@ function Slideshow() {
                     </div>
                 ))}
             </div>
-        </div>
+        </div >
     );
 }
 

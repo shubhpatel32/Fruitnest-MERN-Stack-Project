@@ -15,8 +15,10 @@ import { CartProvider } from './Context/CartContext';
 import Signup from './Pages/SignUp/Signup';
 import Error from './Pages/Error/Error';
 import Logout from './Pages/Logout/Logout';
-import { Profile } from './Pages/Profile/Profile';
+import Profile from './Pages/Profile/Profile';
 import Order from './Pages/Order/Order';
+import ProtectedRoute from './Pages/ProtectedRoute';
+import MyOrders from './Pages/MyOrders/MyOrders';
 
 
 function App() {
@@ -27,8 +29,6 @@ function App() {
         <CartProvider>
           <Header />
           <Routes>
-            <Route exact path="/cart" element={<Cart />} />
-            <Route exact path="/logout" element={<Logout />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/" element={<Home />} />
@@ -37,8 +37,31 @@ function App() {
             <Route exact path="/review" element={<Review />} />
             <Route exact path="/blog" element={<Blog />} />
             <Route exact path="/contact" element={<Contact />} />
-            <Route exact path="/profile" element={<Profile />} />
-            <Route exact path="/order" element={<Order />} />
+            <Route path="/cart" element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            } />
+            <Route path="/logout" element={
+              <ProtectedRoute>
+                <Logout />
+              </ProtectedRoute>
+            } />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } />
+            <Route path="/order" element={
+              <ProtectedRoute>
+                <Order />
+              </ProtectedRoute>
+            } />
+            <Route path="/myorder" element={
+              <ProtectedRoute>
+                <MyOrders />
+              </ProtectedRoute>
+            } />
             <Route exact path="*" element={<Error />} />
           </Routes>
           <Footer />

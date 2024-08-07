@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Heading from '../../Components/Heading/Heading';
 import { useAuth } from "../../Context/AuthContext";
 import { useNavigate } from 'react-router-dom';
@@ -14,8 +14,9 @@ function Review() {
         review: ''
     });
 
-    const { user, reviews, isLoggedIn } = useAuth();
+    const { user, isLoggedIn } = useAuth();
 
+    const [reviews, setReviews] = useState([]);
     const [userData, setUserData] = useState(true)
 
 
@@ -76,6 +77,26 @@ function Review() {
             console.log("review", error);
         }
     }
+
+    const getReviews = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/review/data", {
+                method: "GET",
+            })
+
+            if (response.ok) {
+                const reviews = await response.json();
+                console.log("reviews:", reviews);
+                setReviews(reviews);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getReviews();
+    }, [])
 
 
     return (

@@ -1,12 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Heading from '../../Components/Heading/Heading'
 import { useAuth } from '../../Context/AuthContext'
 
 
 function About() {
+    const [gallery, setGallery] = useState([]);
+    const { user } = useAuth();
 
-    const { user, gallery } = useAuth();
+
+    const getGallery = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/gallery/data", {
+                method: "GET",
+            })
+
+            if (response.ok) {
+                const gallery = await response.json();
+                console.log("gallery:", gallery);
+                setGallery(gallery);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const myGallery = gallery.slice(0, 6);
+
+    useEffect(() => {
+        getGallery();
+    }, [])
 
     return (
         <div>

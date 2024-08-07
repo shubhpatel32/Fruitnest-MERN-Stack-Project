@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Heading from '../../Components/Heading/Heading';
-import { useAuth } from '../../Context/AuthContext';
 
 const Blog = () => {
+    const [blogs, setBlogs] = useState([]);
 
-    const { blogs } = useAuth();
+    const getBlogs = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/blog/data", {
+                method: "GET",
+            })
+
+            if (response.ok) {
+                const blogs = await response.json();
+                console.log("blogs:", blogs);
+                setBlogs(blogs);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getBlogs();
+    }, [])
 
     return (
         <div>

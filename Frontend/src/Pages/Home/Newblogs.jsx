@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../Context/AuthContext';
 
 
 const Newblogs = () => {
-    const { blogs } = useAuth();
+    const [blogs, setBlogs] = useState([]);
+
+    const getBlogs = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/blog/data", {
+                method: "GET",
+            })
+
+            if (response.ok) {
+                const blogs = await response.json();
+                console.log("blogs:", blogs);
+                setBlogs(blogs);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getBlogs();
+    }, [])
     const limitedBlogs = blogs.slice(0, 3);
 
 

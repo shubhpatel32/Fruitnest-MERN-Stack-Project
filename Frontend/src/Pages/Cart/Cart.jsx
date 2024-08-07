@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 
 function Cart() {
     const { cartItems, deleteFromCart, incrementQuantity, decrementQuantity, emptyCart, shopItems, totalPrice } = useCart();
-    const [checkoutMessage, setCheckoutMessage] = useState('');
-
     useEffect(() => {
         console.log("Cart updated:", cartItems);
     }, [cartItems]);
@@ -20,7 +18,7 @@ function Cart() {
         <div>
             <Heading name1="Shopping Cart" name2="Cart" />
 
-            {Object.keys(cartItems).length === 0 && !checkoutMessage ? (
+            {Object.keys(cartItems).length === 0 ? (
                 <p className="empty text-5xl text-center pt-36 pb-[32rem] normal-case font-semibold">You haven't added any items to your cart yet.</p>
             ) : (
                 <section className="w-full">
@@ -37,7 +35,7 @@ function Cart() {
                                         <div className="flex flex-col justify-center items-center">
                                             <h3 className="text-3xl sm:text-4xl text-black font-semibold">{item.name}</h3>
                                             <h2 className="text-2xl sm:text-3xl text-black mt-6">
-                                                <i className="fa fa-indian-rupee-sign"></i>{item.price}
+                                                &#8377;{item.price}
                                             </h2>
                                         </div>
                                         <div className="quantity-control text-2xl sm:text-3xl flex flex-col items-center justify-center">
@@ -53,7 +51,7 @@ function Cart() {
                                                 >+</button>
                                             </div>
                                             <h3 className="text-2xl sm:text-3xl text-black text-center mt-4">
-                                                <i className="fa fa-indian-rupee-sign"></i>{item.price * cartItems[item._id]}
+                                                &#8377;{item.price * cartItems[item._id]}
                                             </h3>
                                         </div>
                                     </div>
@@ -67,11 +65,10 @@ function Cart() {
                             </div>
                         ))}
                     <h3 className="total text-3xl sm:text-4xl text-center mt-[7rem] font-semibold">
-                        Total: <span><i className="fa fa-indian-rupee-sign"></i>{totalPrice(cartItems, shopItems)}</span>
+                        Total: <span>&#8377;{totalPrice(cartItems, shopItems)}</span>
                     </h3>
                     <div className='button-container flex flex-col items-center justify-center'>
                         <Link className="btn p-3 text-white rounded-lg text-3xl mt-5" to="/order">Checkout Cart</Link>
-                        {checkoutMessage && <p className="checkout-message mt-4 normal-case text-3xl text-center">{checkoutMessage}</p>}
                     </div>
                 </section>
             )}

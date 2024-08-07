@@ -11,11 +11,11 @@ const authMiddleware = async (req, res, next) => {
   }
 
   const jwtToken = token.replace("Bearer", "").trim();
-  console.log(jwtToken);
+  // console.log(jwtToken);
 
   try {
     const isVerified = jwt.verify(jwtToken, process.env.JWT_SECRET_KEY);
-    console.log(isVerified);
+    // console.log(isVerified);
 
     const userData = await User.findOne({ _id: isVerified.userId }).select({
       password: 0,

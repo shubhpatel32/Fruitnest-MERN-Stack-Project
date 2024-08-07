@@ -5,9 +5,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [user, setUser] = useState('');
-    const [reviews, setReviews] = useState([]);
-    const [blogs, setBlogs] = useState([]);
-    const [gallery, setGallery] = useState([]);
+    const [orders, setOrders] = useState([]);
 
     const storeTokenInLS = (serverToken) => {
         setToken(serverToken);
@@ -46,63 +44,36 @@ export const AuthProvider = ({ children }) => {
     };
 
 
-    const getReviews = async () => {
-        try {
-            const response = await fetch("http://localhost:5000/api/review/data", {
-                method: "GET",
-            })
 
-            if (response.ok) {
-                const reviews = await response.json();
-                console.log("reviews:", reviews);
-                setReviews(reviews);
+
+    const getOrders = async () => {
+        if (isLoggedIn) {
+            try {
+                const response = await fetch("http://localhost:5000/api/order/show", {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+
+                if (response.ok) {
+                    const orders = await response.json();
+                    console.log("orders:", orders);
+                    setOrders(orders);
+                }
+            } catch (error) {
+                console.log(error);
             }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const getBlogs = async () => {
-        try {
-            const response = await fetch("http://localhost:5000/api/blog/data", {
-                method: "GET",
-            })
-
-            if (response.ok) {
-                const blogs = await response.json();
-                console.log("blogs:", blogs);
-                setBlogs(blogs);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const getGallery = async () => {
-        try {
-            const response = await fetch("http://localhost:5000/api/gallery/data", {
-                method: "GET",
-            })
-
-            if (response.ok) {
-                const gallery = await response.json();
-                console.log("gallery:", gallery);
-                setGallery(gallery);
-            }
-        } catch (error) {
-            console.log(error);
         }
     }
 
     useEffect(() => {
-        getBlogs();
-        getReviews();
-        getGallery();
+        getOrders();
         userAuthentication();
     }, []);
 
     return (
-        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, reviews, blogs, gallery }}>
+        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, orders }}>
             {children}
         </AuthContext.Provider>
     );
