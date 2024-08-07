@@ -1,42 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../../Context/CartContext';
 import Heading from '../../Components/Heading/Heading';
+import { Link } from 'react-router-dom';
 
 function Cart() {
-    const { cartItems, deleteFromCart, incrementQuantity, decrementQuantity, emptyCart, shopItems } = useCart();
+    const { cartItems, deleteFromCart, incrementQuantity, decrementQuantity, emptyCart, shopItems, totalPrice } = useCart();
     const [checkoutMessage, setCheckoutMessage] = useState('');
 
     useEffect(() => {
         console.log("Cart updated:", cartItems);
     }, [cartItems]);
 
-    const totalPrice = Object.keys(cartItems).reduce((acc, itemId) => {
-        const item = shopItems.find((fruit) => fruit._id === itemId);
 
-        if (item) {
-            acc += item.price * cartItems[itemId];
-        }
-
-        return acc;
-    }, 0);
 
     const size = Object.keys(cartItems).length;
 
-    const handleCheckout = () => {
-        if (size > 0) {
-            emptyCart();
-            setCheckoutMessage('Thank you for your purchase!');
-        } else {
-            setCheckoutMessage('Your cart is empty.');
-        }
-    };
 
     return (
         <div>
             <Heading name1="Shopping Cart" name2="Cart" />
 
             {Object.keys(cartItems).length === 0 && !checkoutMessage ? (
-                <p className="empty text-5xl text-center pt-36 pb-[32rem] normal-case font-semibold">Your cart is empty.</p>
+                <p className="empty text-5xl text-center pt-36 pb-[32rem] normal-case font-semibold">You haven't added any items to your cart yet.</p>
             ) : (
                 <section className="w-full">
                     {shopItems
@@ -82,10 +67,10 @@ function Cart() {
                             </div>
                         ))}
                     <h3 className="total text-3xl sm:text-4xl text-center mt-[7rem] font-semibold">
-                        Total: <span><i className="fa fa-indian-rupee-sign"></i>{totalPrice}</span>
+                        Total: <span><i className="fa fa-indian-rupee-sign"></i>{totalPrice(cartItems, shopItems)}</span>
                     </h3>
                     <div className='button-container flex flex-col items-center justify-center'>
-                        <button className="btn p-3 text-white rounded-lg text-3xl mt-5" onClick={handleCheckout}>Checkout Cart</button>
+                        <Link className="btn p-3 text-white rounded-lg text-3xl mt-5" to="/order">Checkout Cart</Link>
                         {checkoutMessage && <p className="checkout-message mt-4 normal-case text-3xl text-center">{checkoutMessage}</p>}
                     </div>
                 </section>

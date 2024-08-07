@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Heading from '../../Components/Heading/Heading';
 import { useAuth } from "../../Context/AuthContext";
 import { useNavigate } from 'react-router-dom';
-const URL = "http://localhost:5000/api/form/review";
+const URL = "http://localhost:5000/api/review/form";
 import { toast } from 'react-toastify';
 
 

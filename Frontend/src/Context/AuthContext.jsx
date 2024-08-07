@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
 
     const getReviews = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/data/review", {
+            const response = await fetch("http://localhost:5000/api/review/data", {
                 method: "GET",
             })
 
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
 
     const getBlogs = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/data/blog", {
+            const response = await fetch("http://localhost:5000/api/blog/data", {
                 method: "GET",
             })
 
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
 
     const getGallery = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/data/gallery", {
+            const response = await fetch("http://localhost:5000/api/gallery/data", {
                 method: "GET",
             })
 

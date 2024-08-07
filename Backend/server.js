@@ -8,6 +8,7 @@ const blogRoute = require("./router/blog-router");
 const galleryRoute = require("./router/gallery-router");
 const cartRoute = require("./router/cart-router");
 const fruitRoute = require("./router/fruit-router");
+const orderRoute = require("./router/order-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
 const seed = require("./utils/index");
@@ -23,11 +24,12 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/auth", authRoute);
-app.use("/api", reviewRoute);
-app.use("/api", blogRoute);
-app.use("/api", galleryRoute);
-app.use("/api", fruitRoute);
-app.use("/api", cartRoute);
+app.use("/api/review", reviewRoute);
+app.use("/api/blog", blogRoute);
+app.use("/api/gallery", galleryRoute);
+app.use("/api/fruit", fruitRoute);
+app.use("/api/cart", cartRoute);
+app.use("/api/order", orderRoute);
 
 app.use(errorMiddleware);
 

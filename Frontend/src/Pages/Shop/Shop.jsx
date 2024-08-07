@@ -47,7 +47,7 @@ function Shop() {
                             </div> */}
 
                             <div className='addtocart items-center'>
-                                <button className="btn rounded bg-[#ff9421] text-white py-2 px-4 justify-center items-center" onClick={() => incrementQuantity(fruit._id)} >Add to Cart</button>
+                                <button className="btn rounded bg-[#ff9421] text-white py-2 px-4 justify-center items-center" onClick={() => addToCart(fruit._id)} >Add to Cart</button>
                             </div>
                         </div>
                     </div>

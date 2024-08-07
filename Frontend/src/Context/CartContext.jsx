@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import { toast } from 'react-toastify';
 import axios from "axios";
 
 const CartContext = createContext();
@@ -21,7 +22,7 @@ export const CartProvider = ({ children }) => {
     }
 
     if (token) {
-      await axios.post("http://localhost:5000/api/add/cart", { itemId }, { headers: { token } });
+      await axios.post("http://localhost:5000/api/cart/add", { itemId }, { headers: { token } });
     }
   }
 
@@ -37,16 +38,40 @@ export const CartProvider = ({ children }) => {
     });
 
     if (token) {
-      await axios.post("http://localhost:5000/api/remove/cart", { itemId }, { headers: { token } });
+      await axios.post("http://localhost:5000/api/cart/remove", { itemId }, { headers: { token } });
     }
   };
 
+  const totalPrice = (cartItems, shopItems) => {
+    return Object.keys(cartItems).reduce((acc, itemId) => {
+      const item = shopItems.find((fruit) => fruit._id === itemId);
+      if (item) {
+        acc += item.price * cartItems[itemId];
+      }
+      return acc;
+    }, 0);
+  };
 
-  const addToCart = (fruit) => {
-    setCartItems((prevItems) => {
-      const existingQuantity = prevItems[fruit._id] || 0;
-      return { ...prevItems, [fruit._id]: existingQuantity + 1 };
-    });
+
+  const addToCart = async (itemId) => {
+    if (!cartItems[itemId]) {
+      setCartItems((prev) => ({ ...prev, [itemId]: 1 }))
+    }
+    else {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }))
+    }
+
+    if (token) {
+      const response = await axios.post("http://localhost:5000/api/cart/add", { itemId }, { headers: { token } });
+      console.log("ressss", response)
+
+      if (response.data.success) {
+        toast.success("Added to Cart")
+      }
+      else {
+        toast.error("Failed to add to cart")
+      }
+    }
   };
 
 
@@ -58,7 +83,14 @@ export const CartProvider = ({ children }) => {
     });
 
     if (token) {
-      await axios.post("http://localhost:5000/api/delete/cart", { itemId }, { headers: { token } });
+      const response = await axios.post("http://localhost:5000/api/cart/delete", { itemId }, { headers: { token } });
+
+      if (response.data.success) {
+        toast.success("Deleted from Cart")
+      }
+      else {
+        toast.error("Failed to delete from cart")
+      }
     }
   };
 
@@ -69,7 +101,7 @@ export const CartProvider = ({ children }) => {
 
   const getFruits = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/data/fruit", {
+      const response = await fetch("http://localhost:5000/api/fruit/data", {
         method: "GET",
       })
 
@@ -84,7 +116,7 @@ export const CartProvider = ({ children }) => {
   }
 
   const loadCartData = async (token) => {
-    const response = await axios.post("http://localhost:5000/api/data/cart", {}, { headers: { token } });
+    const response = await axios.post("http://localhost:5000/api/cart/data", {}, { headers: { token } });
     setCartItems(response.data.cartData);
   }
 
@@ -109,7 +141,9 @@ export const CartProvider = ({ children }) => {
         incrementQuantity,
         decrementQuantity,
         emptyCart,
-        shopItems
+        shopItems,
+        totalPrice,
+        token
       }}
     >
       {children}

@@ -6,7 +6,7 @@ export const Profile = () => {
     const { user } = useAuth();
 
     return (
-        <div>
+        <div className='min-h-screen'>
             <Heading name1="My Profile" name2="Profile" />
             <section className="signup px-5 py-10 flex items-center justify-center text-2xl w-full">
                 <form className="signup-form m-4 p-12 flex flex-col rounded border border-solid border-[#a8a297]">

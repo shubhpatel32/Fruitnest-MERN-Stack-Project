@@ -16,6 +16,7 @@ import Signup from './Pages/SignUp/Signup';
 import Error from './Pages/Error/Error';
 import Logout from './Pages/Logout/Logout';
 import { Profile } from './Pages/Profile/Profile';
+import Order from './Pages/Order/Order';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
             <Route exact path="/blog" element={<Blog />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/order" element={<Order />} />
             <Route exact path="*" element={<Error />} />
           </Routes>
           <Footer />
