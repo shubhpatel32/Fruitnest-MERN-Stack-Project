@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Heading from '../../Components/Heading/Heading';
 import { useAuth } from "../../Context/AuthContext";
 import { useNavigate } from 'react-router-dom';
-const URL = "http://localhost:5000/api/review/form";
+const URL = "https://fruitnest-backend.vercel.app/api/review/form";
 import { toast } from 'react-toastify';
 
 

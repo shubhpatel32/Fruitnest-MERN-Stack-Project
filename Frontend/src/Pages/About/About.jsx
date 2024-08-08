@@ -64,7 +64,7 @@ function About() {
                 <h1 className='text-center text-5xl my-8 font-bold text-[#ff9421]'>Our <span className='text-[#cf1a1a]'>Gallery</span></h1>
                 <div className="h-full w-full grid md:grid-cols-2 grid-cols-1 gap-10 justify-center overflow-hidden">
                     {myGallery.map((item, index) => (
-                        <div key={index} className="box bg-center bg-cover bg-no-repeat h-[50rem] overflow-hidden w-full hover:scale-105" style={{ backgroundImage: `url(${item.url})` }}></div>
+                        <div key={index} className="box bg-center bg-cover bg-no-repeat h-[50rem] overflow-hidden w-full hover:scale-105" style={{ backgroundImage: `url(${item.path})` }}></div>
                     ))}
 
                 </div>
