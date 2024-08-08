@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
     const userAuthentication = async () => {
         if (isLoggedIn) {
             try {
-                const response = await fetch("https://fruitnest-backend.vercel.app/api/auth/user", {
+                const response = await fetch(`${import.meta.env.url}/api/auth/user`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     const getOrders = async () => {
         if (isLoggedIn) {
             try {
-                const response = await fetch("https://fruitnest-backend.vercel.app/api/order/show", {
+                const response = await fetch(`${import.meta.env.url}/api/order/show`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
