@@ -98,8 +98,8 @@ const Order = () => {
 
     return (
         <div>
-            <section className="py-44 px-52 min-h-screen">
-                <form onSubmit={handleFormSubmit} className="p-8 ">
+            <section className="py-44 px-40 min-h-screen">
+                <form onSubmit={handleFormSubmit} className="">
                     <h3 className="text-3xl pb-4 text-black font-semibold text-center">Address Form</h3>
                     <div className="inputbox grid grid-cols-1 md:grid-cols-2 gap-x-4 text-[1.5rem]">
                         <div className='mb-2'>

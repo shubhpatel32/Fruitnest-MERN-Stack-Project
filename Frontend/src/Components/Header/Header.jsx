@@ -22,6 +22,7 @@ const Header = () => {
     };
 
 
+
     return (
         <header className="fixed top-0 left-0 right-0 w-full h-[6rem] z-50 bg-gradient-to-l from-red-700 to-yellow-400 flex items-center justify-between px-8 py-4 md:px-16 md:py-8">
             <Link to="/" className="text-[2.5rem]  font-bold text-black hover:text-black cursor-pointer flex-shrink-0">
