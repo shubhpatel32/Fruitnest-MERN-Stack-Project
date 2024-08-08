@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { toast } from 'react-toastify';
 
-const URL = "https://fruitnest-backend.vercel.app/api/auth/signup";
 
 function Signup() {
     const [user, setUser] = useState({
@@ -12,6 +11,8 @@ function Signup() {
         phone: '',
         password: '',
     });
+    const apiUrl = import.meta.env.VITE_API_URL;
+
 
     const handleSignup = (e) => {
         let name = e.target.name;
@@ -32,7 +33,7 @@ function Signup() {
         // console.log(user);
 
         try {
-            const response = await fetch(URL, {
+            const response = await fetch(`${apiUrl}/auth/signup`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"

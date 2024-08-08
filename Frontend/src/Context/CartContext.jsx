@@ -12,6 +12,8 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [shopItems, setShopItems] = useState([]);
   const [token, setToken] = useState("");
+  const apiUrl = import.meta.env.VITE_API_URL;
+
 
   const incrementQuantity = async (itemId) => {
     if (!cartItems[itemId]) {
@@ -22,7 +24,7 @@ export const CartProvider = ({ children }) => {
     }
 
     if (token) {
-      await axios.post("https://fruitnest-backend.vercel.app/api/cart/add", { itemId }, { headers: { token } });
+      await axios.post(`${apiUrl}/cart/add`, { itemId }, { headers: { token } });
     }
   }
 
@@ -38,7 +40,7 @@ export const CartProvider = ({ children }) => {
     });
 
     if (token) {
-      await axios.post("https://fruitnest-backend.vercel.app/api/cart/remove", { itemId }, { headers: { token } });
+      await axios.post(`${apiUrl}/cart/remove`, { itemId }, { headers: { token } });
     }
   };
 
@@ -62,7 +64,7 @@ export const CartProvider = ({ children }) => {
     }
 
     if (token) {
-      const response = await axios.post("https://fruitnest-backend.vercel.app/api/cart/add", { itemId }, { headers: { token } });
+      const response = await axios.post(`${apiUrl}/cart/add`, { itemId }, { headers: { token } });
 
       if (response.data.success) {
         toast.success("Added to Cart")
@@ -82,7 +84,7 @@ export const CartProvider = ({ children }) => {
     });
 
     if (token) {
-      const response = await axios.post("https://fruitnest-backend.vercel.app/api/cart/delete", { itemId }, { headers: { token } });
+      const response = await axios.post(`${apiUrl}/cart/delete`, { itemId }, { headers: { token } });
 
       if (response.data.success) {
         toast.success("Deleted from Cart")
@@ -100,7 +102,7 @@ export const CartProvider = ({ children }) => {
 
   const getFruits = async () => {
     try {
-      const response = await fetch("https://fruitnest-backend.vercel.app/api/fruit/data", {
+      const response = await fetch(`${apiUrl}/fruit/data`, {
         method: "GET",
       })
 
@@ -115,7 +117,7 @@ export const CartProvider = ({ children }) => {
   }
 
   const loadCartData = async (token) => {
-    const response = await axios.post("https://fruitnest-backend.vercel.app/api/cart/data", {}, { headers: { token } });
+    const response = await axios.post(`${apiUrl}/cart/data`, {}, { headers: { token } });
     setCartItems(response.data.cartData);
   }
 

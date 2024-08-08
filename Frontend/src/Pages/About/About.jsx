@@ -6,11 +6,12 @@ import { useAuth } from '../../Context/AuthContext'
 function About() {
     const [gallery, setGallery] = useState([]);
     const { user } = useAuth();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
 
     const getGallery = async () => {
         try {
-            const response = await fetch("https://fruitnest-backend.vercel.app/api/gallery/data", {
+            const response = await fetch(`${apiUrl}/gallery/data`, {
                 method: "GET",
             })
 

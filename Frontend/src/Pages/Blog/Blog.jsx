@@ -4,10 +4,11 @@ import Heading from '../../Components/Heading/Heading';
 
 const Blog = () => {
     const [blogs, setBlogs] = useState([]);
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const getBlogs = async () => {
         try {
-            const response = await fetch("https://fruitnest-backend.vercel.app/api/blog/data", {
+            const response = await fetch(`${apiUrl}/blog/data`, {
                 method: "GET",
             })
 

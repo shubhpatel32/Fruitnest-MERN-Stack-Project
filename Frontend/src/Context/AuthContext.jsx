@@ -6,6 +6,7 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [user, setUser] = useState('');
     const [orders, setOrders] = useState([]);
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const storeTokenInLS = (serverToken) => {
         setToken(serverToken);
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     const userAuthentication = async () => {
         if (isLoggedIn) {
             try {
-                const response = await fetch("https://fruitnest-backend.vercel.app/api/auth/user", {
+                const response = await fetch(`${apiUrl}/auth/user`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -50,7 +51,7 @@ export const AuthProvider = ({ children }) => {
     const getOrders = async () => {
         if (isLoggedIn) {
             try {
-                const response = await fetch("https://fruitnest-backend.vercel.app/api/order/show", {
+                const response = await fetch(`${apiUrl}/auth/order/show`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,

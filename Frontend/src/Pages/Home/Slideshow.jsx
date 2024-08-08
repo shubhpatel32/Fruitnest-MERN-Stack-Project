@@ -6,6 +6,7 @@ function Slideshow() {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [gallery, setGallery] = useState([]);
+    const apiUrl = import.meta.env.VITE_API_URL;
 
 
     const prevSlide = () => {
@@ -35,7 +36,7 @@ function Slideshow() {
 
     const getGallery = async () => {
         try {
-            const response = await fetch("https://fruitnest-backend.vercel.app/api/gallery/data", {
+            const response = await fetch(`${apiUrl}/gallery/data`, {
                 method: "GET",
             })
 

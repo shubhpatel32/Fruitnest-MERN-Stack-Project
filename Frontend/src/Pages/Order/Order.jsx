@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 const Order = () => {
     const { user } = useAuth();
     const { token, shopItems, cartItems, setCartItems } = useCart();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     function totalPrice(orderItems) {
         return orderItems.reduce((total, item) => {
@@ -58,7 +59,7 @@ const Order = () => {
 
 
         if (token && orderData.items.length > 0) {
-            const response = await fetch("https://fruitnest-backend.vercel.app/api/order/place", {
+            const response = await fetch(`${apiUrl}/order/place`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Heading from '../../Components/Heading/Heading';
 import { useAuth } from "../../Context/AuthContext";
 import { useNavigate } from 'react-router-dom';
-const URL = "https://fruitnest-backend.vercel.app/api/review/form";
 import { toast } from 'react-toastify';
 
 
@@ -18,6 +17,7 @@ function Review() {
 
     const [reviews, setReviews] = useState([]);
     const [userData, setUserData] = useState(true)
+    const apiUrl = import.meta.env.VITE_API_URL;
 
 
     if (user && userData) {
@@ -51,7 +51,7 @@ function Review() {
         e.preventDefault();
 
         try {
-            const response = await fetch(URL, {
+            const response = await fetch(`${apiUrl}/review/form`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -80,7 +80,7 @@ function Review() {
 
     const getReviews = async () => {
         try {
-            const response = await fetch("https://fruitnest-backend.vercel.app/api/review/data", {
+            const response = await fetch(`${apiUrl}/review/data`, {
                 method: "GET",
             })
 
