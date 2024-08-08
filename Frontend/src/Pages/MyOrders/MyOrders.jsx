@@ -7,10 +7,10 @@ const MyOrders = () => {
 
     return (
         <div className="container mx-auto py-40 min-h-screen px-10 md:px-20">
+            <h2 className="text-4xl font-bold mb-6">My Orders</h2>
             {orders.length > 0 ? (
                 orders.map(order => (
                     <div key={order._id} className="p-12 mb-8 rounded shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] grid grid-cols-1 sm:grid-cols-2 text-3xl">
-                        <h2 className="text-4xl font-bold mb-6">My Orders</h2>
                         <div>
                             <div className="mb-6">
                                 <strong>Order ID:</strong> {order._id}
