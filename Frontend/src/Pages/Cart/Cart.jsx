@@ -15,7 +15,7 @@ function Cart() {
 
 
     return (
-        <div>
+        <div className='min-h-screen'>
             <Heading name1="Shopping Cart" name2="Cart" />
 
             {Object.keys(cartItems).length === 0 ? (

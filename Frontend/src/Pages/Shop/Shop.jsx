@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Fruits from './Fruits';
 import Heading from '../../Components/Heading/Heading';
 import { useCart } from '../../Context/CartContext';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +15,7 @@ function Shop() {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <div className='min-h-screen'>
             <Heading name1="Our Shop" name2="Shop" />
             <section className="grid grid-cols-1 md:grid-cols-4 gap-8 sm:grid-cols-2">
                 {shopItems.map((fruit, index) => (

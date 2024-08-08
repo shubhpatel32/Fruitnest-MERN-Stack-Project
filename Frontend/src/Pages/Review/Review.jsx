@@ -100,7 +100,7 @@ function Review() {
 
 
     return (
-        <div>
+        <div className='min-h-screen'>
 
             <Heading name1="Customer Reviews" name2="Review" />
 

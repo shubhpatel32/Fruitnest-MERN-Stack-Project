@@ -43,9 +43,15 @@ const seedFruits = async () => {
   }
 };
 
+async function renameField() {
+  await Gallery.updateMany({}, { $rename: { url: "path" } });
+  console.log("Field renamed successfully");
+}
+
 module.exports = {
   seedReviews,
   seedBlogs,
   seedGallery,
   seedFruits,
+  renameField,
 };

@@ -26,7 +26,7 @@ const Blog = () => {
     }, [])
 
     return (
-        <div>
+        <div className='min-h-screen'>
             <Heading name1="Our Blogs" name2="Blog" />
 
             <section className="blogs">

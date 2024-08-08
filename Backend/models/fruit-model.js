@@ -13,6 +13,10 @@ const fruitSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  discount: {
+    type: Number,
+    default: 0,
+  },
 });
 
 const Fruit = new mongoose.model("Fruit", fruitSchema);

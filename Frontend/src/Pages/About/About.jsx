@@ -31,7 +31,7 @@ function About() {
     }, [])
 
     return (
-        <div>
+        <div className='min-h-screen'>
             <Heading name1="About Us" name2="About" />
 
             <section className="about">

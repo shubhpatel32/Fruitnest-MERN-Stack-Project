@@ -40,7 +40,6 @@ function Slideshow() {
 
             if (response.ok) {
                 const gallery = await response.json();
-                console.log("slides:", gallery);
                 setGallery(gallery);
             }
         } catch (error) {
@@ -51,7 +50,12 @@ function Slideshow() {
     useEffect(() => {
         getGallery();
     }, [])
-    const slides = gallery.slice(0, 5);
+
+    const s = gallery.slice(0, 5);
+    const slides = [];
+    for (let slide of s) {
+        slides.push(slide["path"]);
+    }
 
     return (
         <div className=' h-[500px] md:h-screen w-screen m-auto pt-28 md:pt-32 px-4 md:px-12 relative group transition ease-in-out duration-300'>

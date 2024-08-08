@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const gallerySchema = new mongoose.Schema({
-  url: {
+  path: {
     type: String,
     required: true,
   },

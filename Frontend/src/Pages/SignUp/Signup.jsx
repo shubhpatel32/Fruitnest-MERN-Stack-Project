@@ -66,7 +66,7 @@ function Signup() {
     }
 
     return (
-        <div>
+        <div className='min-h-screen'>
             <section className="signup px-5 py-10  min-h-[100vh] flex items-center justify-center text-2xl w-full bg-center bg-cover bg-no-repeat" style={{ backgroundImage: `url('/SliderImages/bg18.jpg')` }}>
                 <form onSubmit={handleSubmit} className="signup-form  m-4 p-12 flex flex-col  rounded border border-solid border-[#a8a297]">
                     <h1 className="text-center text-3xl mb-5 font-semibold">Sign Up</h1>

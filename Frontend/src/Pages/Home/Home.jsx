@@ -7,7 +7,7 @@ import Newblogs from './Newblogs';
 function Home() {
 
     return (
-        <div className="home">
+        <div className="home min-h-screen">
             <Slideshow />
             <Banner />
             <Newblogs />

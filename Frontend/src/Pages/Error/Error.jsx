@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Error = () => {
     return (
-        <div>
+        <div className='min-h-screen'>
             <section className="content px-10 py-40 text-center">
                 <h1 className="text-8xl font-bold mt-8 text-[#cf1a1a]">4<span className="text-[#ff9421]">0</span>4</h1>
                 <h2 className="text-4xl mt-8">Sorry! Page not found</h2>
