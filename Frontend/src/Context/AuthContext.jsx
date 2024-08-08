@@ -45,13 +45,10 @@ export const AuthProvider = ({ children }) => {
     };
 
 
-
-
-
     const getOrders = async () => {
         if (isLoggedIn) {
             try {
-                const response = await fetch(`${apiUrl}/auth/order/show`, {
+                const response = await fetch(`${apiUrl}/order/show`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
