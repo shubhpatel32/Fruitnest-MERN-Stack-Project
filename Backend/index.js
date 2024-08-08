@@ -13,9 +13,15 @@ const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
 const seed = require("./utils/index");
 
+const allowedOrigins = {
+  development: ["http://localhost:3000"],
+  production: ["https://fruitnest.vercel.app"],
+};
+
+const env = process.env.NODE_ENV || "development";
+
 const corsOptions = {
-  // origin: "https://fruitnest.vercel.app",
-  origin: "http://localhost:3000",
+  origin: allowedOrigins[env],
   method: "GET,POST,PUT,DELETE,PATCH,HEAD",
   credentials: true,
 };
