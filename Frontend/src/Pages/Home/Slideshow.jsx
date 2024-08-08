@@ -20,6 +20,7 @@ function Slideshow() {
         setCurrentIndex(newIndex);
     };
 
+
     // useEffect(() => {
     //     const timer = setTimeout(() => {
     //         nextSlide();
@@ -52,13 +53,15 @@ function Slideshow() {
     }, [])
 
     const s = gallery.slice(0, 5);
+
     const slides = [];
     for (let slide of s) {
         slides.push(slide["path"]);
     }
+    [slides[0], slides[3]] = [slides[3], slides[0]]
 
     return (
-        <div className=' h-[500px] md:h-screen w-screen m-auto pt-28 md:pt-32 px-4 md:px-12 relative group transition ease-in-out duration-300'>
+        <div className=' h-[500px] md:min-h-screen w-screen m-auto pt-28 md:pt-32 px-4 md:px-12 relative group transition ease-in-out duration-300'>
             <div
                 style={{ backgroundImage: `url(${(slides[currentIndex])})` }}
                 className='w-full h-full rounded-2xl bg-center bg-cover duration-200'

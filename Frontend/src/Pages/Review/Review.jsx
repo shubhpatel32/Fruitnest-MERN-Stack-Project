@@ -96,7 +96,7 @@ function Review() {
 
     useEffect(() => {
         getReviews();
-    }, [])
+    }, [reviews])
 
 
     return (

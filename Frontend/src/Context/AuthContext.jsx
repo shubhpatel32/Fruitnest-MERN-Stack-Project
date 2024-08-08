@@ -46,6 +46,7 @@ export const AuthProvider = ({ children }) => {
 
 
 
+
     const getOrders = async () => {
         if (isLoggedIn) {
             try {
@@ -69,8 +70,12 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         getOrders();
+    }, [orders]);
+
+    useEffect(() => {
         userAuthentication();
-    }, []);
+    }, [isLoggedIn]);
+
 
     return (
         <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, orders }}>
