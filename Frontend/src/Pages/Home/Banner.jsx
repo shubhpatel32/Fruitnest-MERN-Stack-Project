@@ -20,7 +20,7 @@ function Banner() {
                             <div className="text-center pt-6">
                                 <h3 className="text-3xl font-semibold">{banner.name}</h3>
                                 <h2 className="text-2xl font-normal mt-4">Upto {banner.discount}% Off</h2>
-                                <Link to={banner.link} className="btn">Shop now</Link>
+                                <Link to="/shop" className="btn">Shop now</Link>
                             </div>
                         </div>
                     ))}
