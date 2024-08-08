@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 import { toast } from 'react-toastify';
 
-const URL = "http://localhost:5000/api/auth/login";
+const URL = "https://fruitnest-backend.vercel.app/api/auth/login";
 
 function Login() {
     const [user, setUser] = useState({

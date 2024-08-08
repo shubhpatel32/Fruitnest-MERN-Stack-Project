@@ -34,7 +34,7 @@ function Slideshow() {
 
     const getGallery = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/gallery/data", {
+            const response = await fetch("https://fruitnest-backend.vercel.app/api/gallery/data", {
                 method: "GET",
             })
 

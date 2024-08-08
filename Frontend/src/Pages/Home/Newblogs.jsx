@@ -7,7 +7,7 @@ const Newblogs = () => {
 
     const getBlogs = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/blog/data", {
+            const response = await fetch("https://fruitnest-backend.vercel.app/api/blog/data", {
                 method: "GET",
             })
 

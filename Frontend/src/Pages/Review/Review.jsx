@@ -80,7 +80,7 @@ function Review() {
 
     const getReviews = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/review/data", {
+            const response = await fetch("https://fruitnest-backend.vercel.app/api/review/data", {
                 method: "GET",
             })
 

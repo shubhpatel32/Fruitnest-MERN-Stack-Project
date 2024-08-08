@@ -14,7 +14,7 @@ const errorMiddleware = require("./middlewares/error-middleware");
 const seed = require("./utils/index");
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://fruitnest.vercel.app",
   method: "GET,POST,PUT,DELETE,PATCH,HEAD",
   credentials: true,
 };
