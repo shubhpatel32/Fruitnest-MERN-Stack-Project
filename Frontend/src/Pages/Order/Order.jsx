@@ -5,7 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Order = () => {
-    const { user } = useAuth();
+    const { user, addOrder } = useAuth();
     const { token, shopItems, cartItems, setCartItems } = useCart();
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -71,6 +71,7 @@ const Order = () => {
             if (response.ok) {
                 toast.success("Order placed successfully");
                 setCartItems({});
+                addOrder(data.newOrder);
             }
             else {
                 toast.error("Failed to place order");
@@ -134,6 +135,7 @@ const Order = () => {
                                 name="email"
                                 id="email"
                                 required
+                                readOnly
                                 className="box p-2 mb-7 w-full rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                                 value={user ? user.email : address.email}
                                 onChange={handleChange}
@@ -146,6 +148,7 @@ const Order = () => {
                                 name="phone"
                                 id="phone"
                                 required
+                                readOnly
                                 className="box p-2 mb-7 w-full rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                                 value={user ? user.phone : address.phone}
                                 onChange={handleChange}

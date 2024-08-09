@@ -11,7 +11,7 @@ const fruitRoute = require("./router/fruit-router");
 const orderRoute = require("./router/order-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
-const seed = require("./utils/index");
+const seed = require("./utils/helper");
 
 const allowedOrigins = {
   development: ["http://localhost:3000"],
@@ -44,6 +44,6 @@ const PORT = 5000;
 connectDb().then(() => {
   app.listen(PORT, (req, res) => {
     console.log(`server is running on ${PORT}`);
-    // seed.seedFruits();
+    seed.seedReviews();
   });
 });

@@ -1,11 +1,12 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { toast } from 'react-toastify';
 import axios from "axios";
+import { useAuth } from "./AuthContext";
 
 const CartContext = createContext();
 
 export const useCart = () => {
-  return useContext(CartContext)
+  return useContext(CartContext);
 };
 
 export const CartProvider = ({ children }) => {
@@ -13,20 +14,19 @@ export const CartProvider = ({ children }) => {
   const [shopItems, setShopItems] = useState([]);
   const [token, setToken] = useState("");
   const apiUrl = import.meta.env.VITE_API_URL;
-
+  const { isLoggedIn, user } = useAuth();
 
   const incrementQuantity = async (itemId) => {
     if (!cartItems[itemId]) {
-      setCartItems((prev) => ({ ...prev, [itemId]: 1 }))
-    }
-    else {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }))
+      setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
+    } else {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     }
 
     if (token) {
       await axios.post(`${apiUrl}/cart/add`, { itemId }, { headers: { token } });
     }
-  }
+  };
 
   const decrementQuantity = async (itemId) => {
     setCartItems((prev) => {
@@ -54,27 +54,23 @@ export const CartProvider = ({ children }) => {
     }, 0);
   };
 
-
   const addToCart = async (itemId) => {
     if (!cartItems[itemId]) {
-      setCartItems((prev) => ({ ...prev, [itemId]: 1 }))
-    }
-    else {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }))
+      setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
+    } else {
+      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     }
 
     if (token) {
       const response = await axios.post(`${apiUrl}/cart/add`, { itemId }, { headers: { token } });
 
       if (response.data.success) {
-        toast.success("Added to Cart")
-      }
-      else {
-        toast.error("Failed to add to cart")
+        toast.success("Added to Cart");
+      } else {
+        toast.error("Failed to add to cart");
       }
     }
   };
-
 
   const deleteFromCart = async (itemId) => {
     setCartItems((prevItems) => {
@@ -87,10 +83,9 @@ export const CartProvider = ({ children }) => {
       const response = await axios.post(`${apiUrl}/cart/delete`, { itemId }, { headers: { token } });
 
       if (response.data.success) {
-        toast.success("Deleted from Cart")
-      }
-      else {
-        toast.error("Failed to delete from cart")
+        toast.success("Deleted from Cart");
+      } else {
+        toast.error("Failed to delete from cart");
       }
     }
   };
@@ -99,38 +94,51 @@ export const CartProvider = ({ children }) => {
     setCartItems({});
   };
 
-
   const getFruits = async () => {
     try {
       const response = await fetch(`${apiUrl}/fruit/data`, {
         method: "GET",
-      })
+      });
 
       if (response.ok) {
         const fruits = await response.json();
-        console.log("fruits:", fruits);
         setShopItems(fruits);
       }
     } catch (error) {
       console.error("Error fetching fruits:", error);
     }
-  }
+  };
 
   const loadCartData = async (token) => {
-    const response = await axios.post(`${apiUrl}/cart/data`, {}, { headers: { token } });
-    setCartItems(response.data.cartData);
-  }
+    if (isLoggedIn && token) {
+      const response = await axios.post(`${apiUrl}/cart/data`, {}, { headers: { token } });
+      setCartItems(response.data.cartData || {});
+    } else {
+      setCartItems({});
+    }
+  };
 
   useEffect(() => {
-    async function loadData() {
+    const loadData = async () => {
       await getFruits();
-      if (localStorage.getItem("token")) {
-        setToken(localStorage.getItem("token"));
-        await loadCartData(localStorage.getItem("token"));
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        setToken(storedToken);
+        await loadCartData(storedToken);
       }
-    }
+    };
+
     loadData();
-  }, [])
+  }, [token]);
+
+  useEffect(() => {
+    if (user) {
+      setToken(localStorage.getItem("token"));
+      loadCartData(localStorage.getItem("token"));
+    } else {
+      emptyCart();
+    }
+  }, [user]);
 
   return (
     <CartContext.Provider
@@ -144,7 +152,7 @@ export const CartProvider = ({ children }) => {
         emptyCart,
         shopItems,
         totalPrice,
-        token
+        token,
       }}
     >
       {children}

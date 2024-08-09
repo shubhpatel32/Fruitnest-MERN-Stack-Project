@@ -1,7 +1,8 @@
 const { Schema, model } = require("mongoose");
+const User = require("./user-models");
 
 const orderSchema = new Schema({
-  userId: { type: String, required: true },
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   items: { type: Array, required: true },
   amount: { type: Number, required: true },
   address: { type: Object, required: true },

@@ -19,6 +19,9 @@ function Review() {
     const [userData, setUserData] = useState(true)
     const apiUrl = import.meta.env.VITE_API_URL;
 
+    const addReview = (newReview) => {
+        setReviews((prev) => [...prev, newReview]);
+    };
 
     if (user && userData) {
         setData({
@@ -64,6 +67,7 @@ function Review() {
 
             if (response.ok) {
 
+                addReview(data);
                 setData({
                     ...data,
                     review: '',
@@ -96,7 +100,7 @@ function Review() {
 
     useEffect(() => {
         getReviews();
-    }, [reviews])
+    }, [])
 
 
     return (
