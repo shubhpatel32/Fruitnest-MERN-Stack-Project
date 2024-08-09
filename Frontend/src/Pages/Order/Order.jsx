@@ -69,9 +69,11 @@ const Order = () => {
             })
 
             if (response.ok) {
+                const responseData = await response.json();
+                const newOrder = responseData.newOrder;
                 toast.success("Order placed successfully");
                 setCartItems({});
-                addOrder(data.newOrder);
+                addOrder(newOrder);
             }
             else {
                 toast.error("Failed to place order");
@@ -99,8 +101,8 @@ const Order = () => {
 
 
     return (
-        <div>
-            <section className="py-44 px-20 sm:px-40 min-h-screen">
+        <div className="min-h-screen flex justify-center">
+            <section className="py-44 px-20 md:px-68 w-full sm:w-3/4">
                 <form onSubmit={handleFormSubmit} className="">
                     <h3 className="text-3xl pb-4 text-black font-semibold text-center">Address Form</h3>
                     <div className="inputbox grid grid-cols-1 md:grid-cols-2 gap-x-4 text-[1.5rem]">
