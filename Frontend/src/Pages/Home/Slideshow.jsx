@@ -53,7 +53,7 @@ function Slideshow() {
         getGallery();
     }, [])
 
-    const s = gallery.slice(0, 5);
+    const s = gallery.slice(0, 7);
 
     const slides = [];
     for (let slide of s) {

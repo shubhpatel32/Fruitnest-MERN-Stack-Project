@@ -109,13 +109,21 @@ module.exports.blogPosts = [
 module.exports.gallery = [
   { path: "/SliderImages/strawberry.jpg" },
   { path: "/SliderImages/1212130.jpg" },
-  { path: "/SliderImages/orange.jpg" },
   { path: "/SliderImages/orange-21.jpg" },
   { path: "/SliderImages/361096.jpg" },
   { path: "/SliderImages/1289155.jpg" },
   { path: "/SliderImages/773380.jpg" },
   { path: "/SliderImages/786700.jpg" },
   { path: "/SliderImages/black-bg.jpg" },
+  { path: "/SliderImages/bg12.jpg" },
+  { path: "/SliderImages/bg19.jpg" },
+  { path: "/SliderImages/bg20.jpg" },
+  { path: "/SliderImages/bg21.jpg" },
+  { path: "/SliderImages/bg22.jpg" },
+  { path: "/SliderImages/bg23.jpg" },
+  { path: "/SliderImages/bg24.jpg" },
+  { path: "/SliderImages/bg25.jpg" },
+  { path: "/SliderImages/bg26.jpg" },
 ];
 
 module.exports.fruits = [

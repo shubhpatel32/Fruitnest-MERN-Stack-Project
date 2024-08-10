@@ -20,7 +20,7 @@ function Shop() {
     useEffect(() => {
         setFilteredItems(
             shopItems.filter((fruit) =>
-                fruit.name.toLowerCase().includes(searchTerm.toLowerCase())
+                fruit.name.toLowerCase().startsWith(searchTerm.toLowerCase().trim())
             )
         );
     }, [searchTerm, shopItems]);
@@ -59,7 +59,7 @@ function Shop() {
                     ))}
                 </section>
             ) : (
-                <section className="p-4 flex justify-center text-4xl">{searchTerm} is not found</section>
+                <section className="p-4 flex justify-center text-4xl normal-case">No items match your search.</section>
             )}
         </div>
     );

@@ -25,7 +25,7 @@ function About() {
         }
     }
 
-    const myGallery = gallery.slice(0, 6);
+    const myGallery = gallery.slice(9, 18);
 
     useEffect(() => {
         getGallery();
