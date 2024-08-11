@@ -9,6 +9,7 @@ const galleryRoute = require("./router/gallery-router");
 const cartRoute = require("./router/cart-router");
 const fruitRoute = require("./router/fruit-router");
 const orderRoute = require("./router/order-router");
+const adminRoute = require("./router/admin-router");
 // const paymentRoute = require("./router/payment-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
@@ -39,6 +40,7 @@ app.use("/api/fruit", fruitRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/order", orderRoute);
 // app.use("/api/payment", paymentRoute);
+app.use("/api/admin", adminRoute);
 
 app.use(errorMiddleware);
 
@@ -46,6 +48,6 @@ const PORT = 5000;
 connectDb().then(() => {
   app.listen(PORT, (req, res) => {
     console.log(`server is running on ${PORT}`);
-    // seed.seedGallery();
+    // seed.seedFruits();
   });
 });

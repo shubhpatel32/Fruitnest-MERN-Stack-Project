@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState('');
     const [orders, setOrders] = useState([]);
     const apiUrl = import.meta.env.VITE_API_URL;
+    const authorizationToken = `Bearer ${token}`;
 
     const storeTokenInLS = (serverToken) => {
         setToken(serverToken);
@@ -54,7 +55,7 @@ export const AuthProvider = ({ children }) => {
                 const response = await fetch(`${apiUrl}/order/show`, {
                     method: "GET",
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: authorizationToken,
                     },
                 })
 
@@ -78,7 +79,7 @@ export const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, orders, addOrder }}>
+        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, orders, addOrder, authorizationToken }}>
             {children}
         </AuthContext.Provider>
     );

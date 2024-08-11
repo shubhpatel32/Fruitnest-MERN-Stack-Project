@@ -6,7 +6,7 @@ const orderSchema = new Schema({
   items: { type: Array, required: true },
   amount: { type: Number, required: true },
   address: { type: Object, required: true },
-  status: { type: String, default: "Pending" },
+  status: { type: String, enum: ["Pending", "Delivered"], default: "Pending" },
   date: { type: Date, default: Date.now() },
   payment: { type: Boolean, default: true },
 });

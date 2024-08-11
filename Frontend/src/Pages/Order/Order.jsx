@@ -124,7 +124,6 @@ const Order = () => {
                                 type="text"
                                 name="lastname"
                                 id="lastname"
-                                required
                                 className="box p-2 mb-7 w-full rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                                 value={address.lastname}
                                 onChange={handleChange}

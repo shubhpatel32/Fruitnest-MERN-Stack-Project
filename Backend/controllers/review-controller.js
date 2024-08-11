@@ -3,7 +3,6 @@ const Review = require("../models/review-model");
 const reviewForm = async (req, res) => {
   try {
     const response = req.body;
-    console.log(response);
     await Review.create(response);
     return res.status(200).json({ message: "review sent successfully" });
   } catch (error) {
@@ -14,7 +13,7 @@ const reviewForm = async (req, res) => {
 
 const getReview = async (req, res) => {
   try {
-    const response = await Review.find();
+    const response = await Review.find({}).populate("userId", "username");
 
     if (!response) {
       res.status(404).json({ message: "No review found" });

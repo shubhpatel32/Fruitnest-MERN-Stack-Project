@@ -6,6 +6,13 @@ import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './Context/CartContext';
 import ProtectedRoute from './Pages/ProtectedRoute';
+import AdminLayout from './Components/Layouts/AdminLayout';
+import AdminUsers from './Pages/Admin/AdminUsers';
+import AdminReviews from './Pages/Admin/AdminReviews';
+import AdminOrders from './Pages/Admin/AdminOrders';
+import AdminFruits from './Pages/Admin/AdminFruits';
+import AdminBlogs from './Pages/Admin/AdminBlogs';
+import AdminGallery from './Pages/Admin/AdminGallery';
 
 const Home = lazy(() => import('./Pages/Home/Home'));
 const Shop = lazy(() => import('./Pages/Shop/Shop'));
@@ -32,40 +39,33 @@ function App() {
           <Header />
           <Suspense fallback="loading...">
             <Routes>
-              <Route exact path="/login" element={<Login />} />
-              <Route exact path="/signup" element={<Signup />} />
-              <Route exact path="/" element={<Home />} />
-              <Route exact path="/shop" element={<Shop />} />
-              <Route exact path="/about" element={<About />} />
-              <Route exact path="/review" element={<Review />} />
-              <Route exact path="/blog" element={<Blog />} />
-              <Route exact path="/contact" element={<Contact />} />
-              <Route path="/cart" element={
-                <ProtectedRoute>
-                  <Cart />
-                </ProtectedRoute>
-              } />
-              <Route path="/logout" element={
-                <ProtectedRoute>
-                  <Logout />
-                </ProtectedRoute>
-              } />
-              <Route path="/profile" element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              } />
-              <Route path="/order" element={
-                <ProtectedRoute>
-                  <Order />
-                </ProtectedRoute>
-              } />
-              <Route path="/myorder" element={
-                <ProtectedRoute>
-                  <MyOrders />
-                </ProtectedRoute>
-              } />
-              <Route exact path="*" element={<Error />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/review" element={<Review />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/contact" element={<Contact />} />
+
+              <Route element={<ProtectedRoute />}>
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/order" element={<Order />} />
+                <Route path="/myorder" element={<MyOrders />} />
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route path="users" element={<AdminUsers />} />
+                  <Route path="reviews" element={<AdminReviews />} />
+                  <Route path="orders" element={<AdminOrders />} />
+                  <Route path="fruits" element={<AdminFruits />} />
+                  <Route path="gallery" element={<AdminGallery />} />
+                  <Route path="blogs" element={<AdminBlogs />} />
+                </Route>
+              </Route>
+
+
+              <Route path="*" element={<Error />} />
             </Routes>
             <Footer />
           </Suspense>

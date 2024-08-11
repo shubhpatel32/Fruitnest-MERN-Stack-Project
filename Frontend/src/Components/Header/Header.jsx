@@ -5,7 +5,7 @@ import { useAuth } from '../../Context/AuthContext';
 
 const Header = () => {
     const { cartItems } = useCart();
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn, user } = useAuth();
     const cartCount = Object.keys(cartItems).length;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -70,6 +70,14 @@ const Header = () => {
 
                 {
                     isLoggedIn ? (<>
+                        {user.isAdmin && (<div className="relative">
+                            <NavLink to="/admin" id="cart-btn" className=" fa-solid fa-database text-[2.2rem]  ml-4 cursor-pointer text-black hover:text-white"></NavLink>
+                            {cartCount > 0 && (
+                                <span className="absolute top-[-8px] right-[-8px] bg-yellow-500 text-black text-[0.9rem] px-2 py-1 rounded-full font-bold">
+                                    {cartCount}
+                                </span>
+                            )}
+                        </div>)}
                         <div className="relative">
                             <NavLink to="/cart" id="cart-btn" className="fas fa-cart-shopping text-[2.2rem]  ml-4 cursor-pointer text-black hover:text-white"></NavLink>
                             {cartCount > 0 && (

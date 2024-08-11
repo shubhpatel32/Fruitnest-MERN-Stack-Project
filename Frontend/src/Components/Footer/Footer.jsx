@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
     return (
-        <div className="w-screen">
+        <div className="w-screen z-1 relative">
             <footer className="bg-gradient-to-l from-red-700 to-yellow-400 px-20 py-8">
                 <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-[12rem] justify-between w-full">
                     <div className="flex flex-col text-2xl gap-4 text-white ">

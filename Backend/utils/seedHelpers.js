@@ -1,57 +1,105 @@
 module.exports.reviews = [
   {
-    username: "Shlok",
-    email: "shlok@example.com",
+    userId: "66b78f67594cbc4e8855822a",
     review:
       "I'm very impressed with the quick delivery service. The scooter arrived within 30 minutes of placing my order. Excellent service!",
   },
   {
-    username: "Avani",
-    email: "avani@example.com",
+    userId: "66b78f67594cbc4e8855822b",
     review:
       "Great customer support! I can always reach them on the phone, no matter the time. Really convenient for busy people like me.",
   },
   {
-    username: "Anshuman",
-    email: "anshuman@example.com",
+    userId: "66b78f67594cbc4e8855822c",
     review:
       "The payment process is so easy! I love the flexibility to pay with cash or UPI. It makes transactions hassle-free.",
   },
   {
-    username: "Simran",
-    email: "simran@example.com",
+    userId: "66b78f67594cbc4e8855822d",
     review:
       "Absolutely amazing service! The delivery was prompt and the customer service is top-notch. Highly recommended!",
   },
   {
-    username: "Anushka",
-    email: "anushka@example.com",
+    userId: "66b78f67594cbc4e8855822e",
     review:
       "Superb experience! The entire process was seamless from start to finish. Their attention to customer satisfaction is commendable.",
   },
   {
-    username: "Virat",
-    email: "virat@example.com",
+    userId: "66b78f67594cbc4e8855822f",
     review:
       "Impressed with the professionalism! They really take care of every detail. Will definitely use their service again.",
   },
   {
-    username: "Sanidhya",
-    email: "sanidhya@example.com",
+    userId: "66b78f67594cbc4e88558230",
     review:
       "Quick response and effective service! I'm glad I chose them for my delivery needs. Their reliability sets them apart.",
   },
   {
-    username: "Kabir",
-    email: "kabir@example.com",
+    userId: "66b78f67594cbc4e88558231",
     review:
       "Consistently excellent service! I've been using their service for months now and they never disappoint. Highly reliable!",
   },
   {
-    username: "Priya",
-    email: "priya@example.com",
+    userId: "66b78f67594cbc4e88558232",
     review:
       "First-time user and very impressed! The whole experience was smooth and efficient. Definitely recommend to others.",
+  },
+];
+
+module.exports.signupUsers = [
+  {
+    username: "Shlok",
+    email: "shlok@example.com",
+    phone: "1234567890",
+    password: "shlok123",
+  },
+  {
+    username: "Avani",
+    email: "avani@example.com",
+    phone: "2345678901",
+    password: "avani123",
+  },
+  {
+    username: "Anshuman",
+    email: "anshuman@example.com",
+    phone: "3456789012",
+    password: "anshuman123",
+  },
+  {
+    username: "Simran",
+    email: "simran@example.com",
+    phone: "4567890123",
+    password: "simran123",
+  },
+  {
+    username: "Anushka",
+    email: "anushka@example.com",
+    phone: "5678901234",
+    password: "anushka123",
+  },
+  {
+    username: "Virat",
+    email: "virat@example.com",
+    phone: "6789012345",
+    password: "virat123",
+  },
+  {
+    username: "Sanidhya",
+    email: "sanidhya@example.com",
+    phone: "7890123456",
+    password: "sanidhya123",
+  },
+  {
+    username: "Kabir",
+    email: "kabir@example.com",
+    phone: "8901234567",
+    password: "kabir123",
+  },
+  {
+    username: "Priya",
+    email: "priya@example.com",
+    phone: "9012345678",
+    password: "priya123",
   },
 ];
 
@@ -184,7 +232,7 @@ module.exports.fruits = [
   {
     name: "Custard Apple",
     price: 80,
-    image: "Images/custard-apple.webp",
+    image: "Images/custard-apple.jpg",
   },
   {
     name: "Raspberry",

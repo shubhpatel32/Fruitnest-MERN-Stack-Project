@@ -18,11 +18,16 @@ function Shop() {
     }, [cartItems]);
 
     useEffect(() => {
-        setFilteredItems(
-            shopItems.filter((fruit) =>
-                fruit.name.toLowerCase().startsWith(searchTerm.toLowerCase().trim())
-            )
-        );
+        const handler = setTimeout(() => {
+            setFilteredItems(
+                shopItems.filter((fruit) =>
+                    fruit.name.toLowerCase().startsWith(searchTerm.toLowerCase().trim())
+                )
+            );
+        }, 300);
+        return () => {
+            clearTimeout(handler);
+        };
     }, [searchTerm, shopItems]);
 
 
