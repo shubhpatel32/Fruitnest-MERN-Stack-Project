@@ -71,7 +71,7 @@ function Shop() {
                     {filteredItems.map((fruit, index) => (
                         <div key={index} id={fruit._id} className="box flex flex-col justify-between text-center h-[30rem] md:h-[35rem] w-full overflow-hidden shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] hover:shadow-[0.3rem_0.5rem_0.5rem_0.3rem_#a8a297]">
 
-                            <img src={fruit.image} alt="Fruit" className="bg-white h-[20rem] w-full object-contain" />
+                            <img src={fruit.image} alt="Fruit" className="bg-white h-[16rem] md:h-[20rem] w-full object-contain" />
 
                             <div className="p-4 justify-center">
                                 <h3 className="text-3xl font-semibold">{fruit.name}</h3>
