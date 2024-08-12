@@ -36,7 +36,8 @@ const Newblogs = () => {
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center w-full mt-8'>
                     {limitedBlogs.map((blogPost, index) => (
                         <div key={index} className="shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] overflow-hidden">
-                            <div className="h-[30rem] w-full bg-cover bg-center bg-no-repeat hover:scale-105 overflow-hidden " style={{ backgroundImage: `url(${blogPost.image})` }}></div>
+                            <img src={blogPost.image} alt="Gallery" className="h-[30rem] w-full object-cover hover:scale-105" />
+
                             <div className="px-8 py-6">
                                 <div className=" border-2 border-white border-b-[#a8a297] border-solid pb-[1.7rem] mb-[1.7rem] flex justify-between items-center">
                                     <Link to="#" className="text-2xl text-[#ff9421]  hover:text-[#cf1a1a]"><i className="fas fa-calendar text-[#cf1a1a]"></i> {blogPost.date} </Link>

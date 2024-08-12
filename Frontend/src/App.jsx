@@ -6,14 +6,15 @@ import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './Context/CartContext';
 import ProtectedRoute from './Pages/ProtectedRoute';
-import AdminLayout from './Components/Layouts/AdminLayout';
-import AdminUsers from './Pages/Admin/AdminUsers';
-import AdminReviews from './Pages/Admin/AdminReviews';
-import AdminOrders from './Pages/Admin/AdminOrders';
-import AdminFruits from './Pages/Admin/AdminFruits';
-import AdminBlogs from './Pages/Admin/AdminBlogs';
-import AdminGallery from './Pages/Admin/AdminGallery';
-
+const AdminLayout = lazy(() => import('./Components/Layouts/AdminLayout'));
+const AdminUsers = lazy(() => import('./Pages/Admin/AdminUsers'));
+const AdminReviews = lazy(() => import('./Pages/Admin/AdminReviews'));
+const AdminOrders = lazy(() => import('./Pages/Admin/AdminOrders'));
+const AdminFruits = lazy(() => import('./Pages/Admin/AdminFruits'));
+const AdminBlogs = lazy(() => import('./Pages/Admin/AdminBlogs'));
+const AdminGallery = lazy(() => import('./Pages/Admin/AdminGallery'));
+const EditUser = lazy(() => import('./Pages/Admin/EditUser'));
+const EditOrder = lazy(() => import('./Pages/Admin/EditOrder'));
 const Home = lazy(() => import('./Pages/Home/Home'));
 const Shop = lazy(() => import('./Pages/Shop/Shop'));
 const About = lazy(() => import('./Pages/About/About'));
@@ -61,6 +62,8 @@ function App() {
                   <Route path="fruits" element={<AdminFruits />} />
                   <Route path="gallery" element={<AdminGallery />} />
                   <Route path="blogs" element={<AdminBlogs />} />
+                  <Route path="users/:id/edit" element={<EditUser />} />
+                  <Route path="orders/:id/edit" element={<EditOrder />} />
                 </Route>
               </Route>
 

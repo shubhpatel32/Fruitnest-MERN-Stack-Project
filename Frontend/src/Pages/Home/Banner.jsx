@@ -16,7 +16,8 @@ function Banner() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center w-full mt-8">
                     {banners.map((banner, index) => (
                         <div key={index} className="h-[300px] w-full flex flex-col justify-center rounded-lg py-5 pb-[15px] shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] hover:shadow-[0.3rem_0.5rem_0.5rem_0.3rem_#a8a297]">
-                            <div className="w-full h-full bg-center bg-contain bg-no-repeat" style={{ backgroundImage: `url(${banner.image})` }}></div>
+                            <img src={banner.image} alt="Banner" className="w-full h-[160px] object-contain" />
+
                             <div className="text-center pt-6">
                                 <h3 className="text-3xl font-semibold">{banner.name}</h3>
                                 <h2 className="text-2xl font-normal mt-4">Upto {banner.discount}% Off</h2>

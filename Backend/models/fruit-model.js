@@ -17,6 +17,11 @@ const fruitSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  stock: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
 });
 
 const Fruit = new mongoose.model("Fruit", fruitSchema);

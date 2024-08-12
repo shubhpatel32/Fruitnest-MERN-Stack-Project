@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 const sendEmail = async (to, subject, html) => {
   try {
     const mailOptions = {
-      from: process.env.GMAIL_USER,
+      from: `Fruitnest <${process.env.GMAIL_USER}>`,
       to: to,
       subject: subject,
       html: html,

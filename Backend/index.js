@@ -9,7 +9,13 @@ const galleryRoute = require("./router/gallery-router");
 const cartRoute = require("./router/cart-router");
 const fruitRoute = require("./router/fruit-router");
 const orderRoute = require("./router/order-router");
-const adminRoute = require("./router/admin-router");
+const adminUserRoute = require("./router/admin-user-router");
+const adminOrderRoute = require("./router/admin-order-router");
+const adminFruitRoute = require("./router/admin-fruit-router");
+const adminReviewRoute = require("./router/admin-review-router");
+const adminBlogRoute = require("./router/admin-blog-router");
+const adminGalleryRoute = require("./router/admin-gallery-router");
+
 // const paymentRoute = require("./router/payment-router");
 const connectDb = require("./utils/db");
 const errorMiddleware = require("./middlewares/error-middleware");
@@ -40,7 +46,12 @@ app.use("/api/fruit", fruitRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/order", orderRoute);
 // app.use("/api/payment", paymentRoute);
-app.use("/api/admin", adminRoute);
+app.use("/api/admin/users", adminUserRoute);
+app.use("/api/admin/orders", adminOrderRoute);
+app.use("/api/admin/fruits", adminFruitRoute);
+app.use("/api/admin/reviews", adminReviewRoute);
+app.use("/api/admin/gallery", adminGalleryRoute);
+app.use("/api/admin/blogs", adminBlogRoute);
 
 app.use(errorMiddleware);
 

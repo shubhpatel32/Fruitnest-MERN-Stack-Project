@@ -3,6 +3,8 @@ import Heading from "../../Components/Heading/Heading";
 import { useAuth } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 function Review() {
     const [data, setData] = useState({
@@ -12,6 +14,7 @@ function Review() {
 
     const { user, isLoggedIn } = useAuth();
     const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
     const apiUrl = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
@@ -53,7 +56,10 @@ function Review() {
             const resData = await response.json();
 
             if (response.ok) {
-                setReviews((prev) => [...prev, data]);
+                setReviews((prev) => [...prev, {
+                    ...data,
+                    userId: { username: user.username }
+                }]);
                 setData((prev) => ({
                     ...prev,
                     review: "",
@@ -80,12 +86,14 @@ function Review() {
             }
         } catch (error) {
             console.error("Error fetching reviews:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
         getReviews();
-    }, [reviews]);
+    }, []);
 
     return (
         <div className="min-h-screen">
@@ -127,11 +135,11 @@ function Review() {
             <section className="review px-5 py-4 flex items-center justify-center text-2xl">
                 <form
                     onSubmit={handleSubmit}
-                    className="  m-4 p-4 flex flex-col w-full sm:w-[70%] md:w-[40%]"
+                    className="m-4 p-4 flex flex-col w-full sm:w-[70%] md:w-[40%] border-solid border-[#a8a297] rounded-lg border-2"
                 >
-                    <h1 className="text-center text-3xl mb-5 font-semibold">Write a Review</h1>
+                    <h1 className="text-center text-3xl mb-3 font-semibold">Write a Review</h1>
 
-                    <section className="grid grid-cols-1 gap-2 sm:gap-8 mt-4 px-4 py-0 items-start">
+                    <section className="grid grid-cols-1 gap-2 sm:gap-8  px-4 py-0 items-start">
                         <div className="grid grid-cols-1 gap-1">
                             <label htmlFor="review">Review</label>
                             <textarea
@@ -158,19 +166,35 @@ function Review() {
             </section>
 
             <section className="w-full h-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 justify-center gap-12">
-                {reviews.map((review, index) => (
-                    <div
-                        className="flex p-4 flex-col items-start h-[14rem] sm:h-[14rem] w-full overflow-hidden hover:overflow-auto border-2 border-solid border-[#a8a297] roundeds"
-                        key={index}
-                    >
-                        <div className="flex items-start flex-col gap-0 p-0">
-                            <h3 className="text-[2rem] font-medium text-black">{review.userId.username}</h3>
+                {loading ? (
+                    Array.from({ length: 8 }).map((_, index) => (
+                        <div
+                            key={index}
+                            className="flex p-4 flex-col items-start h-[14rem] sm:h-[14rem] w-full overflow-hidden border-2 border-solid border-[#a8a297] rounded"
+                        >
+                            <div className="w-full h-10 mb-2">
+                                <Skeleton height={40} width={200} />
+                            </div>
+                            <div className="flex-grow">
+                                <Skeleton height={80} />
+                            </div>
                         </div>
-                        <p className="text-[1.2rem] text-justify items-start text-slate-700 normal-case mt-4">
-                            {review.review}
-                        </p>
-                    </div>
-                ))}
+                    ))
+                ) : (
+                    reviews.map((review, index) => (
+                        <div
+                            className="flex p-4 flex-col items-start h-[14rem] sm:h-[14rem] w-full overflow-hidden border-2 border-solid border-[#a8a297] rounded"
+                            key={index}
+                        >
+                            <div className="flex items-start flex-col gap-0 p-0">
+                                <h3 className="text-[2rem] font-medium text-black">{review.userId.username}</h3>
+                            </div>
+                            <p className="text-[1.4rem] text-justify items-start text-slate-700 normal-case mt-4 text-wrap">
+                                {review.review}
+                            </p>
+                        </div>
+                    ))
+                )}
             </section>
         </div>
     );

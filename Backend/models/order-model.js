@@ -6,11 +6,19 @@ const orderSchema = new Schema({
   items: { type: Array, required: true },
   amount: { type: Number, required: true },
   address: { type: Object, required: true },
-  status: { type: String, enum: ["Pending", "Delivered"], default: "Pending" },
-  date: { type: Date, default: Date.now() },
-  payment: { type: Boolean, default: true },
+  status: {
+    type: String,
+    enum: ["Pending", "Delivered", "Cancelled", "Shipped"],
+    default: "Pending",
+  },
+  date: { type: Date, default: Date.now },
+  payment: {
+    type: String,
+    enum: ["Paid", "Unpaid", "Failed"],
+    default: "Unpaid",
+  },
 });
 
-const Order = new model("Order", orderSchema);
+const Order = model("Order", orderSchema);
 
 module.exports = Order;
