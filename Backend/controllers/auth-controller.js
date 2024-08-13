@@ -70,4 +70,19 @@ const user = async (req, res) => {
   }
 };
 
-module.exports = { home, signup, login, user };
+const updateUserById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedData = req.body;
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { $set: updatedData },
+      { new: true }
+    );
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log(`error from the update route ${error}`);
+  }
+};
+
+module.exports = { home, signup, login, user, updateUserById };

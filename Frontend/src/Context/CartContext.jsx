@@ -17,10 +17,15 @@ export const CartProvider = ({ children }) => {
   const { isLoggedIn, user } = useAuth();
 
   const incrementQuantity = async (itemId) => {
-    if (!cartItems[itemId]) {
+    const fruit = shopItems.find(item => item._id === itemId);
+    if (!fruit) return;
+
+    if (!cartItems[itemId] && fruit.stock > 0) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
-    } else {
+    } else if (cartItems[itemId] < fruit.stock) {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+    } else {
+      return toast.error(`Cannot add more than ${fruit.stock} kg of ${fruit.name}`);
     }
 
     if (token) {
@@ -55,10 +60,16 @@ export const CartProvider = ({ children }) => {
   };
 
   const addToCart = async (itemId) => {
-    if (!cartItems[itemId]) {
+    const fruit = shopItems.find(item => item._id === itemId);
+    if (!fruit) return;
+
+    if (!cartItems[itemId] && fruit.stock > 0) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
-    } else {
+    } else if (cartItems[itemId] < fruit.stock) {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+    }
+    else {
+      return toast.error(`Cannot add more than ${fruit.stock} kg of ${fruit.name}`)
     }
 
     if (token) {

@@ -5,7 +5,7 @@ import { useCart } from '../../Context/CartContext';
 function Banner() {
     const { shopItems } = useCart();
     const banners = shopItems.filter(item => item.discount);
-    console.log("banners", banners);
+    // console.log("banners", banners);
 
 
     return (

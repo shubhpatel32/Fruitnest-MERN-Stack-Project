@@ -135,7 +135,7 @@ const AdminOrders = () => {
                                             </button>
                                         </td>
                                         <td>
-                                            <Link to={`/admin/orders/${order._id}/edit`} className='border-solid border-gray-400 p-1 hover:border-gray-600 rounded-lg'>Edit</Link>
+                                            <Link to={`/admin/orders/edit/${order._id}`} className='border-solid border-gray-400 p-1 hover:border-gray-600 rounded-lg'>Edit</Link>
                                         </td>
                                         <td className="py-3 px-4 normal-case"><button onClick={() => deleteOrder(order._id)} className='border-solid border-gray-400 p-1 hover:border-gray-600 rounded-lg'>Delete</button></td>
                                     </tr>

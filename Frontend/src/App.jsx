@@ -6,6 +6,7 @@ import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './Context/CartContext';
 import ProtectedRoute from './Pages/ProtectedRoute';
+import EditFruit from './Pages/Admin/EditFruit';
 const AdminLayout = lazy(() => import('./Components/Layouts/AdminLayout'));
 const AdminUsers = lazy(() => import('./Pages/Admin/AdminUsers'));
 const AdminReviews = lazy(() => import('./Pages/Admin/AdminReviews'));
@@ -26,6 +27,7 @@ const Signup = lazy(() => import('./Pages/SignUp/Signup'));
 const Error = lazy(() => import('./Pages/Error/Error'));
 const Logout = lazy(() => import('./Pages/Logout/Logout'));
 const Profile = lazy(() => import('./Pages/Profile/Profile'));
+const EditProfile = lazy(() => import('./Pages/Profile/EditProfile'));
 const Order = lazy(() => import('./Pages/Order/Order'));
 const MyOrders = lazy(() => import('./Pages/MyOrders/MyOrders'));
 const Cart = lazy(() => import('./Pages/Cart/Cart'));
@@ -53,6 +55,7 @@ function App() {
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/edit" element={<EditProfile />} />
                 <Route path="/order" element={<Order />} />
                 <Route path="/myorder" element={<MyOrders />} />
                 <Route path="/admin" element={<AdminLayout />}>
@@ -62,8 +65,9 @@ function App() {
                   <Route path="fruits" element={<AdminFruits />} />
                   <Route path="gallery" element={<AdminGallery />} />
                   <Route path="blogs" element={<AdminBlogs />} />
-                  <Route path="users/:id/edit" element={<EditUser />} />
-                  <Route path="orders/:id/edit" element={<EditOrder />} />
+                  <Route path="users/edit/:id" element={<EditUser />} />
+                  <Route path="orders/edit/:id" element={<EditOrder />} />
+                  <Route path="fruits/edit/:id" element={<EditFruit />} />
                 </Route>
               </Route>
 

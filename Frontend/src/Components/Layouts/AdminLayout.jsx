@@ -3,12 +3,17 @@ import { NavLink, Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
 
 const AdminLayout = () => {
-    const { user } = useAuth();
-    if (!user || !user.isAdmin) {
+    const { user, loading } = useAuth();
+
+    if (loading) {
+        return <h1>Loading...</h1>;
+    }
+
+    if (!user.isAdmin) {
         return <Navigate to="/" />
     }
     return (
-        <div className="flex text-2xl">
+        <div className="flex text-2xl min-h-screen">
             <nav className="fixed  w-64 bg-gray-800 min-h-screen pt-32 pl-4 ">
                 <ul className="space-y-2">
                     <li>

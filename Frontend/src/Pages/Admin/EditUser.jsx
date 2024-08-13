@@ -14,10 +14,9 @@ const EditUser = () => {
         email: '',
         phone: '',
     });
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const getUser = async () => {
             try {
                 const response = await fetch(`${apiUrl}/admin/users/${id}`, {
                     method: "GET",
@@ -33,11 +32,9 @@ const EditUser = () => {
                 });
             } catch (error) {
                 console.log(error);
-            } finally {
-                setLoading(false);
             }
         };
-        fetchUser();
+        getUser();
     }, [id, authorizationToken]);
 
     const handleChange = (e) => {
@@ -56,11 +53,12 @@ const EditUser = () => {
                 },
                 body: JSON.stringify(user)
             });
+            const res_data = await response.json();
             if (response.ok) {
                 toast.success("User updated successfully");
                 navigate("/admin/users");
             } else {
-                toast.error("Error updating user");
+                toast.error(res_data.extraDetails ? res_data.extraDetails : res_data.message);
             }
         } catch (error) {
             console.log(error);

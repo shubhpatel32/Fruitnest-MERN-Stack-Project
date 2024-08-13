@@ -14,7 +14,7 @@ const Newblogs = () => {
 
             if (response.ok) {
                 const blogs = await response.json();
-                console.log("blogs:", blogs);
+                // console.log("blogs:", blogs);
                 setBlogs(blogs);
             }
         } catch (error) {

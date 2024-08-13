@@ -39,4 +39,21 @@ const loginSchema = z.object({
     .min(6, { message: "Invalid Credentials" }),
 });
 
-module.exports = { signupSchema, loginSchema };
+const editUserSchema = z.object({
+  username: z
+    .string({ required_error: "username is required" })
+    .trim()
+    .min(2, { message: "Username must contain at least of 2 characters" }),
+
+  phone: z
+    .string({ required_error: "Phone is required" })
+    .trim()
+    .min(10, {
+      message: "Invalid phone number. It should contain exactly 10 digits.",
+    })
+    .max(10, {
+      message: "Invalid phone number. It should contain exactly 10 digits.",
+    }),
+});
+
+module.exports = { signupSchema, loginSchema, editUserSchema };

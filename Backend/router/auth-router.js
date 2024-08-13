@@ -17,4 +17,12 @@ router
 
 router.route("/user").get(authMiddleware, authControllers.user);
 
+router
+  .route("/user/update")
+  .patch(
+    authMiddleware,
+    validate(schemas.editUserSchema),
+    authControllers.updateUserById
+  );
+
 module.exports = router;

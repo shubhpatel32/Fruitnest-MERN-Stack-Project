@@ -69,16 +69,22 @@ function Shop() {
             ) : filteredItems.length > 0 ? (
                 <section className="grid grid-cols-1 md:grid-cols-4 gap-8 sm:grid-cols-2">
                     {filteredItems.map((fruit, index) => (
-                        <div key={index} id={fruit._id} className="box flex flex-col justify-between text-center h-[30rem] md:h-[35rem] w-full overflow-hidden shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] hover:shadow-[0.3rem_0.5rem_0.5rem_0.3rem_#a8a297]">
+                        <div key={index} id={fruit._id} className="box flex flex-col justify-between items-center text-center h-[30rem] md:h-[35rem] w-full overflow-hidden shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] hover:shadow-[0.3rem_0.5rem_0.5rem_0.3rem_#a8a297]">
 
                             <img src={fruit.image} alt="Fruit" className="bg-white h-[16rem] md:h-[20rem] w-full object-contain" />
 
                             <div className="p-4 justify-center">
                                 <h3 className="text-3xl font-semibold">{fruit.name}</h3>
                                 <div className="price font-bold text-[1.8rem] text-black py-4">&#8377;{fruit.price}</div>
-                                <div className='addtocart items-center'>
-                                    <button className="btn rounded bg-[#ff9421] text-white py-2 px-4 justify-center items-center" onClick={() => { isLoggedIn ? addToCart(fruit._id) : navigate("/login") }}>Add to Cart</button>
-                                </div>
+                                {
+                                    fruit.stock <= 0 ?
+                                        (<div className="text-[#cf1a1a] mt-8 text-4xl normal-case font-bold py-2 px-4 inline-block justify-center items-center">Out of Stock</div>)
+                                        :
+                                        (<div className='addtocart items-center'>
+                                            <button className="btn rounded  text-white py-2 px-4 justify-center items-center" onClick={() => { isLoggedIn ? addToCart(fruit._id) : navigate("/login") }}>Add to Cart</button>
+                                        </div>)
+                                }
+
                             </div>
                         </div>
                     ))}

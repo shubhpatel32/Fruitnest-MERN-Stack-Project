@@ -1,5 +1,6 @@
 const Order = require("../models/order-model");
 const User = require("../models/user-models");
+const Fruit = require("../models/fruit-model");
 const sendEmail = require("../utils/sendEmail");
 
 const placeOrder = async (req, res) => {
@@ -11,6 +12,21 @@ const placeOrder = async (req, res) => {
       address: req.body.address,
     });
     await newOrder.save();
+
+    const { items } = newOrder;
+    for (let i = 0; i < items.length; i++) {
+      console.log("order Items", items[i]);
+      const fruit = await Fruit.findById(items[i]._id);
+
+      if (fruit) {
+        const newStock = fruit.stock - items[i].quantity;
+        await Fruit.findByIdAndUpdate(
+          { _id: items[i]._id },
+          { stock: newStock }
+        );
+      }
+    }
+
     await User.findByIdAndUpdate(req.body.userId, { cartData: {} });
     const { email } = newOrder.address;
     const subject = "Order Confirmation";

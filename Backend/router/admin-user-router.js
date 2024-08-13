@@ -3,6 +3,8 @@ const adminController = require("../controllers/admin-user-controller");
 const router = express.Router();
 const { authMiddleware } = require("../middlewares/auth-middleware");
 const adminMiddleware = require("../middlewares/admin-middleware");
+const { editUserSchema } = require("../validators/auth-validator");
+const validate = require("../middlewares/validate-middleware");
 
 router
   .route("/")
@@ -12,7 +14,12 @@ router
   .get(authMiddleware, adminMiddleware, adminController.getUserById);
 router
   .route("/update/:id")
-  .patch(authMiddleware, adminMiddleware, adminController.updateUserById);
+  .patch(
+    authMiddleware,
+    adminMiddleware,
+    validate(editUserSchema),
+    adminController.updateUserById
+  );
 router
   .route("/delete/:id")
   .delete(authMiddleware, adminMiddleware, adminController.deleteUserById);

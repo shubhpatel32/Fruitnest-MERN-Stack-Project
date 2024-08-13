@@ -19,7 +19,7 @@ function Cart() {
             <Heading name1="Shopping Cart" name2="Cart" />
 
             {Object.keys(cartItems).length === 0 ? (
-                <p className="empty text-5xl text-center pt-36 pb-[32rem] normal-case font-semibold">You haven't added any items to your cart yet.</p>
+                <p className="empty text-5xl text-center pt-36 pb-[32rem] normal-case font-semibold">You cart is empty.</p>
             ) : (
                 <section className="w-full">
                     {shopItems
@@ -27,10 +27,14 @@ function Cart() {
                         .map((item) => (
                             <div key={item._id} className="flex h-[20rem] shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] items-center justify-between w-full">
                                 <div className="grid grid-cols-2 sm:gap-0 w-4/5">
-                                    <div
-                                        className="h-[15rem] bg-contain bg-center bg-no-repeat justify-center flex items-center"
-                                        style={{ backgroundImage: `url(${item.image})` }}
-                                    />
+                                    <div className="flex justify-center items-center">
+                                        <img
+                                            src={item.image}
+                                            alt={item.name}
+                                            className="h-[15rem] w-auto object-contain justify-center flex items-center"
+                                        />
+                                    </div>
+
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div className="flex flex-col justify-center items-center">
                                             <h3 className="text-3xl sm:text-4xl text-black font-semibold">{item.name}</h3>

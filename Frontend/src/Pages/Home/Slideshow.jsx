@@ -47,7 +47,7 @@ function Slideshow() {
         getGallery();
     }, []);
 
-    const s = gallery.slice(0, 7);
+    const s = gallery.slice(0, 5);
     const slides = s.map((slide) => slide["path"]);
 
     return (

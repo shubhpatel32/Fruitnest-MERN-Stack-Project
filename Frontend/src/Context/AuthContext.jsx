@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [user, setUser] = useState('');
+    const [loading, setLoading] = useState(true);
     const [orders, setOrders] = useState([]);
     const apiUrl = import.meta.env.VITE_API_URL;
     const authorizationToken = `Bearer ${token}`;
@@ -25,6 +26,7 @@ export const AuthProvider = ({ children }) => {
     const userAuthentication = async () => {
         if (isLoggedIn) {
             try {
+                setLoading(true);
                 const response = await fetch(`${apiUrl}/auth/user`, {
                     method: "GET",
                     headers: {
@@ -36,8 +38,10 @@ export const AuthProvider = ({ children }) => {
                     const data = await response.json();
                     console.log("data:", data)
                     setUser(data.userData);
+                    setLoading(false)
                 } else {
                     console.error("Error fetching user data");
+                    setLoading(false)
                 }
             } catch (error) {
                 console.log(error);
@@ -77,9 +81,15 @@ export const AuthProvider = ({ children }) => {
         userAuthentication();
     }, [isLoggedIn, token]);
 
+    // useEffect(() => {
+    //     if (isLoggedIn) {
+    //         userAuthentication();
+    //     }
+    // }, [user])
+
 
     return (
-        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, orders, addOrder, authorizationToken }}>
+        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, orders, addOrder, authorizationToken, loading, setUser }}>
             {children}
         </AuthContext.Provider>
     );

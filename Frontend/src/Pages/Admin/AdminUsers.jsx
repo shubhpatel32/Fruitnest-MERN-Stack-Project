@@ -113,7 +113,7 @@ const AdminUsers = () => {
                                     <td className="py-3 px-4 normal-case">{user.email}</td>
                                     <td className="py-3 px-4 normal-case">{user.phone}</td>
                                     <td className="py-3 px-4 normal-case">
-                                        <Link to={`/admin/users/${user._id}/edit`} className='border-solid border-gray-400 p-1 hover:border-gray-600 rounded-lg'>Edit</Link>
+                                        <Link to={`/admin/users/edit/${user._id}`} className='border-solid border-gray-400 p-1 hover:border-gray-600 rounded-lg'>Edit</Link>
                                     </td>
                                     <td className="py-3 px-4 normal-case">
                                         <button onClick={() => deleteUser(user._id)} className='border-solid border-gray-400 p-1 hover:border-gray-600 rounded-lg'>Delete</button>

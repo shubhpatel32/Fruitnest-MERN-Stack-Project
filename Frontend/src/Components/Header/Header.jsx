@@ -72,12 +72,8 @@ const Header = () => {
                     isLoggedIn ? (<>
                         {user.isAdmin && (<div className="relative">
                             <NavLink to="/admin" id="cart-btn" className=" fa-solid fa-database text-[2.2rem]  ml-4 cursor-pointer text-black hover:text-white"></NavLink>
-                            {cartCount > 0 && (
-                                <span className="absolute top-[-8px] right-[-8px] bg-yellow-500 text-black text-[0.9rem] px-2 py-1 rounded-full font-bold">
-                                    {cartCount}
-                                </span>
-                            )}
                         </div>)}
+
                         <div className="relative">
                             <NavLink to="/cart" id="cart-btn" className="fas fa-cart-shopping text-[2.2rem]  ml-4 cursor-pointer text-black hover:text-white"></NavLink>
                             {cartCount > 0 && (
@@ -102,7 +98,7 @@ const Header = () => {
                             </div>
                             {isOpen && (
                                 <ul
-                                    className="origin-top-right absolute right-0 mt-4 w-56 rounded-lg shadow-lg bg-white text-lg"
+                                    className="origin-top-right absolute right-0 mt-4 w-56 rounded-lg shadow-gray-400 shadow-sm bg-white text-lg"
                                     role="menu"
                                     aria-orientation="vertical"
                                     aria-labelledby="menu-button"

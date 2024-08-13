@@ -15,14 +15,13 @@ const Contact = () => {
                     <div className="icons text-center border-2 border-solid border-[#a8a297] p-8">
                         <i className="fa-solid fa-phone h-24 w-24 text-4xl leading-[6rem] bg-[#ff9421] text-white rounded-full hover:bg-[#cf1a1a]"></i>
                         <h3 className="text-3xl py-4 text-black font-normal">Contact Number</h3>
-                        <p className="text-2xl text-black normal-case">12345678910</p>
-                        <p className="text-2xl text-black normal-case">5566778899</p>
+                        <p className="text-2xl text-black normal-case">7202936056</p>
                     </div>
 
                     <div className="icons text-center border-2 border-solid border-[#a8a297] p-8">
                         <i className="fa-solid fa-envelope h-24 w-24 text-4xl leading-[6rem] bg-[#ff9421] text-white rounded-full hover:bg-[#cf1a1a]"></i>
                         <h3 className="text-3xl py-4 text-black font-normal">Email</h3>
-                        <p className="text-2xl text-black normal-case">fruitnest@gmail.com</p>
+                        <p className="text-2xl text-black normal-case">fruitnest.21@gmail.com</p>
                     </div>
 
                     <div className="icons text-center border-2 border-solid border-[#a8a297] p-8">

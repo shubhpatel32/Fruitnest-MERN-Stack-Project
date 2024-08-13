@@ -29,17 +29,15 @@ export default function Footer() {
 
                     <div className="flex flex-col text-2xl gap-4 text-white">
                         <h3 className="text-3xl text-black mb-5 font-medium">Extra Links</h3>
-                        <Link to="/cart" className='group'>
-                            <i className="fas fa-arrow-right group-hover:text-black"></i> My Order
-                        </Link>
-                        <Link to="#" className='group'>
-                            <i className="fas fa-arrow-right group-hover:text-black"></i> My Favourite
-                        </Link>
-                        <Link to="#" className='group'>
-                            <i className="fas fa-arrow-right group-hover:text-black"></i> My Wishlist
-                        </Link>
-                        <Link to="/login" className='group'>
+
+                        <Link to="/profile" className='group'>
                             <i className="fas fa-arrow-right group-hover:text-black"></i> My Account
+                        </Link>
+                        <Link to="/myorder" className='group'>
+                            <i className="fas fa-arrow-right group-hover:text-black"></i> My Orders
+                        </Link>
+                        <Link to="/cart" className='group'>
+                            <i className="fas fa-arrow-right group-hover:text-black"></i> My Cart
                         </Link>
                         <Link to="#" className='group'>
                             <i className="fas fa-arrow-right group-hover:text-black"></i> Terms or Use
@@ -60,32 +58,24 @@ export default function Footer() {
                         <Link to="#" className='group'>
                             <i className="fa-brands fa-linkedin group-hover:text-black"></i> linkedin
                         </Link>
-                        <Link to="#" className='group'>
-                            <i className="fa-brands fa-pinterest group-hover:text-black"></i> pinterest
-                        </Link>
+
                     </div>
 
                     <div className="flex flex-col text-2xl gap-4 text-white">
-                        <h3 className="text-3xl text-black mb-5 font-medium">Payments</h3>
+                        <h3 className="text-3xl text-black mb-5 font-medium">Contact Us</h3>
 
-                        <Link to="#" className='group'>
-                            <i className="fa-brands fa-google-pay group-hover:text-black mr-3  text-3xl"></i>
-                            Google</Link>
-                        <Link to="#" className='group'>
-                            <i className="fa-regular fa-credit-card group-hover:text-black mr-5"></i>
-                            Card</Link>
-                        <Link to="#" className='group'>
-                            <i className="fa-brands fa-apple-pay group-hover:text-black mr-3 text-3xl"></i>
-                            Apple</Link>
-                        <Link to="#" className='group'>
-                            <i className="fa-brands fa-amazon-pay group-hover:text-black mr-3 text-3xl"></i>
-                            Amazon</Link>
+                        <div className="text-2xl">
+                            <h3 className="text-3xl mb-3 font-bold">Fruitnest</h3>
+                            <p className="normal-case mb-2">fruitnest.21@gmail.com</p>
+                            <p className="normal-case mb-2">Vijapur, Gujarat</p>
+                            <p className="normal-case mb-2">382870</p>
+                        </div>
 
                     </div>
+
                 </div>
             </footer>
             <div className="bg-black text-white text-center text-lg">Created by Shubh Patel | All rights reserved!</div>
-
         </div>
     )
 }
