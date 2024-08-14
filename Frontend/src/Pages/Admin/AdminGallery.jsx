@@ -124,7 +124,7 @@ const AdminGallery = () => {
                                         )}
                                     </td>
                                     <td className="py-3 px-4 normal-case">
-                                        <button onClick={() => deleteGalleryItem(item._id)} className='border-solid border-gray-400 hover:border-gray-600 p-1 rounded-lg'>
+                                        <button onClick={() => deleteGalleryItem(item._id)} className='py-1 px-4 rounded-lg bg-red-500 text-white'>
                                             Delete
                                         </button>
                                     </td>

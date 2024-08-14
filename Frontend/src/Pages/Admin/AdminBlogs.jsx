@@ -131,9 +131,9 @@ const AdminBlogs = () => {
                                     </td>
                                     <td className="py-3 px-4 text-left normal-case">{blog.author}</td>
                                     <td className="py-3 px-4 text-left normal-case">{blog.date}</td>
-                                    <td className="py-3 px-4 normal-case"><Link to={`/admin/blogs/edit/${blog._id}`} className='border-solid border-gray-400 hover:border-gray-600 p-1 rounded-lg'>Edit</Link></td>
+                                    <td className="py-3 px-4 normal-case"><Link to={`/admin/blogs/edit/${blog._id}`} className='py-1 px-4 rounded-lg bg-orange-400 text-white'>Edit</Link></td>
 
-                                    <td className="py-3 px-4 normal-case"><button onClick={() => deleteBlog(blog._id)} className='border-solid border-gray-400 hover:border-gray-600 p-1 rounded-lg'>Delete</button></td>
+                                    <td className="py-3 px-4 normal-case"><button onClick={() => deleteBlog(blog._id)} className='py-1 px-4 rounded-lg bg-red-500 text-white'>Delete</button></td>
                                 </tr>
                             ))
                         )}
@@ -145,4 +145,3 @@ const AdminBlogs = () => {
 };
 
 export default AdminBlogs;
-

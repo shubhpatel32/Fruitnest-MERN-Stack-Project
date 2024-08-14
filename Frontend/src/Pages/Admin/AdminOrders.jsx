@@ -3,7 +3,6 @@ import { useAuth } from '../../Context/AuthContext';
 import { toast } from 'react-toastify';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { Link } from 'react-router-dom';
 
 const AdminOrders = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -12,7 +11,8 @@ const AdminOrders = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [filtered, setFiltered] = useState(orders);
-    const [expandedOrderId, setExpandedOrderId] = useState(null);
+    const [editingOrderId, setEditingOrderId] = useState(null);
+    const [editingOrder, setEditingOrder] = useState({ status: '', payment: '' });
 
     useEffect(() => {
         const handler = setTimeout(() => {
@@ -67,13 +67,42 @@ const AdminOrders = () => {
         }
     };
 
+    const startEditing = (order) => {
+        setEditingOrderId(order._id);
+        setEditingOrder({ status: order.status, payment: order.payment });
+    };
+
+    const cancelEditing = () => {
+        setEditingOrderId(null);
+    };
+
+    const saveChanges = async (orderId) => {
+        try {
+            const response = await fetch(`${apiUrl}/admin/orders/update/${orderId}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: authorizationToken,
+                },
+                body: JSON.stringify(editingOrder),
+            });
+
+            if (response.ok) {
+                toast.success("Order updated successfully");
+                getAllOrders();  // Refresh the order list
+                setEditingOrderId(null);  // Exit editing mode
+            } else {
+                toast.error("Error updating order");
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to update order");
+        }
+    };
+
     useEffect(() => {
         getAllOrders();
     }, []);
-
-    const toggleDetails = (orderId) => {
-        setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
-    };
 
     const getStatusColorClass = (status) => {
         switch (status) {
@@ -89,7 +118,6 @@ const AdminOrders = () => {
                 return 'bg-gray-100 border border-solid border-gray-700 text-gray-700';
         }
     };
-
 
     return (
         <div className="p-4 bg-white">
@@ -116,11 +144,10 @@ const AdminOrders = () => {
                             <th className="py-3 px-4 text-left">Order ID</th>
                             <th className="py-3 px-4 text-left">Username</th>
                             <th className="py-3 px-4 text-left">Email</th>
-                            <th className="py-3 px-4 text-left">Status</th>
-                            <th className="py-3 px-4 text-left">Payment</th>
+                            <th className="py-3 px-4 text-left w-[12%]">Status</th>
+                            <th className="py-3 px-4 text-left w-[12%]">Payment</th>
                             <th className="py-3 px-4 text-left">Date</th>
-                            <th className="py-3 px-4 text-left">Details</th>
-                            <th className="py-3 px-4 text-left">Edit</th>
+                            <th className="py-3 px-4 text-left w-[12%]">Edit</th>
                             <th className="py-3 px-4 text-left">Delete</th>
                         </tr>
                     </thead>
@@ -134,70 +161,95 @@ const AdminOrders = () => {
                                     <td className="py-3 px-4"><Skeleton width={80} /></td>
                                     <td className="py-3 px-4"><Skeleton width={80} /></td>
                                     <td className="py-3 px-4"><Skeleton width={100} /></td>
-                                    <td className="py-3 px-4"><Skeleton width={80} /></td>
                                     <td className="py-3 px-4"><Skeleton width={60} /></td>
                                     <td className="py-3 px-4"><Skeleton width={60} /></td>
                                 </tr>
                             ))
                         ) : (
                             filtered.map((order, index) => (
-                                <React.Fragment key={index}>
-                                    <tr className="border border-solid h-24">
-                                        <td className="py-3 px-4 normal-case">{order._id}</td>
-                                        <td className="py-3 px-4 normal-case">{order.userId.username}</td>
-                                        <td className="py-3 px-4 normal-case">{order.userId.email}</td>
-                                        <td className="py-3 px-4 rounded-lg normal-case">
+                                <tr key={index} className="border border-solid h-24">
+                                    <td className="py-3 px-4 normal-case">{order._id}</td>
+                                    <td className="py-3 px-4 normal-case">{order.userId.username}</td>
+                                    <td className="py-3 px-4 normal-case">{order.userId.email}</td>
+                                    <td className="py-3 px-4 rounded-lg normal-case">
+                                        {editingOrderId === order._id ? (
+                                            <select
+                                                value={editingOrder.status}
+                                                onChange={(e) =>
+                                                    setEditingOrder({ ...editingOrder, status: e.target.value })
+                                                }
+                                                className="p-2 mb-4 w-full rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent"
+                                            >
+                                                <option value="Pending">Pending</option>
+                                                <option value="Delivered">Delivered</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                                <option value="Shipped">Shipped</option>
+                                            </select>
+                                        ) : (
                                             <span className={`${getStatusColorClass(order.status)} p-3 px-5 rounded-3xl text-center`}>
                                                 {order.status}
                                             </span>
-                                        </td>
-
-                                        <td className="py-3 px-4 normal-case">{order.payment ? "Paid" : "Unpaid"}</td>
-                                        <td className="py-3 px-4 normal-case">{order.date}</td>
-                                        <td className="py-3 px-4 normal-case">
-                                            <button onClick={() => toggleDetails(order._id)} className="text-blue-500">
-                                                {expandedOrderId === order._id ? "Hide Details" : "Show Details"}
+                                        )}
+                                    </td>
+                                    <td className="py-3 px-4 normal-case">
+                                        {editingOrderId === order._id ? (
+                                            <select
+                                                value={editingOrder.payment}
+                                                onChange={(e) =>
+                                                    setEditingOrder({ ...editingOrder, payment: e.target.value })
+                                                }
+                                                className="p-2 mb-4 w-full rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent"
+                                            >
+                                                <option value="Paid">Paid</option>
+                                                <option value="Unpaid">Unpaid</option>
+                                                <option value="Failed">Failed</option>
+                                            </select>
+                                        ) : (
+                                            order.payment ? "Paid" : "Unpaid"
+                                        )}
+                                    </td>
+                                    <td className="py-3 px-4 normal-case">{order.date}</td>
+                                    <td className="py-3 px-4">
+                                        {editingOrderId === order._id ? (
+                                            <>
+                                                <button
+                                                    onClick={() => saveChanges(order._id)}
+                                                    className="py-1 px-4 mr-2 rounded-lg bg-green-500 text-white"
+                                                >
+                                                    Save
+                                                </button>
+                                                <button
+                                                    onClick={cancelEditing}
+                                                    className="py-1 px-4 rounded-lg bg-gray-500 text-white"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <button
+                                                onClick={() => startEditing(order)}
+                                                className="py-1 px-4 rounded-lg bg-orange-400 text-white"
+                                            >
+                                                Edit
                                             </button>
-                                        </td>
-                                        <td>
-                                            <Link to={`/admin/orders/edit/${order._id}`} className='border-solid border-gray-400 p-1 hover:border-gray-600 rounded-lg'>Edit</Link>
-                                        </td>
-                                        <td className="py-3 px-4 normal-case"><button onClick={() => deleteOrder(order._id)} className='border-solid border-gray-400 p-1 hover:border-gray-600 rounded-lg'>Delete</button></td>
-                                    </tr>
-                                    {expandedOrderId === order._id && (
-                                        <tr>
-                                            <td colSpan="7" className=" p-4">
-                                                <div className="flex gap-x-8">
-                                                    <div className="mb-2">
-                                                        <strong>Items:</strong>
-                                                        <ul>
-                                                            {order.items.map((item, i) => (
-                                                                <li key={i}>
-                                                                    {item.name} ({item.quantity} kg)
-                                                                </li>
-                                                            ))}
-                                                            <p className="font-bold">Amount: {order.amount}</p>
-                                                        </ul>
-                                                    </div>
-                                                    <div>
-                                                        <strong>Address:</strong>
-                                                        <p>{order.address.firstname} {order.address.lastname}</p>
-                                                        <p className="normal-case">{order.address.email}</p>
-                                                        <p className="normal-case">{order.address.phone}</p>
-                                                        <p>{order.address.street}, {order.address.city}, {order.address.pincode}</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    )}
-                                </React.Fragment>
+                                        )}
+                                    </td>
+                                    <td className="py-3 px-4">
+                                        <button
+                                            onClick={() => deleteOrder(order._id)}
+                                            className="py-1 px-4 rounded-lg bg-red-500 text-white"
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
                             ))
                         )}
                     </tbody>
                 </table>
-            </div >
-        </div >
+            </div>
+        </div>
     );
-}
+};
 
 export default AdminOrders;

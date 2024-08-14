@@ -6,11 +6,11 @@ import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './Context/CartContext';
 import ProtectedRoute from './Pages/ProtectedRoute';
-import EditFruit from './Pages/Admin/EditFruit';
-import AddFruit from './Pages/Admin/AddFruit';
-import AddBlog from './Pages/Admin/AddBlog';
-import EditBlog from './Pages/Admin/EditBlog';
-import AddGalleryItem from './Pages/Admin/AddGalleryItem';
+
+const AddFruit = lazy(() => import('./Pages/Admin/AddFruit'));
+const AddBlog = lazy(() => import('./Pages/Admin/AddBlog'));
+const EditBlog = lazy(() => import('./Pages/Admin/EditBlog'));
+const AddGalleryItem = lazy(() => import('./Pages/Admin/AddGalleryItem'));
 const AdminLayout = lazy(() => import('./Components/Layouts/AdminLayout'));
 const AdminUsers = lazy(() => import('./Pages/Admin/AdminUsers'));
 const AdminReviews = lazy(() => import('./Pages/Admin/AdminReviews'));
@@ -18,8 +18,6 @@ const AdminOrders = lazy(() => import('./Pages/Admin/AdminOrders'));
 const AdminFruits = lazy(() => import('./Pages/Admin/AdminFruits'));
 const AdminBlogs = lazy(() => import('./Pages/Admin/AdminBlogs'));
 const AdminGallery = lazy(() => import('./Pages/Admin/AdminGallery'));
-const EditUser = lazy(() => import('./Pages/Admin/EditUser'));
-const EditOrder = lazy(() => import('./Pages/Admin/EditOrder'));
 const Home = lazy(() => import('./Pages/Home/Home'));
 const Shop = lazy(() => import('./Pages/Shop/Shop'));
 const About = lazy(() => import('./Pages/About/About'));
@@ -66,13 +64,10 @@ function App() {
                   <Route path="users" element={<AdminUsers />} />
                   <Route path="reviews" element={<AdminReviews />} />
                   <Route path="orders" element={<AdminOrders />} />
-                  <Route path="orders/edit/:id" element={<EditOrder />} />
                   <Route path="gallery" element={<AdminGallery />} />
                   <Route path="gallery/add" element={<AddGalleryItem />} />
-                  <Route path="users/edit/:id" element={<EditUser />} />
                   <Route path="fruits" element={<AdminFruits />} />
                   <Route path="fruits/add" element={<AddFruit />} />
-                  <Route path="fruits/edit/:id" element={<EditFruit />} />
                   <Route path="blogs" element={<AdminBlogs />} />
                   <Route path="blogs/add" element={<AddBlog />} />
                   <Route path="blogs/edit/:id" element={<EditBlog />} />

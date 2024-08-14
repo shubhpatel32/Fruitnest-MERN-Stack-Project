@@ -113,7 +113,7 @@ const AdminReviews = () => {
                                     <td className="py-3 px-4 normal-case">{review.userId.username}</td>
                                     <td className="py-3 px-4 normal-case">{review.userId.email}</td>
                                     <td className="py-3 px-4 normal-case">{review.review}</td>
-                                    <td className="py-3 px-4 normal-case"><button onClick={() => deleteReview(review._id)} className='border-solid border-gray-400 hover:border-gray-600 p-1 rounded-lg'>Delete</button></td>
+                                    <td className="py-3 px-4 normal-case"><button onClick={() => deleteReview(review._id)} className='py-1 px-4 rounded-lg bg-red-500 text-white'>Delete</button></td>
                                 </tr>
                             ))
                         )}

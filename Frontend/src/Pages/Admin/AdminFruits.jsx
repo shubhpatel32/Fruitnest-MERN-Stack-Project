@@ -12,6 +12,8 @@ const AdminFruits = () => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [filtered, setFiltered] = useState(fruits);
+    const [editingFruitId, setEditingFruitId] = useState(null);
+    const [editingFruit, setEditingFruit] = useState({});
 
     const getFruits = async () => {
         try {
@@ -32,7 +34,6 @@ const AdminFruits = () => {
         }
     };
 
-
     useEffect(() => {
         const handler = setTimeout(() => {
             setFiltered(
@@ -46,7 +47,6 @@ const AdminFruits = () => {
             clearTimeout(handler);
         };
     }, [searchTerm, fruits]);
-
 
     useEffect(() => {
         getFruits();
@@ -76,6 +76,45 @@ const AdminFruits = () => {
         }
     };
 
+    const startEditing = (fruit) => {
+        setEditingFruitId(fruit._id);
+        setEditingFruit(fruit);
+    };
+
+    const cancelEditing = () => {
+        setEditingFruitId(null);
+        setEditingFruit({});
+    };
+
+    const saveChanges = async (id) => {
+        try {
+            const response = await fetch(`${apiUrl}/admin/fruits/update/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: authorizationToken
+                },
+                body: JSON.stringify(editingFruit)
+            });
+            if (response.ok) {
+                toast.success("Fruit updated successfully");
+                setFruits(fruits.map(fruit => (fruit._id === id ? editingFruit : fruit)));
+                setFiltered(filtered.map(fruit => (fruit._id === id ? editingFruit : fruit)));
+                cancelEditing();
+            } else {
+                toast.error("Error updating fruit");
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Error updating fruit");
+        }
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setEditingFruit({ ...editingFruit, [name]: value });
+    };
+
     return (
         <div className="p-4 bg-white">
             <div className="flex justify-end text-2xl mb-4">
@@ -102,11 +141,11 @@ const AdminFruits = () => {
                     <thead>
                         <tr className="bg-gray-400 border-b border-gray-700">
                             <th className="py-3 px-4 text-left">Image</th>
-                            <th className="py-3 px-4 text-left">Name</th>
-                            <th className="py-3 px-4 text-left">Price</th>
-                            <th className="py-3 px-4 text-left">Discount</th>
-                            <th className="py-3 px-4 text-left">Stock</th>
-                            <th className="py-3 px-4 text-left">Edit</th>
+                            <th className="py-3 px-4 text-left w-[15%]">Name</th>
+                            <th className="py-3 px-4 text-left w-[15%]">Price</th>
+                            <th className="py-3 px-4 text-left w-[15%]">Discount</th>
+                            <th className="py-3 px-4 text-left w-[15%]">Stock</th>
+                            <th className="py-3 px-4 text-left w-[15%]">Edit</th>
                             <th className="py-3 px-4 text-left">Delete</th>
                         </tr>
                     </thead>
@@ -143,19 +182,87 @@ const AdminFruits = () => {
                                     <td className="py-3 px-4">
                                         <img src={`/${fruit.image}`} alt={fruit.name} className="w-[5rem] h-[5rem] object-contain" />
                                     </td>
-                                    <td className="py-3 px-4 normal-case">{fruit.name}</td>
-                                    <td className="py-3 px-4 normal-case">&#8377;{fruit.price}</td>
-                                    <td className="py-3 px-4 normal-case">{fruit.discount}%</td>
-                                    <td className="py-3 px-4 normal-case">{fruit.stock} kg</td>
                                     <td className="py-3 px-4 normal-case">
-                                        <Link to={`/admin/fruits/edit/${fruit._id}`} className="border-solid border-gray-400 p-1 hover:border-gray-600 rounded-lg">
-                                            Edit
-                                        </Link>
+                                        {editingFruitId === fruit._id ? (
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                value={editingFruit.name}
+                                                onChange={handleInputChange}
+                                                className="p-1 rounded border border-solid border-gray-400"
+                                            />
+                                        ) : (
+                                            fruit.name
+                                        )}
+                                    </td>
+                                    <td className="py-3 px-4 normal-case">
+                                        {editingFruitId === fruit._id ? (
+                                            <input
+                                                type="number"
+                                                name="price"
+                                                value={editingFruit.price}
+                                                onChange={handleInputChange}
+                                                className="p-1 rounded border border-solid border-gray-400"
+                                            />
+                                        ) : (
+                                            `₹${fruit.price}`
+                                        )}
+                                    </td>
+                                    <td className="py-3 px-4 normal-case">
+                                        {editingFruitId === fruit._id ? (
+                                            <input
+                                                type="number"
+                                                name="discount"
+                                                value={editingFruit.discount}
+                                                onChange={handleInputChange}
+                                                className="p-1 rounded border border-solid border-gray-400"
+                                            />
+                                        ) : (
+                                            `${fruit.discount}%`
+                                        )}
+                                    </td>
+                                    <td className="py-3 px-4 normal-case">
+                                        {editingFruitId === fruit._id ? (
+                                            <input
+                                                type="number"
+                                                name="stock"
+                                                value={editingFruit.stock}
+                                                onChange={handleInputChange}
+                                                className="p-1 rounded border border-solid border-gray-400"
+                                            />
+                                        ) : (
+                                            `${fruit.stock} kg`
+                                        )}
+                                    </td>
+                                    <td className="py-3 px-4 normal-case">
+                                        {editingFruitId === fruit._id ? (
+                                            <>
+                                                <button
+                                                    onClick={() => saveChanges(fruit._id)}
+                                                    className="py-1 px-4 mr-2 rounded-lg bg-green-500 text-white"
+                                                >
+                                                    Save
+                                                </button>
+                                                <button
+                                                    onClick={cancelEditing}
+                                                    className="py-1 px-4 rounded-lg bg-gray-500 text-white"
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <button
+                                                onClick={() => startEditing(fruit)}
+                                                className="py-1 px-4 rounded-lg bg-orange-400 text-white"
+                                            >
+                                                Edit
+                                            </button>
+                                        )}
                                     </td>
                                     <td className="py-3 px-4 normal-case">
                                         <button
                                             onClick={() => deleteFruit(fruit._id)}
-                                            className="border-solid border-gray-400 p-1 hover:border-gray-600 rounded-lg"
+                                            className="py-1 px-4 rounded-lg bg-red-500 text-white"
                                         >
                                             Delete
                                         </button>
