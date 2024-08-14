@@ -90,7 +90,7 @@ const AdminUsers = () => {
                     "Content-Type": "application/json",
                     Authorization: authorizationToken
                 },
-                body: JSON.stringify({ username: editingUser.username, phone: editingUser.phone }) // Exclude email from the update
+                body: JSON.stringify({ username: editingUser.username, phone: editingUser.phone })
             });
             const res_data = await response.json();
             if (response.ok) {

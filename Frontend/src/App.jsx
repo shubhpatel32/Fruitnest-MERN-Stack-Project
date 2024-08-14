@@ -7,10 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './Context/CartContext';
 import ProtectedRoute from './Pages/ProtectedRoute';
 
-const AddFruit = lazy(() => import('./Pages/Admin/AddFruit'));
-const AddBlog = lazy(() => import('./Pages/Admin/AddBlog'));
 const EditBlog = lazy(() => import('./Pages/Admin/EditBlog'));
-const AddGalleryItem = lazy(() => import('./Pages/Admin/AddGalleryItem'));
 const AdminLayout = lazy(() => import('./Components/Layouts/AdminLayout'));
 const AdminUsers = lazy(() => import('./Pages/Admin/AdminUsers'));
 const AdminReviews = lazy(() => import('./Pages/Admin/AdminReviews'));
@@ -65,11 +62,8 @@ function App() {
                   <Route path="reviews" element={<AdminReviews />} />
                   <Route path="orders" element={<AdminOrders />} />
                   <Route path="gallery" element={<AdminGallery />} />
-                  <Route path="gallery/add" element={<AddGalleryItem />} />
                   <Route path="fruits" element={<AdminFruits />} />
-                  <Route path="fruits/add" element={<AddFruit />} />
                   <Route path="blogs" element={<AdminBlogs />} />
-                  <Route path="blogs/add" element={<AddBlog />} />
                   <Route path="blogs/edit/:id" element={<EditBlog />} />
                 </Route>
               </Route>

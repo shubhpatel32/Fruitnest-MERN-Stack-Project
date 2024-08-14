@@ -30,7 +30,7 @@ const Header = () => {
             </Link>
 
             <div className="flex items-center justify-between w-full md:w-auto">
-                <nav className={`absolute top-[61px] flex-col md:flex-row md:flex ${isMenuOpen ? 'flex bg-white gap-3' : 'hidden'} md:flex items-center text-[1.5rem] md:text-2xl text-white font-medium w-full left-0 md:items-center md:justify-center md:top-[10px] md:w-auto md:static  divide-y p-4`}>
+                <nav className={`absolute top-[50px] shadow-sm shadow-gray-500 md:shadow-none flex-col md:flex-row md:flex ${isMenuOpen ? 'flex bg-white gap-3' : 'hidden'} md:flex items-center text-[1.5rem] md:text-2xl text-white font-medium w-full left-0 md:items-center md:justify-center md:top-[10px] md:w-auto md:static  divide-y p-4`}>
 
                     <NavLink to="/" onClick={() => setIsMenuOpen(false)} className={({ isActive }) =>
                         `${isActive ? 'text-black' : 'text-white'} hover:text-black bg-gradient-to-l from-red-700 to-yellow-400 w-full text-center  md:bg-none md:w-auto md:mt-0 p-2`}>

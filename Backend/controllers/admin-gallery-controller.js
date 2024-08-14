@@ -12,22 +12,6 @@ const getAllGallery = async (req, res) => {
   }
 };
 
-const addGalleryItem = async (req, res) => {
-  try {
-    const imagePath = req.file ? `/SliderImages/${req.file.filename}` : "";
-
-    const newGalleryItem = new Gallery({
-      path: imagePath,
-    });
-
-    await newGalleryItem.save();
-    res.status(201).json({ message: "Gallery item added successfully" });
-  } catch (error) {
-    console.error("Error adding gallery item", error);
-    res.status(500).json({ message: "Error adding gallery item" });
-  }
-};
-
 const deleteGalleryById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -43,5 +27,4 @@ const deleteGalleryById = async (req, res) => {
 module.exports = {
   getAllGallery,
   deleteGalleryById,
-  addGalleryItem,
 };

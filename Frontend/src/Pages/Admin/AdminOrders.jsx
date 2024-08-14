@@ -89,8 +89,8 @@ const AdminOrders = () => {
 
             if (response.ok) {
                 toast.success("Order updated successfully");
-                getAllOrders();  // Refresh the order list
-                setEditingOrderId(null);  // Exit editing mode
+                getAllOrders();
+                setEditingOrderId(null);
             } else {
                 toast.error("Error updating order");
             }
