@@ -12,6 +12,26 @@ const getAllFruits = async (req, res) => {
   }
 };
 
+const addFruit = async (req, res) => {
+  try {
+    const { name, price, discount, stock } = req.body;
+    const imagePath = `Images/${req.file.filename}`;
+
+    const newFruit = new Fruit({
+      name,
+      price,
+      discount,
+      stock,
+      image: imagePath,
+    });
+
+    await newFruit.save();
+    res.status(201).json({ message: "Fruit added successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to add the fruit" });
+  }
+};
+
 const getFruitById = async (req, res) => {
   try {
     const fruit = await Fruit.findById(req.params.id);
@@ -57,4 +77,5 @@ module.exports = {
   deleteFruitById,
   updateFruitById,
   getFruitById,
+  addFruit,
 };

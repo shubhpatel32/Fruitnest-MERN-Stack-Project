@@ -11,12 +11,12 @@ const AdminOrders = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredOrders, setFilteredOrders] = useState(orders);
+    const [filtered, setFiltered] = useState(orders);
     const [expandedOrderId, setExpandedOrderId] = useState(null);
 
     useEffect(() => {
         const handler = setTimeout(() => {
-            setFilteredOrders(
+            setFiltered(
                 orders.filter((order) =>
                     order._id.startsWith(searchTerm.trim())
                 )
@@ -75,6 +75,22 @@ const AdminOrders = () => {
         setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
     };
 
+    const getStatusColorClass = (status) => {
+        switch (status) {
+            case 'Delivered':
+                return 'bg-green-100 border border-solid border-green-700 text-green-700';
+            case 'Shipped':
+                return 'bg-blue-100 border border-solid border-blue-700 text-blue-700';
+            case 'Cancelled':
+                return 'bg-red-100 border border-solid border-red-700 text-red-700';
+            case 'Pending':
+                return 'bg-orange-100 border border-solid border-orange-700 text-orange-700';
+            default:
+                return 'bg-gray-100 border border-solid border-gray-700 text-gray-700';
+        }
+    };
+
+
     return (
         <div className="p-4 bg-white">
             <div className="flex justify-end text-2xl mb-4">
@@ -87,6 +103,10 @@ const AdminOrders = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="ml-4 py-2 rounded bg-transparent normal-case w-full"
                     />
+                    <i onClick={() => {
+                        setFiltered(orders);
+                        setSearchTerm('')
+                    }} className="fa fa-times flex items-center mr-4 text-gray-700 text-2xl"></i>
                 </div>
             </div>
             <div className="overflow-x-auto">
@@ -120,13 +140,18 @@ const AdminOrders = () => {
                                 </tr>
                             ))
                         ) : (
-                            filteredOrders.map((order, index) => (
+                            filtered.map((order, index) => (
                                 <React.Fragment key={index}>
-                                    <tr className="border border-solid">
+                                    <tr className="border border-solid h-24">
                                         <td className="py-3 px-4 normal-case">{order._id}</td>
                                         <td className="py-3 px-4 normal-case">{order.userId.username}</td>
                                         <td className="py-3 px-4 normal-case">{order.userId.email}</td>
-                                        <td className="py-3 px-4 normal-case">{order.status}</td>
+                                        <td className="py-3 px-4 rounded-lg normal-case">
+                                            <span className={`${getStatusColorClass(order.status)} p-3 px-5 rounded-3xl text-center`}>
+                                                {order.status}
+                                            </span>
+                                        </td>
+
                                         <td className="py-3 px-4 normal-case">{order.payment ? "Paid" : "Unpaid"}</td>
                                         <td className="py-3 px-4 normal-case">{order.date}</td>
                                         <td className="py-3 px-4 normal-case">

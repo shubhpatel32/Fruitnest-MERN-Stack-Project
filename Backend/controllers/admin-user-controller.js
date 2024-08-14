@@ -2,9 +2,11 @@ const User = require("../models/user-models");
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({ isAdmin: false }, { password: 0 }).sort({
-      username: 1,
-    });
+    const users = await User.find({ isAdmin: false }, { password: 0 })
+      .sort({
+        username: 1,
+      })
+      .collation({ locale: "en" });
     if (!users || users.length === 0) {
       return res.status(404).json({ message: "No users found" });
     }

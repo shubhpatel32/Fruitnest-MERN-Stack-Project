@@ -3,6 +3,7 @@ import { useAuth } from '../../Context/AuthContext';
 import { toast } from 'react-toastify';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { Link } from 'react-router-dom';
 
 const AdminGallery = () => {
     const { authorizationToken } = useAuth();
@@ -72,6 +73,9 @@ const AdminGallery = () => {
     return (
         <div className="p-4 bg-white">
             <div className="flex justify-end text-2xl mb-4">
+                <div className='flex justify-center items-center mr-6'>
+                    <Link to="/admin/gallery/add" className="bg-[#ff9421] rounded-lg py-4 px-6 hover:bg-[#cf1a1a] text-white">Add Image</Link>
+                </div>
                 <div className="border border-solid border-gray-700 flex w-1/4 p-2">
                     <i className="fa fa-search flex items-center mr-0 text-gray-700"></i>
                     <input
@@ -81,15 +85,19 @@ const AdminGallery = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="ml-4 py-2 rounded bg-transparent normal-case w-full"
                     />
+                    <i onClick={() => {
+                        setFiltered(gallery);
+                        setSearchTerm('')
+                    }} className="fa fa-times flex items-center mr-4 text-gray-700 text-2xl"></i>
                 </div>
             </div>
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white normal-case border border-gray-700 border-solid">
                     <thead>
                         <tr className='bg-gray-400 border-b border-gray-700'>
+                            <th className='py-3 px-4 text-left'>Sr. No.</th>
                             <th className='py-3 px-4 text-left'>Id</th>
                             <th className='py-3 px-4 text-left'>Image</th>
-                            <th className="py-3 px-4 text-left ">Edit</th>
                             <th className="py-3 px-4 text-left ">Delete</th>
                         </tr>
                     </thead>
@@ -98,24 +106,28 @@ const AdminGallery = () => {
                             Array.from({ length: 5 }).map((_, index) => (
                                 <tr key={index} className="border border-solid">
                                     <td className="py-3 px-4 normal-case"><Skeleton width={60} height={20} /></td>
+                                    <td className="py-3 px-4 normal-case"><Skeleton width={60} height={20} /></td>
                                     <td className="py-3 px-4">
                                         <Skeleton width={112} height={112} />
                                     </td>
-                                    <td className="py-3 px-4 normal-case"><Skeleton width={60} height={20} /></td>
                                     <td className="py-3 px-4 normal-case"><Skeleton width={60} height={20} /></td>
                                 </tr>
                             ))
                         ) : (
                             filtered.map((item, index) => (
                                 <tr key={index} className="border border-solid">
-                                    <td className="py-3 px-4 normal-case"> {item._id}</td>
+                                    <td className="py-3 px-4 normal-case">{index + 1}</td>
+                                    <td className="py-3 px-4 normal-case">{item._id}</td>
                                     <td className="py-3 px-4">
                                         {item.path && (
-                                            <img src={item.path} alt="" className="w-[7rem] h-[7rem] object-contain" />
+                                            <img src={`${item.path}`} alt="" className="w-[10rem] h-[10rem] object-contain" />
                                         )}
                                     </td>
-                                    <td className="py-3 px-4 normal-case"><button className='border-solid border-gray-400 hover:border-gray-600 p-1 rounded-lg'>Edit</button></td>
-                                    <td className="py-3 px-4 normal-case"><button onClick={() => deleteGalleryItem(item._id)} className='border-solid border-gray-400 hover:border-gray-600 p-1 rounded-lg'>Delete</button></td>
+                                    <td className="py-3 px-4 normal-case">
+                                        <button onClick={() => deleteGalleryItem(item._id)} className='border-solid border-gray-400 hover:border-gray-600 p-1 rounded-lg'>
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
                             ))
                         )}

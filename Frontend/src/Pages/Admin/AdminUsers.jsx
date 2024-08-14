@@ -82,6 +82,10 @@ const AdminUsers = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="ml-4 py-2 rounded bg-transparent normal-case w-full"
                     />
+                    <i onClick={() => {
+                        setFiltered(users);
+                        setSearchTerm('')
+                    }} className="fa fa-times flex items-center mr-4 text-gray-700 text-2xl"></i>
                 </div>
             </div>
             <div className="overflow-x-auto">

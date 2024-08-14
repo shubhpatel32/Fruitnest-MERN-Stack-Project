@@ -3,6 +3,7 @@ import { useAuth } from '../../Context/AuthContext';
 import { toast } from 'react-toastify';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { Link } from 'react-router-dom';
 
 const AdminBlogs = () => {
     const { authorizationToken } = useAuth();
@@ -73,6 +74,9 @@ const AdminBlogs = () => {
     return (
         <div className="p-4 bg-white">
             <div className="flex justify-end text-2xl mb-4">
+                <div className='flex justify-center items-center mr-6'>
+                    <Link to="/admin/blogs/add" className="bg-[#ff9421] rounded-lg py-4 px-6 hover:bg-[#cf1a1a] text-white">Add Blog</Link>
+                </div>
                 <div className="border border-solid border-gray-700 flex w-1/4 p-2">
                     <i className="fa fa-search flex items-center mr-0 text-gray-700"></i>
                     <input
@@ -82,6 +86,10 @@ const AdminBlogs = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="ml-4 py-2 rounded bg-transparent normal-case w-full"
                     />
+                    <i onClick={() => {
+                        setFiltered(blogs);
+                        setSearchTerm('')
+                    }} className="fa fa-times flex items-center mr-4 text-gray-700 text-2xl cursor-pointer"></i>
                 </div>
             </div>
             <div className="overflow-x-auto">
@@ -118,21 +126,23 @@ const AdminBlogs = () => {
                                     <td className="py-3 px-4">
                                         {blog.image && (
 
-                                            <img src={`/${blog.image}`} alt="Blog" className="w-[5rem] h-[5rem] object-contain" />
+                                            <img src={`/${blog.image}`} alt="Blog" className="w-[10rem] h-[8rem] object-contain" />
                                         )}
                                     </td>
                                     <td className="py-3 px-4 text-left normal-case">{blog.author}</td>
                                     <td className="py-3 px-4 text-left normal-case">{blog.date}</td>
-                                    <td className="py-3 px-4 normal-case"><button className='border-solid border-gray-400 hover:border-gray-600 p-1 rounded-lg'>Edit</button></td>
+                                    <td className="py-3 px-4 normal-case"><Link to={`/admin/blogs/edit/${blog._id}`} className='border-solid border-gray-400 hover:border-gray-600 p-1 rounded-lg'>Edit</Link></td>
+
                                     <td className="py-3 px-4 normal-case"><button onClick={() => deleteBlog(blog._id)} className='border-solid border-gray-400 hover:border-gray-600 p-1 rounded-lg'>Delete</button></td>
                                 </tr>
                             ))
                         )}
                     </tbody>
                 </table>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 
 export default AdminBlogs;
+

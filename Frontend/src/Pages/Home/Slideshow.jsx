@@ -47,21 +47,35 @@ function Slideshow() {
         getGallery();
     }, []);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            nextSlide();
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, [currentIndex]);
+
     const s = gallery.slice(0, 5);
     const slides = s.map((slide) => slide["path"]);
 
     return (
-        <div className='h-[500px] md:min-h-screen w-screen m-auto pt-28 md:pt-32 px-4 md:px-12 relative group transition ease-in-out duration-300'>
-            {loading ? (
-                <Skeleton height='100%' width='100%' />
-            ) : (
-                <img
-                    src={slides[currentIndex]}
-                    alt={`Slide ${currentIndex}`}
-                    className='w-full h-full rounded-2xl object-cover duration-200'
-                    loading="lazy"
-                />
-            )}
+        <div className='h-[500px] md:min-h-screen w-screen m-auto pt-28 md:pt-32 px-4 md:px-12 relative group'>
+            <div className='relative w-full h-full overflow-hidden'>
+                {loading ? (
+                    <Skeleton height='100%' width='100%' />
+                ) : (
+                    slides.map((slide, index) => (
+                        <img
+                            key={index}
+                            src={slide}
+                            alt={`Slide ${index}`}
+                            className={`absolute w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'
+                                }`}
+                            loading="lazy"
+                        />
+                    ))
+                )}
+            </div>
 
             <div className='hidden group-hover:block absolute top-[55%] -translate-x-0 translate-y-[-50%] left-5 md:left-14 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
                 <BsChevronCompactLeft onClick={prevSlide} size={30} />

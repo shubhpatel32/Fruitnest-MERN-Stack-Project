@@ -7,6 +7,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './Context/CartContext';
 import ProtectedRoute from './Pages/ProtectedRoute';
 import EditFruit from './Pages/Admin/EditFruit';
+import AddFruit from './Pages/Admin/AddFruit';
+import AddBlog from './Pages/Admin/AddBlog';
+import EditBlog from './Pages/Admin/EditBlog';
+import AddGalleryItem from './Pages/Admin/AddGalleryItem';
 const AdminLayout = lazy(() => import('./Components/Layouts/AdminLayout'));
 const AdminUsers = lazy(() => import('./Pages/Admin/AdminUsers'));
 const AdminReviews = lazy(() => import('./Pages/Admin/AdminReviews'));
@@ -62,12 +66,16 @@ function App() {
                   <Route path="users" element={<AdminUsers />} />
                   <Route path="reviews" element={<AdminReviews />} />
                   <Route path="orders" element={<AdminOrders />} />
-                  <Route path="fruits" element={<AdminFruits />} />
-                  <Route path="gallery" element={<AdminGallery />} />
-                  <Route path="blogs" element={<AdminBlogs />} />
-                  <Route path="users/edit/:id" element={<EditUser />} />
                   <Route path="orders/edit/:id" element={<EditOrder />} />
+                  <Route path="gallery" element={<AdminGallery />} />
+                  <Route path="gallery/add" element={<AddGalleryItem />} />
+                  <Route path="users/edit/:id" element={<EditUser />} />
+                  <Route path="fruits" element={<AdminFruits />} />
+                  <Route path="fruits/add" element={<AddFruit />} />
                   <Route path="fruits/edit/:id" element={<EditFruit />} />
+                  <Route path="blogs" element={<AdminBlogs />} />
+                  <Route path="blogs/add" element={<AddBlog />} />
+                  <Route path="blogs/edit/:id" element={<EditBlog />} />
                 </Route>
               </Route>
 

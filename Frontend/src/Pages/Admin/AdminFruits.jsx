@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../Context/AuthContext';
@@ -12,7 +11,7 @@ const AdminFruits = () => {
     const [fruits, setFruits] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filtered, setFiltered] = useState([]);
+    const [filtered, setFiltered] = useState(fruits);
 
     const getFruits = async () => {
         try {
@@ -32,17 +31,26 @@ const AdminFruits = () => {
             setLoading(false);
         }
     };
-    useEffect(() => {
-        getFruits();
-    }, [fruits]);
+
 
     useEffect(() => {
-        setFiltered(
-            fruits.filter(fruit =>
-                fruit.name.toLowerCase().startsWith(searchTerm.toLowerCase().trim())
-            )
-        );
+        const handler = setTimeout(() => {
+            setFiltered(
+                fruits.filter((item) =>
+                    item.name.toLowerCase().startsWith(searchTerm.toLowerCase().trim())
+                )
+            );
+            setLoading(false);
+        }, 300);
+        return () => {
+            clearTimeout(handler);
+        };
     }, [searchTerm, fruits]);
+
+
+    useEffect(() => {
+        getFruits();
+    }, []);
 
     const deleteFruit = async (id) => {
         const confirmed = window.confirm("Are you sure you want to delete this fruit?");
@@ -71,6 +79,9 @@ const AdminFruits = () => {
     return (
         <div className="p-4 bg-white">
             <div className="flex justify-end text-2xl mb-4">
+                <div className='flex justify-center items-center mr-6'>
+                    <Link to="/admin/fruits/add" className="bg-[#ff9421] rounded-lg py-4 px-6 hover:bg-[#cf1a1a] text-white">Add Item</Link>
+                </div>
                 <div className="border border-solid border-gray-700 flex w-1/4 p-2">
                     <i className="fa fa-search flex items-center mr-0 text-gray-700"></i>
                     <input
@@ -80,6 +91,10 @@ const AdminFruits = () => {
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="ml-4 py-2 rounded bg-transparent normal-case w-full"
                     />
+                    <i onClick={() => {
+                        setFiltered(fruits);
+                        setSearchTerm('')
+                    }} className="fa fa-times flex items-center mr-4 text-gray-700 text-2xl cursor-pointer"></i>
                 </div>
             </div>
             <div className="overflow-x-auto">

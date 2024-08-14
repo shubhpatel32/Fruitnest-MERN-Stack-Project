@@ -48,8 +48,12 @@ function Shop() {
                         placeholder="Search"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-10 py-2 rounded bg-transparent normal-case w-full"
+                        className="pl-4 py-2 rounded bg-transparent normal-case w-full"
                     />
+                    <i onClick={() => {
+                        setFilteredItems(shopItems);
+                        setSearchTerm('')
+                    }} className="fa fa-times flex items-center mr-4 text-2xl cursor-pointer text-[#a8a297]"></i>
                 </div>
             </section>
 
