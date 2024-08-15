@@ -59,6 +59,6 @@ const PORT = 5000;
 connectDb().then(() => {
   app.listen(PORT, (req, res) => {
     console.log(`server is running on ${PORT}`);
-    // seed.seedGallery();
+    // seed.seedFruits();
   });
 });

@@ -266,7 +266,7 @@ module.exports.fruits = [
   },
   {
     name: "Litchi",
-    price: 90,
+    price: 170,
     image: "Images/litchi.jpg",
     stock: 85,
   },
@@ -300,5 +300,53 @@ module.exports.fruits = [
     price: 100,
     image: "Images/pear.jpg",
     stock: 85,
+  },
+  {
+    name: "Gooseberry",
+    price: 60,
+    image: "Images/gooseberry.jpg",
+    stock: 50,
+  },
+  {
+    name: "Mulberry",
+    price: 90,
+    image: "Images/mulberry.avif",
+    stock: 40,
+  },
+  {
+    name: "Avocado",
+    price: 120,
+    image: "Images/avocado.webp",
+    stock: 65,
+  },
+  {
+    name: "Coconut",
+    price: 40,
+    image: "Images/coconut.jpg",
+    stock: 80,
+  },
+  {
+    name: "Dragonfruit",
+    price: 180,
+    image: "Images/dragonfruit.jpg",
+    stock: 45,
+  },
+  {
+    name: "Jackfruit",
+    price: 70,
+    image: "Images/jackfruit.avif",
+    stock: 30,
+  },
+  {
+    name: "Blueberry",
+    price: 200,
+    image: "Images/blueberry.jpg",
+    stock: 55,
+  },
+  {
+    name: "Starfruit",
+    price: 100,
+    image: "Images/starfruit.jpg",
+    stock: 25,
   },
 ];
