@@ -12,7 +12,7 @@ const getAllOrders = async (req, res) => {
     }
     const formattedOrders = orders.map((order) => ({
       ...order.toObject(),
-      date: moment(order.date).format("Do MMM, YYYY"),
+      date: moment(order.date).format("Do MMM, YYYY [at] h:mm A"),
     }));
 
     return res.status(200).json(formattedOrders);

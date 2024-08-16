@@ -14,9 +14,15 @@ const orderSchema = new Schema({
   date: { type: Date, default: Date.now },
   payment: {
     type: String,
-    enum: ["Paid", "Unpaid", "Failed"],
+    enum: ["Paid", "Unpaid", "Failed", "Refunded"],
     default: "Unpaid",
   },
+  paymentMethod: {
+    type: String,
+    enum: ["Razorpay", "COD"],
+    default: "Razorpay",
+  },
+  razorpayOrderId: { type: String },
 });
 
 const Order = model("Order", orderSchema);

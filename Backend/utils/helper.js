@@ -18,6 +18,7 @@ const seedReviews = async () => {
   try {
     await Review.deleteMany({});
     await Review.insertMany(reviews);
+    console.log("Reviews seeded");
   } catch (error) {
     console.error("Error in inserting reviews:", error);
   }
@@ -36,6 +37,7 @@ const seedBlogs = async () => {
   try {
     await Blog.deleteMany({});
     await Blog.insertMany(blogPosts);
+    console.log("Blogs seeded");
   } catch (error) {
     console.error("Error in inserting blogs:", error);
   }
@@ -45,6 +47,7 @@ const seedGallery = async () => {
   try {
     await Gallery.deleteMany({});
     await Gallery.insertMany(gallery);
+    console.log("Gallery seeded");
   } catch (error) {
     console.error("Error in inserting gallery images:", error);
   }
@@ -54,6 +57,7 @@ const seedFruits = async () => {
   try {
     await Fruit.deleteMany({});
     await Fruit.insertMany(fruits);
+    console.log("Fruits seeded");
   } catch (error) {
     console.error("Error in inserting fruits:", error);
   }

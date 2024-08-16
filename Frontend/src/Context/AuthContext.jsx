@@ -82,14 +82,14 @@ export const AuthProvider = ({ children }) => {
     }, [isLoggedIn, token]);
 
     // useEffect(() => {
-    //     if (isLoggedIn) {
-    //         userAuthentication();
-    //     }
-    // }, [user])
+    //     getOrders();
+    // }, [orders])
+
+
 
 
     return (
-        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, orders, addOrder, authorizationToken, loading, setUser }}>
+        <AuthContext.Provider value={{ storeTokenInLS, logoutUser, isLoggedIn, user, orders, addOrder, authorizationToken, loading, setUser, getOrders }}>
             {children}
         </AuthContext.Provider>
     );

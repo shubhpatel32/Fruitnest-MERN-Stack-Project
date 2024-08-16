@@ -142,12 +142,13 @@ const AdminOrders = () => {
                     <thead>
                         <tr className="bg-gray-400 border-b border-gray-700">
                             <th className="py-3 px-4 text-left">Order ID</th>
-                            <th className="py-3 px-4 text-left">Username</th>
                             <th className="py-3 px-4 text-left">Email</th>
-                            <th className="py-3 px-4 text-left w-[12%]">Status</th>
-                            <th className="py-3 px-4 text-left w-[12%]">Payment</th>
-                            <th className="py-3 px-4 text-left">Date</th>
-                            <th className="py-3 px-4 text-left w-[12%]">Edit</th>
+                            <th className="py-3 px-4 text-left">Amount</th>
+                            <th className="py-3 px-4 text-left w-[10%]">Status</th>
+                            <th className="py-3 px-4 text-left w-[10%]">Payment</th>
+                            <th className="py-3 px-4 text-left w-[10%]">Payment Method</th>
+                            <th className="py-3 px-4 text-left w-[9%]">Date</th>
+                            <th className="py-3 px-4 text-left w-[11%]">Edit</th>
                             <th className="py-3 px-4 text-left">Delete</th>
                         </tr>
                     </thead>
@@ -160,6 +161,7 @@ const AdminOrders = () => {
                                     <td className="py-3 px-4"><Skeleton width={150} /></td>
                                     <td className="py-3 px-4"><Skeleton width={80} /></td>
                                     <td className="py-3 px-4"><Skeleton width={80} /></td>
+                                    <td className="py-3 px-4"><Skeleton width={80} /></td>
                                     <td className="py-3 px-4"><Skeleton width={100} /></td>
                                     <td className="py-3 px-4"><Skeleton width={60} /></td>
                                     <td className="py-3 px-4"><Skeleton width={60} /></td>
@@ -167,10 +169,10 @@ const AdminOrders = () => {
                             ))
                         ) : (
                             filtered.map((order, index) => (
-                                <tr key={index} className="border border-solid h-24">
+                                <tr key={index} className="border border-solid h-28">
                                     <td className="py-3 px-4 normal-case">{order._id}</td>
-                                    <td className="py-3 px-4 normal-case">{order.userId.username}</td>
                                     <td className="py-3 px-4 normal-case">{order.userId.email}</td>
+                                    <td className="py-3 px-4 normal-case">&#8377;{order.amount}</td>
                                     <td className="py-3 px-4 rounded-lg normal-case">
                                         {editingOrderId === order._id ? (
                                             <select
@@ -202,12 +204,14 @@ const AdminOrders = () => {
                                             >
                                                 <option value="Paid">Paid</option>
                                                 <option value="Unpaid">Unpaid</option>
+                                                <option value="Unpaid">Refunded</option>
                                                 <option value="Failed">Failed</option>
                                             </select>
                                         ) : (
-                                            order.payment ? "Paid" : "Unpaid"
+                                            order.payment ? order.payment : "Unpaid"
                                         )}
                                     </td>
+                                    <td className="py-3 px-4 normal-case">{order.paymentMethod}</td>
                                     <td className="py-3 px-4 normal-case">{order.date}</td>
                                     <td className="py-3 px-4">
                                         {editingOrderId === order._id ? (
