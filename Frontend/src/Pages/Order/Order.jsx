@@ -255,13 +255,13 @@ const Order = () => {
                         </div>
                     </div>
 
-                    <div className="my-4 flex justify-center gap-x-8 text-[1.5rem]">
+                    <div className="my-4 flex flex-col md:flex-row justify-center gap-x-8 text-[1.5rem]">
                         <label className="">Payment Method:</label>
                         <label className="flex items-center">
                             <input type="radio" value="Razorpay" checked={paymentMethod === "Razorpay"} onChange={handlePaymentMethodChange} className="mr-2" />
                             Razorpay
                         </label>
-                        <label className="flex items-center">
+                        <label className="flex  items-center">
                             <input type="radio" value="COD" checked={paymentMethod === "COD"} onChange={handlePaymentMethodChange} className="mr-2" />
                             Cash on Delivery
                         </label>
