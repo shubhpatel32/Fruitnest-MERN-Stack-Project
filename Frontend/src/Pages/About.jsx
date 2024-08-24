@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Heading from '../../Components/Heading/Heading';
-import { useAuth } from '../../Context/AuthContext';
+import Heading from '../Components/Heading';
+import { useAuth } from '../Context/AuthContext';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 

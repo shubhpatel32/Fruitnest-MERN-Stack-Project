@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../../Context/AuthContext';
+import { useAuth } from '../Context/AuthContext';
 
 const AdminLayout = () => {
     const { user, loading } = useAuth();

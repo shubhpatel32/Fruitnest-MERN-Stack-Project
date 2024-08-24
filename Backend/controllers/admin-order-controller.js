@@ -1,6 +1,6 @@
 const Order = require("../models/order-model");
 const moment = require("moment");
-const sendEmail = require("../utils/sendEmail");
+const { sendEmail, updateOrderFormat } = require("../utils/sendEmail");
 
 const getAllOrders = async (req, res) => {
   try {
@@ -48,11 +48,8 @@ const updateOrderById = async (req, res) => {
     }
 
     const subject = "Order Status Updated";
-    const { email, firstname } = updatedData.address;
-    const html = ` <p>Dear ${firstname},</p>
-      <p>Your order status has been updated. Please log in to your account to check the details.</p>
-      <p>Thank you for shopping with us!</p>
-      <p>Best regards,<br>Fruitnest</p>`;
+    const { email } = updatedData.address;
+    const html = updateOrderFormat(updatedData);
 
     await sendEmail(email, subject, html);
     return res.status(200).json(updatedData);

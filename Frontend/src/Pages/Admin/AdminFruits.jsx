@@ -101,6 +101,7 @@ const AdminFruits = () => {
                 setFruits(fruits.map(fruit => (fruit._id === id ? editingFruit : fruit)));
                 setFiltered(filtered.map(fruit => (fruit._id === id ? editingFruit : fruit)));
                 cancelEditing();
+                getFruits();
             } else {
                 toast.error("Error updating fruit");
             }
@@ -223,6 +224,7 @@ const AdminFruits = () => {
                                             <input
                                                 type="number"
                                                 name="stock"
+                                                min="0"
                                                 value={editingFruit.stock}
                                                 onChange={handleInputChange}
                                                 className="p-1 rounded border border-solid border-gray-400"

@@ -26,6 +26,7 @@ const updateFruitById = async (req, res) => {
   try {
     const { id } = req.params;
     const updatedData = req.body;
+    updatedData.stock = Math.max(updatedData.stock, 0);
 
     const updatedFruit = await Fruit.findByIdAndUpdate(
       id,

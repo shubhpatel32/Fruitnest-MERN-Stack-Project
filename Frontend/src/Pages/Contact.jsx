@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Heading from '../../Components/Heading/Heading';
+import Heading from '../Components/Heading';
 
 const Contact = () => {
 

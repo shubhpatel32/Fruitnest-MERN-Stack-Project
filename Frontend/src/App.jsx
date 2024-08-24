@@ -1,35 +1,35 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import './App.css';
-import Footer from './Components/Footer/Footer';
-import Header from './Components/Header/Header';
-import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
+import Footer from './Components/Footer';
+import Header from './Components/Header';
+import ScrollToTop from './Components/ScrollToTop';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './Context/CartContext';
 import ProtectedRoute from './Pages/ProtectedRoute';
 
 const EditBlog = lazy(() => import('./Pages/Admin/EditBlog'));
-const AdminLayout = lazy(() => import('./Components/Layouts/AdminLayout'));
+const AdminLayout = lazy(() => import('./Components/AdminLayout'));
 const AdminUsers = lazy(() => import('./Pages/Admin/AdminUsers'));
 const AdminReviews = lazy(() => import('./Pages/Admin/AdminReviews'));
 const AdminOrders = lazy(() => import('./Pages/Admin/AdminOrders'));
 const AdminFruits = lazy(() => import('./Pages/Admin/AdminFruits'));
 const AdminBlogs = lazy(() => import('./Pages/Admin/AdminBlogs'));
 const AdminGallery = lazy(() => import('./Pages/Admin/AdminGallery'));
-const Home = lazy(() => import('./Pages/Home/Home'));
-const Shop = lazy(() => import('./Pages/Shop/Shop'));
-const About = lazy(() => import('./Pages/About/About'));
-const Review = lazy(() => import('./Pages/Review/Review'));
-const Blog = lazy(() => import('./Pages/Blog/Blog'));
-const Contact = lazy(() => import('./Pages/Contact/Contact'));
-const Login = lazy(() => import('./Pages/Login/Login'));
-const Signup = lazy(() => import('./Pages/SignUp/Signup'));
-const Error = lazy(() => import('./Pages/Error/Error'));
-const Logout = lazy(() => import('./Pages/Logout/Logout'));
-const Profile = lazy(() => import('./Pages/Profile/Profile'));
-const EditProfile = lazy(() => import('./Pages/Profile/EditProfile'));
-const Order = lazy(() => import('./Pages/Order/Order'));
-const MyOrders = lazy(() => import('./Pages/MyOrders/MyOrders'));
-const Cart = lazy(() => import('./Pages/Cart/Cart'));
+const Home = lazy(() => import('./Pages/Home'));
+const Shop = lazy(() => import('./Pages/Shop'));
+const About = lazy(() => import('./Pages/About'));
+const Review = lazy(() => import('./Pages/Review'));
+const Blog = lazy(() => import('./Pages/Blog'));
+const Contact = lazy(() => import('./Pages/Contact'));
+const Login = lazy(() => import('./Pages/Login'));
+const Signup = lazy(() => import('./Pages/Signup'));
+const Error = lazy(() => import('./Pages/Error'));
+const Logout = lazy(() => import('./Pages/Logout'));
+const Profile = lazy(() => import('./Pages/Profile'));
+const EditProfile = lazy(() => import('./Pages/EditProfile'));
+const Order = lazy(() => import('./Pages/Order'));
+const MyOrders = lazy(() => import('./Pages/MyOrders'));
+const Cart = lazy(() => import('./Pages/Cart'));
 
 function App() {
 

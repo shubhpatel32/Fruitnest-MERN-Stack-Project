@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useCart } from '../../Context/CartContext';
-import { useAuth } from '../../Context/AuthContext';
+import { useCart } from '../Context/CartContext';
+import { useAuth } from '../Context/AuthContext';
 
 const Header = () => {
     const { cartItems } = useCart();
@@ -139,7 +139,7 @@ const Header = () => {
                     </>)
                 }
             </div>
-        </header >
+        </header>
     );
 };
 

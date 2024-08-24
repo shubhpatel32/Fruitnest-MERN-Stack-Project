@@ -35,11 +35,25 @@ const cancelOrderFormat = (order) => {
   return `
   <div>
     <h3>Dear ${firstname},</h3>
-    <h3>Your Order has been Cancelled</h3>
+    <h3>Your order has been cancelled</h3>
     <p><strong>Order ID:</strong> ${order._id}</p>
     <p><strong>Order Status:</strong> ${order.status}</p>
     <p><strong>Payment:</strong> ${order.payment}</p>
     <p>Your order has been successfully cancelled. If you have any questions, please contact our support team.</p>
+  </div>
+`;
+};
+
+const updateOrderFormat = (order) => {
+  const { firstname } = order.address;
+  return `
+  <div>
+    <h3>Dear ${firstname},</h3>
+    <h3>Your order status has been updated</h3>
+    <p><strong>Order ID:</strong> ${order._id}</p>
+    <p><strong>Order Status:</strong> ${order.status}</p>
+    <p><strong>Payment:</strong> ${order.payment}</p>
+    <p>Your order status has been updated. If you have any questions, please contact our support team.</p>
   </div>
 `;
 };
@@ -90,4 +104,4 @@ const format = (newOrder) => {
 `;
 };
 
-module.exports = { sendEmail, format, cancelOrderFormat };
+module.exports = { sendEmail, format, cancelOrderFormat, updateOrderFormat };

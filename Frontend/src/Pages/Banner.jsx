@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useCart } from '../../Context/CartContext';
+import { useCart } from '../Context/CartContext';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
@@ -16,7 +16,7 @@ function Banner() {
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center w-full mt-8">
                     {loading ? (
-                        Array.from({ length: 3 }).map((_, index) => (
+                        Array.from({ length: 6 }).map((_, index) => (
                             <div key={index} className="h-[300px] w-full flex flex-col justify-center rounded-lg py-5 pb-[15px] shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297]">
                                 <Skeleton height={160} className="w-full" />
                                 <div className="text-center pt-6">

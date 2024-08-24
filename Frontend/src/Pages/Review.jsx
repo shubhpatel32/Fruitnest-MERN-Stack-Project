@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Heading from "../../Components/Heading/Heading";
-import { useAuth } from "../../Context/AuthContext";
+import Heading from "../Components/Heading";
+import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Skeleton from 'react-loading-skeleton';

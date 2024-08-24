@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Heading from '../../Components/Heading/Heading';
-import { useCart } from '../../Context/CartContext';
+import Heading from '../Components/Heading';
+import { useCart } from '../Context/CartContext';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../Context/AuthContext';
+import { useAuth } from '../Context/AuthContext';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 

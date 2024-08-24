@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useCart } from '../../Context/CartContext';
-import Heading from '../../Components/Heading/Heading';
+import { useCart } from '../Context/CartContext';
+import Heading from '../Components/Heading';
 import { Link } from 'react-router-dom';
 
 function Cart() {
