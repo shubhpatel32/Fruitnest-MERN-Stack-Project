@@ -2,7 +2,7 @@ const Order = require("../models/order-model");
 const crypto = require("crypto");
 const User = require("../models/user-models");
 const Fruit = require("../models/fruit-model");
-const moment = require("moment");
+const moment = require("moment-timezone");
 
 const { sendEmail, format, cancelOrderFormat } = require("../utils/sendEmail");
 
@@ -128,7 +128,9 @@ const showOrder = async (req, res) => {
 
     const formattedOrders = orders.map((order) => ({
       ...order.toObject(),
-      date: moment(order.date).format("Do MMM, YYYY [at] h:mm A"),
+      date: moment(order.date)
+        .tz("Asia/Kolkata")
+        .format("Do MMM, YYYY [at] h:mm A"),
     }));
 
     res.status(200).json(formattedOrders);
