@@ -69,7 +69,7 @@ function Slideshow() {
                             key={index}
                             src={slide}
                             alt={`Slide ${index}`}
-                            className={`absolute w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'
+                            className={`absolute w-full h-full object-cover transition-opacity duration-1000 ease-in-out rounded-2xl ${index === currentIndex ? 'opacity-100' : 'opacity-0'
                                 }`}
                             loading="lazy"
                         />

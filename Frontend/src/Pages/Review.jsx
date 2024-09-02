@@ -137,7 +137,7 @@ function Review() {
                     onSubmit={handleSubmit}
                     className="m-4 p-4 flex flex-col w-full sm:w-[70%] md:w-[40%] border-solid border-[#a8a297] rounded-lg border-2"
                 >
-                    <h1 className="text-center text-3xl mb-3 font-semibold">Write a Review</h1>
+                    <h1 className="text-center text-3xl mb-3 font-semibold normal-case">Write a Review</h1>
 
                     <section className="grid grid-cols-1 gap-2 sm:gap-8  px-4 py-0 items-start">
                         <div className="grid grid-cols-1 gap-1">
