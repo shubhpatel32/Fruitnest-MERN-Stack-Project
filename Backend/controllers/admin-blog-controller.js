@@ -1,6 +1,28 @@
 const Blog = require("../models/blog-model");
 const moment = require("moment");
 
+const addBlog = async (req, res) => {
+  try {
+    const { title, author, description } = req.body;
+    const imageUrl = req.file.path;
+
+    const newBlog = new Blog({
+      title,
+      author,
+      description,
+      image: imageUrl,
+      date: new Date(),
+    });
+
+    await newBlog.save();
+
+    res.status(201).json({ message: "Blog added successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error adding blog" });
+  }
+};
+
 const getAllBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find({}).sort({ date: -1 });
@@ -64,4 +86,5 @@ module.exports = {
   deleteBlogById,
   updateBlogById,
   getBlogById,
+  addBlog
 };

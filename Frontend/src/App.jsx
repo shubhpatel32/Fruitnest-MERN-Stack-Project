@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import './App.css';
 import Footer from './Components/Footer';
 import Header from './Components/Header';
@@ -7,6 +7,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { CartProvider } from './Context/CartContext';
 import ProtectedRoute from './Pages/ProtectedRoute';
 
+const AddFruit = lazy(() => import('./Pages/Admin/AddFruit'));
+const AddBlog = lazy(() => import('./Pages/Admin/AddBlog.jsx'));
+const AddGalleryItem = lazy(() => import('./Pages/Admin/AddGalleryItem'));
 const EditBlog = lazy(() => import('./Pages/Admin/EditBlog'));
 const AdminLayout = lazy(() => import('./Components/AdminLayout'));
 const AdminUsers = lazy(() => import('./Pages/Admin/AdminUsers'));
@@ -62,8 +65,11 @@ function App() {
                   <Route path="reviews" element={<AdminReviews />} />
                   <Route path="orders" element={<AdminOrders />} />
                   <Route path="gallery" element={<AdminGallery />} />
+                  <Route path="gallery/add" element={<AddGalleryItem />} />
                   <Route path="fruits" element={<AdminFruits />} />
+                  <Route path="fruits/add" element={<AddFruit />} />
                   <Route path="blogs" element={<AdminBlogs />} />
+                  <Route path="blogs/add" element={<AddBlog />} />
                   <Route path="blogs/edit/:id" element={<EditBlog />} />
                 </Route>
               </Route>

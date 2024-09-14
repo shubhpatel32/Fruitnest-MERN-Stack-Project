@@ -119,6 +119,9 @@ const AdminFruits = () => {
     return (
         <div className="p-4 bg-white">
             <div className="flex justify-end text-2xl mb-4">
+                <div className='flex justify-center items-center mr-6'>
+                    <Link to="/admin/fruits/add" className="bg-[#ff9421] rounded-lg py-4 px-6 hover:bg-[#cf1a1a] text-white">Add Item</Link>
+                </div>
                 <div className="border border-solid border-gray-700 flex w-1/4 p-2">
                     <i className="fa fa-search flex items-center mr-0 text-gray-700"></i>
                     <input
@@ -178,7 +181,7 @@ const AdminFruits = () => {
                             filtered.map((fruit) => (
                                 <tr key={fruit._id} className="border border-solid">
                                     <td className="py-3 px-4">
-                                        <img src={`/${fruit.image}`} alt={fruit.name} className="w-[5rem] h-[5rem] object-contain" />
+                                        <img src={fruit.image} alt={fruit.name} className="w-[5rem] h-[5rem] object-contain" />
                                     </td>
                                     <td className="py-3 px-4 normal-case">
                                         {editingFruitId === fruit._id ? (

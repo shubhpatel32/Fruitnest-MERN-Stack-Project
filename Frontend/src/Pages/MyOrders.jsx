@@ -15,7 +15,6 @@ const MyOrders = () => {
                 headers: {
                     Authorization: authorizationToken,
                     'Content-Type': 'application/json',
-
                 },
                 body: JSON.stringify({ orderId }),
             });
@@ -25,7 +24,6 @@ const MyOrders = () => {
             if (response.ok) {
                 toast.success('Order cancelled successfully.');
                 getOrders();
-
             } else {
                 toast.error(result.message);
             }
@@ -49,6 +47,7 @@ const MyOrders = () => {
                 return 'text-gray-700';
         }
     };
+
     return (
         <div className="container mx-auto py-40 min-h-screen px-10 md:px-20">
             <h2 className="text-4xl font-bold mb-6">My Orders</h2>
@@ -114,9 +113,8 @@ const MyOrders = () => {
                     No orders available.
                 </div>
             )}
-
         </div>
-    )
+    );
 }
 
 export default MyOrders;

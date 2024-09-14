@@ -1,5 +1,25 @@
 const Fruit = require("../models/fruit-model");
 
+const addFruit = async (req, res) => {
+  try {
+    const { name, price, discount, stock } = req.body;
+    const imageUrl = req.file.path;
+
+    const newFruit = new Fruit({
+      name,
+      price,
+      discount,
+      stock,
+      image: imageUrl,
+    });
+
+    await newFruit.save();
+    res.status(201).json({ message: "Fruit added successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to add the fruit" });
+  }
+};
+
 const getAllFruits = async (req, res) => {
   try {
     const fruits = await Fruit.find({}).sort({ stock: 1 });
@@ -58,4 +78,5 @@ module.exports = {
   deleteFruitById,
   updateFruitById,
   getFruitById,
+  addFruit
 };

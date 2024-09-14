@@ -45,7 +45,6 @@ app.use("/api/gallery", galleryRoute);
 app.use("/api/fruit", fruitRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/order", orderRoute);
-// app.use("/api/payment", paymentRoute);
 app.use("/api/admin/users", adminUserRoute);
 app.use("/api/admin/orders", adminOrderRoute);
 app.use("/api/admin/fruits", adminFruitRoute);
@@ -59,6 +58,6 @@ const PORT = 5000;
 connectDb().then(() => {
   app.listen(PORT, (req, res) => {
     console.log(`server is running on ${PORT}`);
-    // seed.seedFruits();
+    // seed.seedGallery();
   });
 });

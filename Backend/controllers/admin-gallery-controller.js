@@ -1,5 +1,21 @@
 const Gallery = require("../models/gallery-model");
 
+const addGalleryItem = async (req, res) => {
+  try {
+    const imageUrl = req.file.path;
+
+    const newGalleryItem = new Gallery({
+      path: imageUrl,
+    });
+
+    await newGalleryItem.save();
+    res.status(201).json({ message: "Gallery item added successfully" });
+  } catch (error) {
+    console.error("Error adding gallery item", error);
+    res.status(500).json({ message: "Error adding gallery item" });
+  }
+};
+
 const getAllGallery = async (req, res) => {
   try {
     const gallery = await Gallery.find({});
@@ -27,4 +43,5 @@ const deleteGalleryById = async (req, res) => {
 module.exports = {
   getAllGallery,
   deleteGalleryById,
+  addGalleryItem
 };
