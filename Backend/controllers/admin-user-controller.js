@@ -45,9 +45,8 @@ const updateUserById = async (req, res) => {
 const deleteUserById = async (req, res) => {
   try {
     const id = req.params.id;
-    await Review.deleteMany({ userId: id });
-    await Order.deleteMany({ userId: id });
     await User.deleteOne({ _id: id });
+
     return res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     console.log("Error in deleting user by ID", error);

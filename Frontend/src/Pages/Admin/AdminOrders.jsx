@@ -138,7 +138,7 @@ const AdminOrders = () => {
                 </div>
             </div>
             <div className="overflow-x-auto">
-                <table className="min-w-full bg-white normal-case border border-gray-700 border-solid">
+                <table className=" bg-white normal-case border border-gray-700 border-solid">
                     <thead>
                         <tr className="bg-gray-400 border-b border-gray-700">
                             <th className="py-3 px-4 text-left">Order ID</th>
