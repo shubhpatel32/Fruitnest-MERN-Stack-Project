@@ -66,7 +66,7 @@ export default function Footer() {
 
                         <div className="text-2xl">
                             <h3 className="text-3xl mb-3 font-bold">Fruitnest</h3>
-                            <p className="normal-case mb-2">fruitnest.21@gmail.com</p>
+                            <a href="mailto:fruitnest.21@gmail.com" className="text-2xl text-white normal-case hover:text-slate-300">fruitnest.21@gmail.com</a>
                             <p className="normal-case mb-2">Vijapur, Gujarat</p>
                             <p className="normal-case mb-2">382870</p>
                         </div>
@@ -75,7 +75,8 @@ export default function Footer() {
 
                 </div>
             </footer>
-            <div className="bg-black text-white text-center text-lg">Created by Shubh Patel | All rights reserved!</div>
+            <div className="bg-black text-white text-center text-lg normal-case py-1">© {new Date().getFullYear()} Created by Shubh Patel | All rights reserved!</div>
+
         </div>
     )
 }

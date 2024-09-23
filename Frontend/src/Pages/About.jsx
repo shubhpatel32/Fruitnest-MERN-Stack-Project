@@ -61,9 +61,11 @@ function About() {
                 </div>
             </section>
 
+            <div className="w-full h-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent shadow-md my-8"></div>
+
             <section className="gallery">
-                <h1 className='text-center text-5xl my-8 font-bold text-[#ff9421]'>Our <span className='text-[#cf1a1a]'>Gallery</span></h1>
-                <div className="h-full w-full grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-10 justify-center overflow-hidden">
+                <h1 className='text-center text-5xl mb-8 mt-0 font-bold text-[#ff9421]'>Our <span className='text-[#cf1a1a]'>Gallery</span></h1>
+                <div className="h-full w-full grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-6 justify-center overflow-hidden">
                     {loading ? (
                         Array.from({ length: 8 }).map((_, index) => (
                             <div key={index} className="box">
@@ -77,7 +79,7 @@ function About() {
                                     src={item.path}
                                     alt={`Gallery item ${index}`}
                                     loading="lazy"
-                                    className="w-full h-[30rem] object-cover rounded "
+                                    className="w-full h-[30rem] object-cover rounded-md"
                                 />
                             </div>
                         ))

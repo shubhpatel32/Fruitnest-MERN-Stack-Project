@@ -11,7 +11,7 @@ function Banner() {
     return (
         <div>
             <section className='deals'>
-                <h1 className='text-center text-5xl text-[#ff9421] mt-12 font-bold'>
+                <h1 className='text-center text-5xl text-[#ff9421] mt-0 font-bold'>
                     Best <span className='text-[#cf1a1a]'>Deals</span>
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center w-full mt-8">

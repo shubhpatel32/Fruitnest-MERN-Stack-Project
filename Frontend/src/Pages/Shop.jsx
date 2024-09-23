@@ -40,7 +40,7 @@ function Shop() {
         <div className='min-h-screen'>
             <Heading name1="Our Shop" name2="Shop" />
 
-            <section className="flex justify-end text-3xl mb-4">
+            <section className="flex justify-end text-3xl">
                 <div className="border border-solid border-[#a8a297] flex w-full sm:w-1/3 md:w-1/4 p-2">
                     <i className="fa fa-search flex items-center mr-2 text-[#a8a297]"></i>
                     <input
@@ -57,10 +57,12 @@ function Shop() {
                 </div>
             </section>
 
+            <div className="w-full h-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent shadow-md mb-4"></div>
+
             {loading ? (
                 <section className="grid grid-cols-1 md:grid-cols-4 gap-8 sm:grid-cols-2">
                     {[...Array(8)].map((_, index) => (
-                        <div key={index} className="box flex flex-col justify-between text-center h-[30rem] md:h-[35rem] w-full overflow-hidden shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] hover:shadow-[0.3rem_0.5rem_0.5rem_0.3rem_#a8a297]">
+                        <div key={index} className="box flex flex-col justify-between text-center h-[30rem] md:h-[35rem] w-full overflow-hidden shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] hover:shadow-[0.3rem_0.5rem_0.5rem_0.3rem_#a8a297] rounded-xl">
                             <Skeleton height={200} width="100%" />
                             <div className="p-4 justify-center">
                                 <Skeleton height={30} width="60%" />
@@ -73,7 +75,7 @@ function Shop() {
             ) : filteredItems.length > 0 ? (
                 <section className="grid grid-cols-1 md:grid-cols-4 gap-8 sm:grid-cols-2">
                     {filteredItems.map((fruit, index) => (
-                        <div key={index} id={fruit._id} className="box flex flex-col justify-between items-center text-center h-[30rem] md:h-[35rem] w-full overflow-hidden shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] hover:shadow-[0.3rem_0.5rem_0.5rem_0.3rem_#a8a297]">
+                        <div key={index} id={fruit._id} className="box flex flex-col justify-between items-center text-center h-[30rem] md:h-[35rem] w-full overflow-hidden rounded-lg shadow-[0.1rem_0.2rem_0.2rem_0.1rem_#a8a297] hover:shadow-[0.3rem_0.5rem_0.5rem_0.3rem_#a8a297]">
 
                             <img src={fruit.image} alt="Fruit" className="bg-white h-[16rem] md:h-[20rem] w-full object-contain" />
 

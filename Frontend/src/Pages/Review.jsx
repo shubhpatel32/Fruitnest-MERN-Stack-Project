@@ -132,10 +132,12 @@ function Review() {
                 </div>
             </section>
 
+            <div className="w-full h-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent shadow-md mb-4"></div>
+
             <section className="review px-5 py-4 flex items-center justify-center text-2xl">
                 <form
                     onSubmit={handleSubmit}
-                    className="m-4 p-4 flex flex-col w-full sm:w-[70%] md:w-[40%] border-solid border-[#a8a297] rounded-lg border-2"
+                    className="m-4 p-4 flex flex-col w-full sm:w-[70%] md:w-[40%] border-solid border-[#a8a297] rounded-md border-2"
                 >
                     <h1 className="text-center text-3xl mb-3 font-semibold normal-case">Write a Review</h1>
 
@@ -146,7 +148,7 @@ function Review() {
                                 name="review"
                                 id="review"
                                 required
-                                className="box mb-3 p-2 w-full rounded border-2 border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case resize-none"
+                                className="box mb-3 p-2 w-full rounded-md border-2 border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case resize-none"
                                 cols="30"
                                 rows="5"
                                 value={data.review}
@@ -165,12 +167,12 @@ function Review() {
                 </form>
             </section>
 
-            <section className="w-full h-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 justify-center gap-12">
+            <section className="w-full h-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 justify-center gap-8">
                 {loading ? (
                     Array.from({ length: 8 }).map((_, index) => (
                         <div
                             key={index}
-                            className="flex p-4 flex-col items-start h-[14rem] sm:h-[14rem] w-full overflow-hidden border-2 border-solid border-[#a8a297] rounded"
+                            className="flex p-4 flex-col items-start h-[14rem] sm:h-[14rem] w-full overflow-hidden border-2 border-solid border-[#a8a297] rounded-md"
                         >
                             <div className="w-full h-10 mb-2">
                                 <Skeleton height={40} width={200} />
@@ -183,7 +185,7 @@ function Review() {
                 ) : (
                     reviews.map((review, index) => (
                         <div
-                            className="flex p-4 flex-col items-start h-[14rem] sm:h-[14rem] w-full overflow-hidden border-2 border-solid border-[#a8a297] rounded"
+                            className="flex p-4 flex-col items-start h-[14rem] sm:h-[14rem] w-full overflow-hidden border-2 border-solid border-[#a8a297] rounded-md"
                             key={index}
                         >
                             <div className="flex items-start flex-col gap-0 p-0">
