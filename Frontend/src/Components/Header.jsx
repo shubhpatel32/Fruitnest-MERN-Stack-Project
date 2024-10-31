@@ -14,9 +14,9 @@ const Header = () => {
     const dropdownRef = useRef(null);
 
     const handleClickOutside = (event) => {
-        if (menuRef.current && !menuRef.current.contains(event.target)) {
-            setIsMenuOpen(false);
-        }
+        // if (menuRef.current && !menuRef.current.contains(event.target)) {
+        //     setIsMenuOpen(false);
+        // }
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             setIsOpen(false);
         }
@@ -29,8 +29,12 @@ const Header = () => {
         };
     }, []);
 
+    const toggleMenu = (e)=>{
+        setIsMenuOpen(!isMenuOpen);
+    }
+
     const toggleDropdown = () => {
-        setIsOpen(!isOpen);
+        setIsOpen(!isOpen);        
     };
 
     return (
@@ -78,7 +82,7 @@ const Header = () => {
             </div>
 
             <div className="flex text-center justify-center items-center">
-                <div id="menu-btn" className={`md:hidden ${isMenuOpen ? 'fas fa-times' : 'fas fa-bars'} text-[2.5rem] ml-4 cursor-pointer text-black hover:text-white text-center`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <div id="menu-btn" className={`md:hidden ${isMenuOpen ? 'fas fa-times' : 'fas fa-bars'} text-[2.5rem] ml-4 cursor-pointer text-black hover:text-white text-center`} onClick={toggleMenu}>
                 </div>
 
                 {isLoggedIn ? (
