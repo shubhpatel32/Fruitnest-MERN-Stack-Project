@@ -73,6 +73,8 @@ const Order = () => {
                 },
                 body: JSON.stringify(orderData)
             });
+            
+            const res = await response.json();
 
             if (response.ok) {
                 if (paymentMethod === "Razorpay") {
@@ -129,7 +131,7 @@ const Order = () => {
                     navigate("/myorder");
                 }
             } else {
-                toast.error("Failed to place order");
+                toast.error(res.message);
             }
         } else if (orderData.items.length === 0) {
             toast.error("Cart is empty");

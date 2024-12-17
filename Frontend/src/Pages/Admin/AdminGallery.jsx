@@ -71,7 +71,7 @@ const AdminGallery = () => {
     }, []);
 
     return (
-        <div className="p-4 bg-white">
+        <div className="p-4 bg-white min-h-screen">
             <div className="flex justify-end text-2xl mb-4">
                 <div className='flex justify-center items-center mr-6'>
                     <Link to="/admin/gallery/add" className="bg-[#ff9421] rounded-lg py-4 px-6 hover:bg-[#cf1a1a] text-white">Add Image</Link>

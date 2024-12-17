@@ -97,6 +97,8 @@ body {
   padding: 0.8rem 3rem;
   background: #ff9421;
   border-radius: 5px;
+  transition: ease-in-out;
+  transition-duration: 250ms;
 
   color: white;
   font-size: 1.7rem;
