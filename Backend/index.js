@@ -52,6 +52,10 @@ app.use("/api/admin/reviews", adminReviewRoute);
 app.use("/api/admin/gallery", adminGalleryRoute);
 app.use("/api/admin/blogs", adminBlogRoute);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to Fruitnest");
+});
+
 app.use(errorMiddleware);
 
 const PORT = 5000;
