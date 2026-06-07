@@ -58,7 +58,7 @@ app.get("/", (req, res) => {
 
 app.use(errorMiddleware);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 connectDb().then(() => {
   app.listen(PORT, (req, res) => {
     console.log(`server is running on ${PORT}`);

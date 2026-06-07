@@ -171,7 +171,7 @@ const AdminOrders = () => {
                             filtered.map((order, index) => (
                                 <tr key={index} className="border border-solid h-28">
                                     <td className="py-3 px-4 normal-case">{order._id}</td>
-                                    <td className="py-3 px-4 normal-case">{order.userId.email}</td>
+                                    <td className="py-3 px-4 normal-case">{order.userId?.email || 'Unknown'}</td>
                                     <td className="py-3 px-4 normal-case">&#8377;{order.amount}</td>
                                     <td className="py-3 px-4 rounded-lg normal-case">
                                         {editingOrderId === order._id ? (
