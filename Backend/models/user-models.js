@@ -27,6 +27,14 @@ const userSchema = new mongoose.Schema(
       type: Object,
       default: {},
     },
+    resetPasswordToken: {
+      type: String,
+      default: null,
+    },
+    resetPasswordExpires: {
+      type: Date,
+      default: null,
+    },
   },
   { minimize: false }
 );

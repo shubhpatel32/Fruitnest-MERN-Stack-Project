@@ -23,17 +23,34 @@ const placeOrder = async (req, res) => {
       paymentMethod,
     };
 
-    for (let i = 0; i < items.length; i++) {
-      console.log("order Items", items[i]);
-      const fruit = await Fruit.findById(items[i]._id);
+    const reservedItems = [];
 
-      if (fruit) {
-        const newStock = fruit.stock - items[i].quantity;
-        await Fruit.findByIdAndUpdate(
-          { _id: items[i]._id },
-          { stock: newStock }
-        );
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      console.log("order Items", item);
+
+      const updatedFruit = await Fruit.findOneAndUpdate(
+        { _id: item._id, stock: { $gte: item.quantity } },
+        { $inc: { stock: -item.quantity } },
+        { new: true }
+      );
+
+      if (!updatedFruit) {
+        // Roll back any stock decrements already applied
+        for (const reserved of reservedItems) {
+          await Fruit.findByIdAndUpdate(
+            { _id: reserved._id },
+            { $inc: { stock: reserved.quantity } }
+          );
+        }
+
+        return res.status(400).json({
+          success: false,
+          message: `Insufficient stock for ${item.name}`,
+        });
       }
+
+      reservedItems.push(item);
     }
 
     if (paymentMethod === "Razorpay") {
@@ -55,7 +72,8 @@ const placeOrder = async (req, res) => {
 
       res.json({
         success: true,
-        orderId: razorpayOrder.id,
+        orderId: newOrder._id,
+        razorpayOrderId: razorpayOrder.id,
         amount: razorpayOrder.amount,
       });
     } else {
@@ -161,6 +179,20 @@ const verifyPayment = async (req, res) => {
         return res
           .status(404)
           .json({ success: false, message: "Order not found." });
+      }
+
+      if (order.payment === "Paid") {
+        return res.json({
+          success: true,
+          message: "Payment already verified.",
+        });
+      }
+
+      if (order.payment !== "Unpaid") {
+        return res.status(400).json({
+          success: false,
+          message: `Cannot verify payment for order with status ${order.payment}.`,
+        });
       }
 
       order.payment = "Paid";
@@ -376,10 +408,57 @@ const getInvoice = async (req, res) => {
   }
 };
 
+const cancelRazorpayOrder = async (req, res) => {
+  try {
+    const { orderId } = req.body;
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Order not found." });
+    }
+
+    // Only cancel if payment is still unpaid (user cancelled before completing payment)
+    if (order.payment !== "Unpaid") {
+      return res.status(400).json({
+        success: false,
+        message: "Cannot cancel order with paid status.",
+      });
+    }
+
+    // Restore stock for all items
+    const { items } = order;
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      await Fruit.findByIdAndUpdate(
+        { _id: item._id },
+        { $inc: { stock: item.quantity } }
+      );
+    }
+
+    // Delete the unpaid order since payment was cancelled
+    await Order.findByIdAndDelete(orderId);
+
+    res.json({
+      success: true,
+      message: "Order cancelled successfully. Stock restored.",
+    });
+  } catch (error) {
+    console.error("Error canceling Razorpay order:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error canceling order.",
+    });
+  }
+};
+
 module.exports = {
   placeOrder,
   showOrder,
   verifyPayment,
   cancelOrder,
+  cancelRazorpayOrder,
   getInvoice,
 };

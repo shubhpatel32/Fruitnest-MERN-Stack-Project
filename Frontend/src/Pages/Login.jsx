@@ -84,6 +84,10 @@ function Login() {
 
                     <input type="submit" value="Login" className="btn p-3 rounded text-white cursor-pointer w-full text-2xl" />
 
+                    <p className="text-center mt-4 normal-case">
+                        <Link to="/forgot-password" className="text-[#cf1a1a] hover:underline">Forgot Password?</Link>
+                    </p>
+
                     <p className="text-center mt-6 normal-case">
                         Don't have an account? <Link to="/signup" className="text-[#cf1a1a] hover:underline">Sign Up</Link>
                     </p>

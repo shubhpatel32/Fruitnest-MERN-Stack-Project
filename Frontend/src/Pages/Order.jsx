@@ -9,6 +9,8 @@ const Order = () => {
   const { token, shopItems, cartItems, setCartItems } = useCart();
   const apiUrl = import.meta.env.VITE_API_URL;
 
+  const [isProcessing, setIsProcessing] = useState(false);
+
   function totalPrice(orderItems) {
     return orderItems.reduce((total, item) => {
       return total + item.price * item.quantity;
@@ -64,97 +66,151 @@ const Order = () => {
     };
 
     if (token && orderData.items.length > 0) {
-      const response = await fetch(`${apiUrl}/order/place`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(orderData),
-      });
+      setIsProcessing(true);
+      try {
+        const response = await fetch(`${apiUrl}/order/place`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderData),
+        });
 
-      const res = await response.json();
+        const res = await response.json();
 
-      if (response.ok) {
-        if (paymentMethod === "Razorpay") {
-          const { orderId, amount } = res;
-          const options = {
-            key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-            amount: amount,
-            currency: "INR",
-            name: "Fruitnest",
-            description: "Order Payment",
-            order_id: orderId,
-            image: "Images/logo.png",
-            handler: async function (response) {
-              const paymentVerificationResponse = await fetch(
-                `${apiUrl}/order/verify`,
-                {
-                  method: "POST",
-                  headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    razorpayOrderId: response.razorpay_order_id,
-                    razorpayPaymentId: response.razorpay_payment_id,
-                    razorpaySignature: response.razorpay_signature,
-                  }),
+        if (response.ok) {
+          if (paymentMethod === "Razorpay") {
+            const { orderId: mongoOrderId, razorpayOrderId, amount } = res;
+            const options = {
+              key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+              amount: amount,
+              currency: "INR",
+              name: "Fruitnest",
+              description: "Order Payment",
+              order_id: razorpayOrderId,
+              image: "Images/logo.png",
+              handler: async function (response) {
+                try {
+                  const paymentVerificationResponse = await fetch(
+                    `${apiUrl}/order/verify`,
+                    {
+                      method: "POST",
+                      headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        razorpayOrderId: response.razorpay_order_id,
+                        razorpayPaymentId: response.razorpay_payment_id,
+                        razorpaySignature: response.razorpay_signature,
+                      }),
+                    }
+                  );
+
+                  const verifyRes = await paymentVerificationResponse.json();
+
+                  if (paymentVerificationResponse.ok) {
+                    toast.success(
+                      "Thank you for your purchase. Your order has been placed successfully."
+                    );
+                    setCartItems({});
+                    addOrder(orderData);
+                    getOrders();
+                    setAddress({
+                      firstname: "",
+                      lastname: "",
+                      email: user ? user.email : "",
+                      phone: user ? user.phone : "",
+                      street: "",
+                      city: "",
+                      state: "",
+                      pincode: "",
+                    });
+                    navigate("/myorder");
+                  } else {
+                    toast.error(verifyRes.message || "Payment verification failed!");
+                    setIsProcessing(false);
+                  }
+                } catch (error) {
+                  console.error("Verification error:", error);
+                  toast.error("Payment verification error!");
+                  setIsProcessing(false);
                 }
-              );
+              },
+              modal: {
+                ondismiss: async function () {
+                  // Handle payment cancellation
+                  try {
+                    const cancelResponse = await fetch(
+                      `${apiUrl}/order/cancel-razorpay`,
+                      {
+                        method: "POST",
+                        headers: {
+                          Authorization: `Bearer ${token}`,
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          orderId: mongoOrderId,
+                        }),
+                      }
+                    );
 
-              if (paymentVerificationResponse.ok) {
-                toast.success(
-                  "Thank you for your purchase. Your order has been placed successfully."
-                );
-                setCartItems({});
-                addOrder(orderData);
-                getOrders();
-                navigate("/myorder");
-              } else {
-                toast.error("Payment verification failed!");
-              }
-            },
-            prefill: {
-              name: `${user.firstname} ${user.lastname}`,
-              email: user.email,
-              contact: address.phone,
-            },
-            theme: {
-              color: "#ff9421",
-            },
-          };
+                    if (cancelResponse.ok) {
+                      toast.error("Payment failed");
+                    }
+                  } catch (error) {
+                    console.error("Cancel error:", error);
+                  }
+                  setIsProcessing(false);
+                },
+              },
+              prefill: {
+                name: `${user.firstname} ${user.lastname}`,
+                email: user.email,
+                contact: address.phone,
+              },
+              theme: {
+                color: "#ff9421",
+              },
+            };
 
-          const razorpay = new window.Razorpay(options);
-          razorpay.open();
+            const razorpay = new window.Razorpay(options);
+            razorpay.open();
+          } else {
+            toast.success(
+              "Thank you for your purchase. Your order has been placed successfully."
+            );
+            setCartItems({});
+            addOrder(orderData);
+            getOrders();
+            setAddress({
+              firstname: "",
+              lastname: "",
+              email: user ? user.email : "",
+              phone: user ? user.phone : "",
+              street: "",
+              city: "",
+              state: "",
+              pincode: "",
+            });
+            setIsProcessing(false);
+            navigate("/myorder");
+          }
         } else {
-          toast.success(
-            "Thank you for your purchase. Your order has been placed successfully."
-          );
-          setCartItems({});
-          addOrder(orderData);
-          getOrders();
-          navigate("/myorder");
+          toast.error(res.message);
+          setIsProcessing(false);
         }
-      } else {
-        toast.error(res.message);
+      } catch (error) {
+        console.error("Order error:", error);
+        toast.error("Error placing order. Please try again.");
+        setIsProcessing(false);
       }
     } else if (orderData.items.length === 0) {
       toast.error("Cart is empty");
     } else {
       console.log("No token available");
     }
-
-    setAddress({
-      firstname: "",
-      lastname: "",
-      email: user ? user.email : "",
-      phone: user ? user.phone : "",
-      street: "",
-      city: "",
-      state: "",
-      pincode: "",
-    });
   };
 
   return (
@@ -291,8 +347,9 @@ const Order = () => {
           <div className="bttn items-center flex justify-center flex-col">
             <input
               type="submit"
-              value={paymentMethod === "COD" ? "Place Order" : "Proceed to Pay"}
-              className="btn mt-4"
+              value={isProcessing ? "Processing..." : (paymentMethod === "COD" ? "Place Order" : "Proceed to Pay")}
+              disabled={isProcessing}
+              className={`btn mt-4 ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}`}
             />
           </div>
         </form>
