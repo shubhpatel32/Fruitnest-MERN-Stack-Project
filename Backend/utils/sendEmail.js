@@ -58,6 +58,17 @@ const updateOrderFormat = (order) => {
 `;
 };
 
+const forgotPasswordFormat = (username, resetUrl) => {
+  return `
+  <div>
+    <h3>Hi ${username},</h3>
+    <p>You requested a password reset. Click the link below to set a new password.</p>
+    <p><a href="${resetUrl}" target="_blank" rel="noopener noreferrer">Reset your password</a></p>
+    <p>If you did not request this, please ignore this email.</p>
+  </div>
+`;
+};
+
 const format = (newOrder) => {
   const { firstname } = newOrder.address;
 
@@ -104,4 +115,4 @@ const format = (newOrder) => {
 `;
 };
 
-module.exports = { sendEmail, format, cancelOrderFormat, updateOrderFormat };
+module.exports = { sendEmail, format, cancelOrderFormat, updateOrderFormat, forgotPasswordFormat };

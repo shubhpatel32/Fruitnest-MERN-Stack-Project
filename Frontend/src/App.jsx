@@ -26,6 +26,8 @@ const Blog = lazy(() => import('./Pages/Blog'));
 const Contact = lazy(() => import('./Pages/Contact'));
 const Login = lazy(() => import('./Pages/Login'));
 const Signup = lazy(() => import('./Pages/Signup'));
+const ForgotPassword = lazy(() => import('./Pages/ForgotPassword'));
+const ResetPassword = lazy(() => import('./Pages/ResetPassword'));
 const Error = lazy(() => import('./Pages/Error'));
 const Logout = lazy(() => import('./Pages/Logout'));
 const Profile = lazy(() => import('./Pages/Profile'));
@@ -45,8 +47,11 @@ function App() {
           <Suspense fallback="loading...">
             <Routes>
               <Route path="/login" element={<Login />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password/:token" element={<ResetPassword />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/" element={<Home />} />
+
               <Route path="/shop" element={<Shop />} />
               <Route path="/about" element={<About />} />
               <Route path="/review" element={<Review />} />

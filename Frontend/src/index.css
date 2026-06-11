@@ -14,7 +14,6 @@
   outline: none;
   border: none;
   text-decoration: none;
-  text-transform: capitalize;
   transition: 0.2s linear;
 }
 
@@ -65,31 +64,6 @@ body {
   font-family: "Atlas Grotesk Web", Arial, Helvetica, sans-serif;
   font-size: 1.3rem;
 }
-
-/* .title {
-  display: flex;
-  align-items: center;
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
-  padding: 1.2rem 0;
-  border-bottom: 0.2rem solid #a8a297;
-  color: black;
-
-  span {
-    color: #ff9421;
-    padding-left: 0.5rem;
-  }
-
-  a {
-    margin-left: auto;
-    color: #ff9421;
-    font-size: 1.5rem;
-
-    &:hover {
-      color: #cf1a1a;
-    }
-  }
-} */
 
 .btn {
   margin-top: 1rem;
