@@ -7,7 +7,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 function Shop() {
-    const { shopItems, cartItems, addToCart } = useCart();
+    const { shopItems, cartItems, addToCart, decrementQuantity } = useCart();
     const { isLoggedIn } = useAuth();
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredItems, setFilteredItems] = useState(shopItems);
@@ -18,6 +18,7 @@ function Shop() {
         if (shopItems.length === 0) {
             setLoading(true);
         } else {
+            setFilteredItems(shopItems);
             setLoading(false);
         }
     }, [shopItems]);
@@ -29,12 +30,35 @@ function Shop() {
                     fruit.name.toLowerCase().startsWith(searchTerm.toLowerCase().trim())
                 )
             );
-            setLoading(false);
         }, 300);
         return () => {
             clearTimeout(handler);
         };
     }, [searchTerm, shopItems]);
+
+    const handleQuantityChange = async (fruitId, delta) => {
+        const fruit = shopItems.find(item => item._id === fruitId);
+        if (!fruit) return;
+
+        const currentQty = cartItems[fruitId] || 0;
+        const newQty = currentQty + delta;
+
+        if (newQty < 0) {
+            return;
+        }
+
+        if (delta > 0) {
+            if (!isLoggedIn) {
+                navigate('/login');
+                return;
+            }
+            await addToCart(fruitId, delta);
+        } else {
+            if (currentQty > 0) {
+                await decrementQuantity(fruitId);
+            }
+        }
+    };
 
     return (
         <div className='min-h-screen'>
@@ -84,10 +108,35 @@ function Shop() {
                                 <div className="price font-bold text-[1.8rem] text-black py-4">&#8377;{fruit.price}</div>
                                 {
                                     fruit.stock <= 0 ?
-                                        (<div className="text-[#cf1a1a] mt-8 text-4xl normal-case font-bold py-2 px-4 inline-block justify-center items-center">Out of Stock</div>)
+                                        (<div className="text-[#cf1a1a] mt-8 mb-4 text-4xl normal-case font-bold py-2 px-4 inline-block justify-center items-center">Out of Stock</div>)
                                         :
                                         (<div className='addtocart items-center'>
-                                            <button className="btn rounded  text-white py-2 px-4 justify-center items-center" onClick={() => { isLoggedIn ? addToCart(fruit._id) : navigate("/login") }}>Add to Cart</button>
+                                            {cartItems[fruit._id] > 0 ? (
+                                                <div className="quantity-control flex items-center justify-center gap-6 mb-4 mt-6">
+                                                    <button
+                                                        className="px-3 py-0.5 bg-gray-300 text-black text-3xl font-bold rounded"
+                                                        onClick={() => handleQuantityChange(fruit._id, -1)}
+                                                    >
+                                                        −
+                                                    </button>
+                                                    <span className="flex items-center justify-center px-4 py-1 text-3xl text-black font-semibold w-[4.5rem] whitespace-nowrap">{cartItems[fruit._id]} kg</span>
+                                                    <button
+                                                        className="px-3 py-0.5 bg-gray-300 text-black text-3xl font-bold rounded"
+                                                        onClick={() => handleQuantityChange(fruit._id, 1)}
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <div className="quantity-control flex items-center justify-center gap-6 mb-4">
+                                                    <button
+                                                        className="btn"
+                                                        onClick={() => handleQuantityChange(fruit._id, 1)}
+                                                    >
+                                                        Add to Cart
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>)
                                 }
 
