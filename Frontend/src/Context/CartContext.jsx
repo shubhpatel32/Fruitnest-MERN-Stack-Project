@@ -59,28 +59,35 @@ export const CartProvider = ({ children }) => {
     }, 0);
   };
 
-  const addToCart = async (itemId) => {
+  const addToCart = async (itemId, quantity = 1) => {
     const fruit = shopItems.find(item => item._id === itemId);
-    if (!fruit) return;
+    if (!fruit) return false;
 
-    if (!cartItems[itemId] && fruit.stock > 0) {
-      setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
-    } else if (cartItems[itemId] < fruit.stock) {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+    let addCount = quantity;
+    const currentQty = cartItems[itemId] || 0;
+    const maxAllowed = fruit.stock - currentQty;
+
+    if (addCount > maxAllowed) {
+      toast.error(`Cannot add more than ${fruit.stock} kg of ${fruit.name}`);
+      addCount = maxAllowed;
     }
-    else {
-      return toast.error(`Cannot add more than ${fruit.stock} kg of ${fruit.name}`)
+
+    if (addCount <= 0) {
+      return false;
     }
+
+    setCartItems((prev) => ({
+      ...prev,
+      [itemId]: (prev[itemId] || 0) + addCount,
+    }));
 
     if (token) {
-      const response = await axios.post(`${apiUrl}/cart/add`, { itemId }, { headers: { token } });
-
-      if (response.data.success) {
-        toast.success("Added to Cart");
-      } else {
-        toast.error("Failed to add to cart");
+      for (let i = 0; i < addCount; i += 1) {
+        await axios.post(`${apiUrl}/cart/add`, { itemId }, { headers: { token } });
       }
     }
+
+    return true;
   };
 
   const deleteFromCart = async (itemId) => {
@@ -93,9 +100,7 @@ export const CartProvider = ({ children }) => {
     if (token) {
       const response = await axios.post(`${apiUrl}/cart/delete`, { itemId }, { headers: { token } });
 
-      if (response.data.success) {
-        toast.success("Deleted from Cart");
-      } else {
+      if (!response.data.success) {
         toast.error("Failed to delete from cart");
       }
     }

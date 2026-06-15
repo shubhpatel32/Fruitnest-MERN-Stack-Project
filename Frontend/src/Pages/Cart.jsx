@@ -41,19 +41,30 @@ function Cart() {
                                             <h2 className="text-2xl sm:text-3xl text-black mt-6">
                                                 &#8377;{item.price}
                                             </h2>
+                                            {item.stock <= 0 && (
+                                                <div className="text-[#cf1a1a] mt-4 text-2xl font-bold">
+                                                    Out of Stock
+                                                </div>
+                                            )}
                                         </div>
                                         <div className="quantity-control text-2xl sm:text-3xl flex flex-col items-center justify-center">
-                                            <div className="flex items-center space-x-4">
-                                                <button
-                                                    className="px-4 py-2 bg-gray-200 text-black rounded"
-                                                    onClick={() => decrementQuantity(item._id)}
-                                                >-</button>
-                                                <span className="text-nowrap px-4 py-2 text-black rounded">{cartItems[item._id]} kg</span>
-                                                <button
-                                                    className="px-4 py-2 bg-gray-200 text-black rounded"
-                                                    onClick={() => incrementQuantity(item._id)}
-                                                >+</button>
-                                            </div>
+                                            {item.stock > 0 ? (
+                                                <div className="flex items-center space-x-4">
+                                                    <button
+                                                        className="px-4 py-2 bg-gray-200 text-black rounded"
+                                                        onClick={() => decrementQuantity(item._id)}
+                                                    >-</button>
+                                                    <span className="text-nowrap px-4 py-2 text-black rounded">{cartItems[item._id]} kg</span>
+                                                    <button
+                                                        className="px-4 py-2 bg-gray-200 text-black rounded"
+                                                        onClick={() => incrementQuantity(item._id)}
+                                                    >+</button>
+                                                </div>
+                                            ) : (
+                                                <div className="text-2xl text-[#cf1a1a] px-4 py-2 rounded font-semibold">
+                                                    Out of Stock
+                                                </div>
+                                            )}
                                             <h3 className="text-2xl sm:text-3xl text-black text-center mt-4">
                                                 &#8377;{item.price * cartItems[item._id]}
                                             </h3>
