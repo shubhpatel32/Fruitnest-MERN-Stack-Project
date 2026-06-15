@@ -108,20 +108,20 @@ function Shop() {
                                 <div className="price font-bold text-[1.8rem] text-black py-4">&#8377;{fruit.price}</div>
                                 {
                                     fruit.stock <= 0 ?
-                                        (<div className="text-[#cf1a1a] mt-8 text-4xl normal-case font-bold py-2 px-4 inline-block justify-center items-center">Out of Stock</div>)
+                                        (<div className="text-[#cf1a1a] mt-8 mb-4 text-4xl normal-case font-bold py-2 px-4 inline-block justify-center items-center">Out of Stock</div>)
                                         :
                                         (<div className='addtocart items-center'>
                                             {cartItems[fruit._id] > 0 ? (
-                                                <div className="quantity-control flex items-center justify-center gap-6 mb-4">
+                                                <div className="quantity-control flex items-center justify-center gap-6 mb-4 mt-6">
                                                     <button
-                                                        className="px-3 py-0.5 bg-gray-300 text-black text-xl font-bold rounded"
+                                                        className="px-3 py-0.5 bg-gray-300 text-black text-3xl font-bold rounded"
                                                         onClick={() => handleQuantityChange(fruit._id, -1)}
                                                     >
                                                         −
                                                     </button>
-                                                    <span className="flex items-center justify-center px-4 py-1 text-2xl text-black font-semibold w-[4.5rem] whitespace-nowrap">{cartItems[fruit._id]} kg</span>
+                                                    <span className="flex items-center justify-center px-4 py-1 text-3xl text-black font-semibold w-[4.5rem] whitespace-nowrap">{cartItems[fruit._id]} kg</span>
                                                     <button
-                                                        className="px-3 py-0.5 bg-gray-300 text-black text-xl font-bold rounded"
+                                                        className="px-3 py-0.5 bg-gray-300 text-black text-3xl font-bold rounded"
                                                         onClick={() => handleQuantityChange(fruit._id, 1)}
                                                     >
                                                         +
