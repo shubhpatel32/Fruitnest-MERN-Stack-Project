@@ -11,6 +11,7 @@ function Signup() {
         phone: '',
         password: '',
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const apiUrl = import.meta.env.VITE_API_URL;
 
 
@@ -30,7 +31,8 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log(user);
+        if (isSubmitting) return;
+        setIsSubmitting(true);
 
         try {
             const response = await fetch(`${apiUrl}/auth/signup`, {
@@ -63,6 +65,8 @@ function Signup() {
 
         } catch (error) {
             console.log("signup", error);
+        } finally {
+            setIsSubmitting(false);
         }
     }
 
@@ -81,6 +85,7 @@ function Signup() {
                         className="box p-2 mb-7 w-full  rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                         value={user.username}
                         onChange={handleSignup}
+                        disabled={isSubmitting}
                     />
                     <label htmlFor="email">Email</label>
                     <input
@@ -92,6 +97,7 @@ function Signup() {
                         className="box p-2 mb-7 w-full  rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                         value={user.email}
                         onChange={handleSignup}
+                        disabled={isSubmitting}
                     />
                     <label htmlFor="phone">Phone No.</label>
                     <input
@@ -103,6 +109,7 @@ function Signup() {
                         className="box p-2 mb-7 w-full  rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                         value={user.phone}
                         onChange={handleSignup}
+                        disabled={isSubmitting}
                     />
                     <label htmlFor="password">Password</label>
                     <input
@@ -114,9 +121,15 @@ function Signup() {
                         className="box p-2 mb-7 w-full  rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                         value={user.password}
                         onChange={handleSignup}
+                        disabled={isSubmitting}
                     />
 
-                    <input type="submit" value="Sign Up" className="btn p-3 rounded text-white cursor-pointer w-full text-2xl" />
+                    <input
+                        type="submit"
+                        value={isSubmitting ? "Signing up..." : "Sign Up"}
+                        disabled={isSubmitting}
+                        className={`btn p-3 rounded text-white w-full text-2xl ${isSubmitting ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
+                    />
                     <p className="text-center mt-6 normal-case">Already have an account? <Link to="/login" className=" text-[#cf1a1a] hover:underline">Login </Link></p>
                 </form>
             </section>

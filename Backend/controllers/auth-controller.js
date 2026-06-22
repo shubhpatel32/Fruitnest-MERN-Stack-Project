@@ -1,7 +1,12 @@
 const User = require("../models/user-models");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-const { sendEmail, forgotPasswordFormat } = require("../utils/sendEmail");
+const {
+  sendEmail,
+  sendAdminEmail,
+  forgotPasswordFormat,
+  adminUserRegisteredFormat,
+} = require("../utils/sendEmail");
 
 const home = async (req, res) => {
   try {
@@ -30,6 +35,9 @@ const signup = async (req, res) => {
       phone,
       password: hash_password,
     });
+
+    const adminSubject = `Fruitnest New User Registered - ${userCreated.username}`;
+    await sendAdminEmail(adminSubject, adminUserRegisteredFormat(userCreated));
 
     res.status(200).json({
       msg: `Hello ${userCreated.username}, your account is registered successfully`,

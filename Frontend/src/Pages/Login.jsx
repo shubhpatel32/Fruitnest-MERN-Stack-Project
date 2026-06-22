@@ -9,6 +9,7 @@ function Login() {
         email: '',
         password: '',
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const handleLogin = (e) => {
@@ -26,7 +27,8 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // console.log(user);
+        if (isSubmitting) return;
+        setIsSubmitting(true);
 
         try {
             const response = await fetch(`${apiUrl}/auth/login`, {
@@ -47,9 +49,10 @@ function Login() {
             } else {
                 toast.error(res_data.extraDetails ? res_data.extraDetails : res_data.message);
             }
-            console.log(response);
         } catch (error) {
             console.error("Error during login:", error);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -68,6 +71,7 @@ function Login() {
                         className="box p-2 mb-7 w-full rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                         value={user.email}
                         onChange={handleLogin}
+                        disabled={isSubmitting}
                     />
 
                     <label htmlFor="password">Password</label>
@@ -80,9 +84,15 @@ function Login() {
                         className="box p-2 mb-7 w-full rounded border border-solid border-[#a8a297] focus:border-[#ff9421] bg-transparent normal-case"
                         value={user.password}
                         onChange={handleLogin}
+                        disabled={isSubmitting}
                     />
 
-                    <input type="submit" value="Login" className="btn p-3 rounded text-white cursor-pointer w-full text-2xl" />
+                    <input
+                        type="submit"
+                        value={isSubmitting ? "Logging in..." : "Login"}
+                        disabled={isSubmitting}
+                        className={`btn p-3 rounded text-white w-full text-2xl ${isSubmitting ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
+                    />
 
                     <p className="text-center mt-4 normal-case">
                         <Link to="/forgot-password" className="text-[#cf1a1a] hover:underline">Forgot Password?</Link>

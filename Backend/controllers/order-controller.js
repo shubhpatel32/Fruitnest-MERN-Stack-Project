@@ -7,7 +7,13 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
 
-const { sendEmail, format, cancelOrderFormat } = require("../utils/sendEmail");
+const {
+  sendEmail,
+  sendAdminEmail,
+  format,
+  cancelOrderFormat,
+  adminOrderPlacedFormat,
+} = require("../utils/sendEmail");
 
 const Razorpay = require("razorpay");
 
@@ -69,6 +75,8 @@ const placeOrder = async (req, res) => {
       newOrderData.razorpayOrderId = razorpayOrder.id;
       const newOrder = new Order(newOrderData);
       await newOrder.save();
+      const adminSubject = `Fruitnest New Order #${newOrder._id} - Razorpay - ${newOrder.payment}`;
+      await sendAdminEmail(adminSubject, adminOrderPlacedFormat(newOrder));
 
       res.json({
         success: true,
@@ -80,6 +88,8 @@ const placeOrder = async (req, res) => {
       const newOrder = new Order(newOrderData);
       await newOrder.save();
       await User.findByIdAndUpdate(userId, { cartData: {} });
+      const adminSubject = `Fruitnest New Order #${newOrder._id} - COD - ${newOrder.payment}`;
+      await sendAdminEmail(adminSubject, adminOrderPlacedFormat(newOrder));
       const { email } = newOrder.address;
       const subject = "Order Confirmation";
       const html = format(newOrder);
