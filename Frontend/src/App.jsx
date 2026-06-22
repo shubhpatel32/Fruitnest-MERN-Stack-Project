@@ -3,7 +3,7 @@ import './App.css';
 import Footer from './Components/Footer';
 import Header from './Components/Header';
 import ScrollToTop from './Components/ScrollToTop';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { CartProvider } from './Context/CartContext';
 import ProtectedRoute from './Pages/ProtectedRoute';
 
@@ -36,14 +36,16 @@ const Order = lazy(() => import('./Pages/Order'));
 const MyOrders = lazy(() => import('./Pages/MyOrders'));
 const Cart = lazy(() => import('./Pages/Cart'));
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
-    <div>
-      <Router>
-        <ScrollToTop />
-        <CartProvider>
-          <Header />
+    <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
+      <CartProvider>
+        <Header />
+        <main className="flex-1">
           <Suspense fallback="loading...">
             <Routes>
               <Route path="/login" element={<Login />} />
@@ -82,11 +84,19 @@ function App() {
 
               <Route path="*" element={<Error />} />
             </Routes>
-            <Footer />
           </Suspense>
-        </CartProvider>
-      </Router>
+        </main>
+        {!isAdminRoute && <Footer />}
+      </CartProvider>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 
